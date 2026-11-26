@@ -1,0 +1,26 @@
+# Never commit Mazda/JCI files: your own stock dumps live here
+stock/*
+!stock/README.md
+# build output (contains patched Mazda templates) and harness roots (full stock GUI copies)
+overlay/
+harness/root-*/
+harness/shots/
+*.ttf
+*.otf
+__pycache__/
+*.pyc
+*.log
+# Privacy: audit reports, denylists and scanner pattern lists never go public
+# (listing what you filter publishes it)
+*SECURITY-AUDIT*
+*audit-report*
+*denylist*
+RELEASE-CHECKLIST*
+*.secret
+secrets.conf
+settings.conf
+# raw captures / generated maps / photos with metadata
+*.raw
+*-map.html
+*.jpg
+*.jpeg

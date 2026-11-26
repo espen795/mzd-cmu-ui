@@ -1,0 +1,27 @@
+/* OEMPLUS-INJECT v1.2: alleen het OEMPLUS-B2-blok (regels onder body.OemplusB2Home), als extra stylesheet naast de
+ * originele StatusBarCtrl.css. v1.2: de SbnCtrl (SBN-banner) is op B2-home WEL zichtbaar; de banner-stijl staat in
+ * common/controls/Sbn/css/SbnCtrl-oemplusb2.css (sbnCss). */
+
+/* OEMPLUS-B2 v1.1/v1.2: op het home-scherm is de hele OEM-statusbalk verborgen; de B2-layout gebruikt het volle scherm
+ * en toont klok/datum en de statusiconen zelf (MainMenuCtrl.js spiegelt _iconDivs). Alleen zolang body.OemplusB2Home
+ * gezet is (MainMenuCtrl.js zet/verwijdert de klasse); elders ongewijzigd.
+ * - visibility (geen display): geometrie blijft, Common.activityDetected/offsetTop en updateClock blijven werken.
+ * - !important: Common.js zet statusBar.divElt.style.visibility inline ('visible') bij elke contextwissel.
+ * - Uitzondering: de Android Auto/CarPlay-knop (alleen op HomeScreen, systemApp ctxtList) blijft zichtbaar en
+ *   bedienbaar (kantel omhoog = focus erheen, tik linksboven). */
+body.OemplusB2Home .StatusBarCtrl {
+  visibility: hidden !important;
+}
+
+/* Alle varianten van de knop (_En, _focused, _AA_/_CP_focused, _down, ...: ButtonCtrl zet enabled-/focus-/down-klassen
+ * naast elkaar) en de kinderen (icoon ButtonCtrlIcon_AA/_CP). Home-knop en diagnose-klokknop blijven weg: die zijn op
+ * home inline display:none resp. niet aangemaakt (StatusBarCtrl.showHomeBtn / Common.enableClockBtn). */
+body.OemplusB2Home .StatusBarCtrl div[class*="StatusBarCtrlRemoteUIBtn"],
+body.OemplusB2Home .StatusBarCtrl div[class*="StatusBarCtrlRemoteUIBtn"] div {
+  visibility: visible;
+}
+
+/* OEMPLUS-B2 v1.2: SBN-meldingen (SbnCtrl, eigen control op document.body, x 59-685, y 1-59) blijven op home
+ * ZICHTBAAR -- de banner-stijl (donkere B2-onderlaag, B2-typografie, slide-in) staat in SbnCtrl-oemplusb2.css.
+ * Fix B7: geen visibility-regel hier nodig: SbnCtrl hangt NIET in de verborgen StatusBarCtrl (document.body,
+ * z-index 11 boven de statusbalk) en v74 zet geen visibility op de SBN, dus deze no-op-regel is verwijderd. */

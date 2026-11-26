@@ -1,0 +1,84 @@
+/* OEMPLUS-B2 submenus -- pakket P0 "basis" (B2Sub-00-base.css)
+ * Laadt als EERSTE B2Sub-stylesheet bij "B2 aan". Raakt alleen boot-controls (altijd geladen):
+ * achtergrond, StatusBarCtrl, LeftBtnCtrl, CommonRightChrome, SbnCtrl.
+ * Regels: elke selector = OEM-selector met prefix "body.OemplusB2 " (specificiteit +0,1,1 -> wint van boot- EN
+ * lazy-CSS ongeacht volgorde); alleen skin (kleur, font, background-image) + UITZONDERING tekst-positionering van
+ * de statusbalk-teksten (app-naam/klok: tekst, geen hitbox -- H1 van het harnas bewijst 0 px rect-wijziging op alle
+ * hitbox-elementen). GEEN wijziging van left/top/width/height van hitbox-elementen. Presto 2.12: geen
+ * gradients/box-shadow/filter/var()/flex/calc; verlopen en gloed zitten in ../images/B2*.png. Zie DESIGN-SYSTEEM.md. */
+
+/* ---- achtergrond (common.css r.15-25: .CommonBgImg -> background.png). !important: common.css is boot-CSS
+ * en staat dus VROEG in <head>; de B2Sub-link wordt pas later (bij "B2 aan") achteraan gehangen, dus zonder
+ * !important wint de OEM-regel op volgorde. Met body.OemplusB2-prefix (0,2,1) + !important wint B2 altijd. ---- */
+body.OemplusB2 .CommonBgImg {
+  background-color: #030405;
+  background-image: url(../images/B2SubBg.png) !important;
+}
+/* rechter chroom-boog (common.css r.27) weg -- puur decoratief, geen hitbox */
+body.OemplusB2 .CommonRightChrome {
+  background-image: none;
+}
+
+/* ---- statusbalk (StatusBarCtrl.css) -- 64 px band blijft, SBN + OEM-iconen rechtsboven ---- */
+body.OemplusB2 .StatusBarCtrl {
+  background-image: url(../images/B2StatusBarBg.png);
+  background-color: transparent;
+}
+body.OemplusB2 .StatusBarCtrlHomeBtn {
+  background-image: url(../images/B2IcnSbHome.png);
+}
+body.OemplusB2 .StatusBarCtrlDivider {
+  background-image: none;
+}
+/* domein-icoon (OEM-kleurpictogram per app) verbergen; de app-naam schuift (TEKST, geen hitbox) naar links */
+body.OemplusB2 .StatusBarCtrlDomainIcon {
+  visibility: hidden;
+}
+body.OemplusB2 .StatusBarCtrlAppName {
+  left: 76px;
+  width: 460px;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: #f2f3f5;
+}
+body.OemplusB2 .StatusBarCtrlClock {
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  color: #e8eaee;
+}
+
+/* ---- linkerknop (LeftBtnCtrl.css): 94x416 hitbox ONGEWIJZIGD, alleen beeld ---- */
+body.OemplusB2 .LeftBtnCtrl_ChromeArc {
+  background-image: none;
+}
+body.OemplusB2 .LeftBtnCtrlBackBtn { background-image: url(../images/B2BtnBack_En.png); }
+body.OemplusB2 .LeftBtnCtrlBackBtnFocused { background-image: url(../images/B2BtnBack_Focus.png); }
+body.OemplusB2 .LeftBtnCtrlBackBtnDown { background-image: url(../images/B2BtnBack_Hit.png); }
+body.OemplusB2 .LeftBtnCtrlBackBtnDisabled { background-image: url(../images/B2BtnBack_Ds.png); }
+body.OemplusB2 .LeftBtnCtrlMoveUpBtn { background-image: url(../images/B2BtnFldrUp_En.png); }
+body.OemplusB2 .LeftBtnCtrlMoveUpBtnFocused { background-image: url(../images/B2BtnFldrUp_Focus.png); }
+body.OemplusB2 .LeftBtnCtrlMoveUpBtnDown { background-image: url(../images/B2BtnFldrUp_Hit.png); }
+body.OemplusB2 .LeftBtnCtrlMoveUpBtnDisabled { background-image: url(../images/B2BtnFldrUp_Ds.png); }
+
+/* ---- SBN-banner (SbnCtrl.css) -- zelfde B2-stijl als home (inject-v1.2 SbnCtrl-oemplusb2.css), nu voor alle
+ * schermen; GEEN slide-in hier (die hangt aan _b2WatchSbn op home). Positie/maat ongewijzigd (x 59-685, y 1-59);
+ * alleen kleur/achtergrond/typografie + 1px hairline-randen. Op home wint de home-variant (body.OemplusB2Home.OemplusB2
+ * .SbnCtrl, specificiteit 0,3,1 > 0,2,1 hier), ongeacht laadvolgorde. */
+body.OemplusB2 .SbnCtrl {
+  background-image: none;
+  background-color: #08090b;
+  border-top: 1px solid #262b33;
+  border-bottom: 1px solid #262b33;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+  color: #e8eaee;
+}
+body.OemplusB2 .SbnCtrl_Style01_Text1,
+body.OemplusB2 .SbnCtrl_Style02_Text1 {
+  font-size: 28px;
+  color: #e8eaee;
+}
+
+/* ---- Wink (toast) ---- */
+body.OemplusB2 .WinkCtrl {
+  color: #e8eaee;
+}

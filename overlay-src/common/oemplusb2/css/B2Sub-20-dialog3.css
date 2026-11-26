@@ -1,0 +1,210 @@
+/* OEMPLUS-B2 submenus -- pakket P2 "Dialog3" (B2Sub-20-dialog3.css)
+ * Doel: Dialog3Tmplt / Dialog3Ctrl (170 restyleerbare schermen, 45 %; boot-control -> altijd geladen).
+ * OEM: common/controls/Dialog3/css/Dialog3Ctrl.css (r.11 root .Dialog3Ctrl 800x416, r.25 .Dialog3CtrlFs 800x480,
+ *      r.50-77 BG_Style01/02 + AppLoadScreens, r.114-188 titel TitleStyle01/02/03 + _Title_Separator,
+ *      r.190-1395 content styles 01-28, r.1301 knoppenrij top:318 left:69 662x80, r.1407-1616 knop-states
+ *      ButtonStyle01..04 (1=662, 2=330, 3=220, 4=165 breed x 80; 5/6 = Green/Red variant van 3/2),
+ *      r.1618-1794 checkbox + r.1651-1678 Indeterminate_Meter_01..03 (112x112) + r.1681-1794
+ *      Determinate_Meter_01/02 642x12 + _Highlight 640x8, style16 PIN 495x91 PinEntryBkg + 4x 55x55).
+ * Knoppen: element-maten blijven OEM; de B2-PNG heeft dezelfde maat met transparante marge, dus het zichtbare
+ * vlak is kleiner maar de HITBOX is identiek (H1). ButtonCtrl zet class = "<base> <focused/down>" (spatie),
+ * dus [class*="_focused"] etc. vangen de combined states.
+ * Protected (DESIGN-SYSTEEM par.9): warnguide/mobile911/backupparking/androidauto/carplay/emnavi/diag/
+ * tutorial + system/{DisplayOff,...} krijgen GEEN body.OemplusB2 (P0-bewaker setSubClass haalt de klasse weg
+ * binnen een contextwissel), dus deze regels raken ze niet (harnas H9). */
+
+/* ---- achtergrond: root + alle DialogBG_StyleNN + AppLoadScreens -> B2-paneel ----
+ * .Dialog3CtrlFs (fullScreen dialogs, .TemplateFull) -> B2DialogBgFs (paneel onder de 64 px banner).
+ * R-cmu F6: de [style]-regels blijven !important (splashStyle "full" zet divElt.style.backgroundImage inline,
+ * Dialog3Ctrl.js r.844/852 -- Pandora/Stitcher/Aha laadschermen; in NL Bewust geaccepteerd: die apps zijn hier
+ * niet in gebruik en het logo is decoratief, geen bedieningsinformatie). */
+body.OemplusB2 .Dialog3Ctrl {
+  background-image: url(../images/B2DialogBg.png) !important;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+}
+body.OemplusB2 .Dialog3CtrlFs {
+  background-image: url(../images/B2DialogBgFs.png) !important;
+}
+body.OemplusB2 .Dialog3Ctrl [class*="Dialog3Ctrl_BG_Style"],
+body.OemplusB2 .Dialog3Ctrl [class*="Dialog3Ctrl_BG_AppLoadScreens"] {
+  background-image: none !important;
+}
+/* splashStyle "full" zet divElt.style.backgroundImage inline (Dialog3Ctrl.js r.844/852) -> !important wint */
+body.OemplusB2 .Dialog3Ctrl[style] {
+  background-image: url(../images/B2DialogBg.png) !important;
+}
+body.OemplusB2 .Dialog3CtrlFs[style] {
+  background-image: url(../images/B2DialogBgFs.png) !important;
+}
+
+/* ---- inhoudstekst: token-regel voor ALLE content-styles ([class*="_Text"] binnen .Dialog3Ctrl) ----
+ * Titel staat eronder met .Dialog3Ctrl ervoor (wint van [class*="_Text"], DESIGN-SYSTEEM par.8.7). */
+body.OemplusB2 .Dialog3Ctrl [class*="_Text"] {
+  color: #d9dde2 !important;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif !important;
+}
+/* dialog-tekst style02/03/13/14: 28 px, line-height 42 (5 regels passen in de 233 px content-zone) */
+body.OemplusB2 .Dialog3Ctrl_Style02_Text1,
+body.OemplusB2 .Dialog3Ctrl_Style03_Text1,
+body.OemplusB2 .Dialog3Ctrl_Style03_Text1_determinate,
+body.OemplusB2 .Dialog3Ctrl_Style13_Text1,
+body.OemplusB2 .Dialog3Ctrl_Style14_Text1 {
+  font-size: 28px !important;
+  line-height: 42px !important;
+}
+/* lijst-achtige dialogs style19/20 (VUI-help, warnguide): 26 px + B2-scheiding per item */
+body.OemplusB2 .Dialog3Ctrl_Style19_Item,
+body.OemplusB2 .Dialog3Ctrl_Style20_Item {
+  font-size: 26px !important;
+  background-image: url(../images/B2ListSep.png) !important;
+  background-position: -71px 100% !important;
+  background-repeat: no-repeat !important;
+}
+/* style19 = 2-koloms grid met OEM LineSeparatorGrid.png -> grid-lijnen weg, B2-hairlines per item */
+body.OemplusB2 .Dialog3Ctrl_Style19 {
+  background-image: none !important;
+}
+/* style26: 5 grote regels (recent calls etc.) -> 28 px houden, kleur hero */
+body.OemplusB2 .Dialog3Ctrl_Style26_Text1,
+body.OemplusB2 .Dialog3Ctrl_Style26_Text2,
+body.OemplusB2 .Dialog3Ctrl_Style26_Text3,
+body.OemplusB2 .Dialog3Ctrl_Style26_Text4,
+body.OemplusB2 .Dialog3Ctrl_Style26_Text5 {
+  font-size: 28px !important;
+  line-height: 55px !important;
+  color: #f2f3f5 !important;
+}
+/* determinate meter labels (tijden links/rechts van de balk) */
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_01_LeftLabel,
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_01_RightLabel,
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_02_LeftLabel,
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_02_RightLabel {
+  font-size: 24px !important;
+  color: #9aa1aa !important;
+}
+
+/* ---- titel (NA de token-regel, met .Dialog3Ctrl ervoor) ---- */
+body.OemplusB2 .Dialog3Ctrl .Dialog3Ctrl_TitleStyle01_Text1,
+body.OemplusB2 .Dialog3Ctrl .Dialog3Ctrl_TitleStyle02_Text1,
+body.OemplusB2 .Dialog3Ctrl .Dialog3Ctrl_TitleStyle03_Text1 {
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+  font-size: 32px !important;
+  color: #f2f3f5 !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Title_Separator {
+  background-image: url(../images/B2DialogTitleSep.png) !important;
+}
+
+/* ---- meters ----
+ * Indeterminate: Dialog3Ctrl plaatst een <img> (APNG) BINNEN de meter-div; de div zelf had geen bg.
+ * B2: 3 statische frames op de div (Presto speelt APNG niet in een div) + de OEM <img> verbergen. */
+body.OemplusB2 .Dialog3Ctrl_Indeterminate_Meter_01 { background-image: url(../images/B2Indeterminate_01.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Indeterminate_Meter_02 { background-image: url(../images/B2Indeterminate_02.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Indeterminate_Meter_03 { background-image: url(../images/B2Indeterminate_03.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Indeterminate_Meter_01 img,
+body.OemplusB2 .Dialog3Ctrl_Indeterminate_Meter_02 img,
+body.OemplusB2 .Dialog3Ctrl_Indeterminate_Meter_03 img {
+  visibility: hidden;
+}
+/* sommige apps zetten de spinner als imagePath1 (GEEN meter, style03/14: Dialog3Ctrl.js r.854 zet
+ * divElt/_imagePath1.style.backgroundImage inline) -> B2-frame op de image-divs van style03/09/14/27 */
+body.OemplusB2 .Dialog3Ctrl_Style03_Image1,
+body.OemplusB2 .Dialog3Ctrl_Style09_Image2,
+body.OemplusB2 .Dialog3Ctrl_Style14_Image1,
+body.OemplusB2 .Dialog3Ctrl_Style27_Image1 {
+  background-image: url(../images/B2Indeterminate_01.png) !important;
+}
+/* Determinate: track 642x12 (OEM maat) + highlight 640x8 repeat-x; breedte zet JS inline (style.width) */
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_01,
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_02 {
+  background-image: url(../images/B2ProgressTrack.png) !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_01_Highlight,
+body.OemplusB2 .Dialog3Ctrl_Determinate_Meter_02_Highlight {
+  background: url(../images/B2ProgressFill.png) 0 0 repeat-x !important;
+}
+
+/* ---- PIN (style16): PinEntryBkg 495x91 -> B2-vakjes; de 4 Pin-divs (55x55, 50px cijfer) -> 28px hero ---- */
+body.OemplusB2 .Dialog3Ctrl_Style16_Image1 {
+  background-image: url(../images/B2PinField.png) !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Style16_Pin1,
+body.OemplusB2 .Dialog3Ctrl_Style16_Pin2,
+body.OemplusB2 .Dialog3Ctrl_Style16_Pin3,
+body.OemplusB2 .Dialog3Ctrl_Style16_Pin4 {
+  font-size: 40px !important;
+  line-height: 55px !important;
+  color: #f2f3f5 !important;
+}
+
+/* ---- knoppenrij ---- */
+body.OemplusB2 .Dialog3Ctrl_Buttons {
+  background-image: none !important;
+}
+/* knoptekst: alle ButtonStyle01..04 states; ButtonCtrl zet class als "base focused" (spatie) */
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="Dialog3Ctrl_ButtonStyle"] {
+  font-family: "Tipperary", Arial, Helvetica, sans-serif !important;
+  font-size: 28px !important;
+  letter-spacing: 0 !important;
+  color: #e8eaee !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="_focused"],
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="_down"],
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="_held"] {
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+  color: #ffffff !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="_Ds"] { color: #5f656e !important; }
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="_Green_En"] {
+  color: #ffffff !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Buttons [class*="_Red_En"] { color: #ffffff !important; }
+
+/* knopbeelden per style (N=1..4; Red/Green alleen bij N=2/3, OEM Dialog_5/6Btn) -- maten = OEM elementmaat */
+/* 1 knop (662x80) */
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_En,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_Ds { background-image: url(../images/B2DlgBtn1_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_focused { background-image: url(../images/B2DlgBtn1_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_down,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_held { background-image: url(../images/B2DlgBtn1_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_Red_En { background-image: url(../images/B2DlgBtn1_Red.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle01_Green_En { background-image: url(../images/B2DlgBtn1_Green.png) !important; }
+/* 2 knoppen (330x80) */
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_En,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_Ds { background-image: url(../images/B2DlgBtn2_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_focused { background-image: url(../images/B2DlgBtn2_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_down,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_held { background-image: url(../images/B2DlgBtn2_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_Red_En { background-image: url(../images/B2DlgBtn2_Red.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle02_Green_En { background-image: url(../images/B2DlgBtn2_Green.png) !important; }
+/* 3 knoppen (220x80) */
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_En,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_Ds { background-image: url(../images/B2DlgBtn3_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_focused { background-image: url(../images/B2DlgBtn3_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_down,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_held { background-image: url(../images/B2DlgBtn3_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_Red_En { background-image: url(../images/B2DlgBtn3_Red.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle03_Green_En { background-image: url(../images/B2DlgBtn3_Green.png) !important; }
+/* 4 knoppen (165x80) */
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_En,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_Ds { background-image: url(../images/B2DlgBtn4_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_focused { background-image: url(../images/B2DlgBtn4_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_down,
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_held { background-image: url(../images/B2DlgBtn4_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_Red_En { background-image: url(../images/B2DlgBtn4_Red.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_ButtonStyle04_Green_En { background-image: url(../images/B2DlgBtn4_Green.png) !important; }
+/* ButtonStyle05/06 bestaan niet als aparte klasse: Dialog3Ctrl.js (r.600-621) mapt buttonCount 2/3 met
+ * buttonColor red/green naar ButtonStyle02/03_Red_En/Green_En (OEM Dialog_5/6Btn*) -- gedekt hierboven. */
+
+/* ---- dialog-checkbox (ButtonCtrl buttonStyle "checkbox" binnen de knoppenrij) ----
+ * icon = inline style op .ButtonCtrlCheckBoxIcon (IcnButtonCheckBox_*.png 35x34) -> B2-vinkje-vlak */
+body.OemplusB2 .Dialog3Ctrl_Buttons .ButtonCtrlCheckBoxIcon {
+  background-image: url(../images/B2Check_On_En.png) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Buttons .ButtonCtrlCheckBoxLabel {
+  font-size: 24px !important;
+  color: #d9dde2 !important;
+}

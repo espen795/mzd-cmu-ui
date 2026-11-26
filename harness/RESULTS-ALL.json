@@ -1,0 +1,55 @@
+{
+ "datum": "2026-11-26",
+ "integratie": "v1.3 P0-P4 + R-cmu review-fixes V1-V4/F1-F9 (commit 901362f3)",
+ "suites": {
+  "RESULTS.json": {
+   "pakket": "run_inject (P0 home+inject)",
+   "checks": 86,
+   "failed": 0,
+   "skipped": 0
+  },
+  "RESULTS-P1.json": {
+   "pakket": "P1 List2 (checks_p1.py)",
+   "checks": 54,
+   "failed": 0,
+   "skipped": 0
+  },
+  "RESULTS-P2.json": {
+   "pakket": "P2 Dialog3",
+   "checks": 82,
+   "failed": 0,
+   "skipped": 0
+  },
+  "RESULTS-P3.json": {
+   "pakket": "P3 Tabs/Slider/Button",
+   "checks": 72,
+   "failed": 0,
+   "skipped": 0
+  },
+  "RESULTS-P4.json": {
+   "pakket": "P4 media & invoer",
+   "checks": 55,
+   "failed": 0,
+   "skipped": 1
+  },
+  "RESULTS-CUM.json": {
+   "pakket": "CUMULATIEF (alle B2Sub 00..40 tegelijk)",
+   "checks": 28,
+   "failed": 0,
+   "skipped": 0
+  }
+ },
+ "totaal_checks": 377,
+ "totaal_fail": 0,
+ "totaal_skip": 1,
+ "tools/check_presto.py": {
+  "pakket": "Presto/ES5 + ASCII (6 JS, 9 CSS in overlay)",
+  "checks": "OK",
+  "failed": 0
+ },
+ "tools/test_scripts_bb119.sh": {
+  "pakket": "busybox 1.19 chroot; toegestaan (overlay) 183; revert -> kopie == /jci/gui incl. mapstructuur",
+  "checks": 53,
+  "failed": 0
+ }
+}

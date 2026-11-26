@@ -1,0 +1,276 @@
+{
+ "pakket": "CUMULATIEF v1.3 (alle B2Sub 00..40 tegelijk)",
+ "checks": [
+  {
+   "check": "setup: eco-paneel aanwezig na mount",
+   "ok": true,
+   "detail": {
+    "exists": true,
+    "inj": {
+     "version": "inject-v1.3 (2026-11-26)",
+     "on": false,
+     "ctor": "origineel",
+     "b2Loaded": false,
+     "hooks": 0,
+     "sbnHooks": 0,
+     "sbnDropped": 0,
+     "cssOn": false,
+     "subOn": false,
+     "subClass": false,
+     "protectedNow": false,
+     "subLinks": 0,
+     "subCtxt": "ecoenergy/FuelConsumption",
+     "lastSub": null,
+     "ctxtHook": false,
+     "transHook": false,
+     "liveB2": 0,
+     "b2Errors": 0,
+     "regHooked": false,
+     "guard": false,
+     "fwState": "idle",
+     "lastErr": "",
+     "events": [
+      "geladen inject-v1.3 (2026-11-26)",
+      "paneel op FuelConsumptionTmplt"
+     ]
+    },
+    "ctxt": "FuelConsumption",
+    "app": "ecoenergy",
+    "fw": "idle"
+   }
+  },
+  {
+   "check": "setup: 'B2 aan' gelukt",
+   "ok": true,
+   "detail": {
+    "version": "inject-v1.3 (2026-11-26)",
+    "on": true,
+    "ctor": "B2",
+    "b2Loaded": true,
+    "hooks": 4,
+    "sbnHooks": 4,
+    "sbnDropped": 0,
+    "cssOn": true,
+    "subOn": true,
+    "subClass": true,
+    "protectedNow": false,
+    "subLinks": 5,
+    "subCtxt": "ecoenergy/FuelConsumption",
+    "lastSub": "aan ecoenergy/FuelConsumption",
+    "ctxtHook": true,
+    "transHook": true,
+    "liveB2": 0,
+    "b2Errors": 0,
+    "regHooked": false,
+    "guard": true,
+    "fwState": "idle",
+    "lastErr": "",
+    "events": [
+     "geladen inject-v1.3 (2026-11-26)",
+     "paneel op FuelConsumptionTmplt",
+     "registerCtrlLoaded(MainMenuCtrl) van B2-bestand geslikt",
+     "bewaker: OemplusB2 gezet (ecoenergy/FuelConsumption)",
+     "B2 aan (hooks 4/4, sbn-hooks 4/4, submenu-CSS 5 posities)"
+    ]
+   }
+  },
+  {
+   "check": "setup: ALLE 5 B2Sub-links (00,10,20,30,40) in DOM, geen 404",
+   "ok": true,
+   "detail": {
+    "n": 5,
+    "hrefs": [
+     "common/oemplusb2/css/B2Sub-00-base.css",
+     "common/oemplusb2/css/B2Sub-10-list2.css",
+     "common/oemplusb2/css/B2Sub-20-dialog3.css",
+     "common/oemplusb2/css/B2Sub-30-tabs-slider-button.css",
+     "common/oemplusb2/css/B2Sub-40-media-input.css"
+    ],
+    "missing": []
+   }
+  },
+  {
+   "check": "setup: geen JS-fouten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "LIST2: context system/Communication geladen, body.OemplusB2 aan, 5 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "app": "system",
+    "ctxt": "Communication",
+    "subCls": true,
+    "subLinks": 5,
+    "fw": "idle"
+   }
+  },
+  {
+   "check": "LIST2 (H1 cumulatief): hitboxes gelijk B2 aan/uit met ALLE B2Sub-CSS tegelijk",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "check": "LIST2 (H2 cumulatief): focus-wandeling gelijk aan/uit (cw,cw,cw,ccw,select)",
+   "ok": true,
+   "detail": {
+    "idxVerschillend": [],
+    "aan": [],
+    "uit": []
+   }
+  },
+  {
+   "check": "LIST2 (H6): na b2Off geen OemplusB2 en 0 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "subCls": false,
+    "subLinks": 0
+   }
+  },
+  {
+   "check": "LIST2: geen JS-fouten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "TABS: context audiosettings/SoundTab geladen, body.OemplusB2 aan, 5 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "app": "audiosettings",
+    "ctxt": "SoundTab",
+    "subCls": true,
+    "subLinks": 5,
+    "fw": "idle"
+   }
+  },
+  {
+   "check": "TABS (H1 cumulatief): hitboxes gelijk B2 aan/uit (scrollbare lijst: per index, 72 rects over 4 selectors)",
+   "ok": true,
+   "detail": {
+    ".TabsCtrl [class*=\"Button\"]": [],
+    ".List2Ctrl .ListItem": [],
+    ".SliderCtrl": [],
+    ".List2Ctrl [class*=\"Slider\"]": []
+   }
+  },
+  {
+   "check": "TABS (H2 cumulatief): focus-wandeling gelijk aan/uit (cw,cw,cw,cw,ccw,select)",
+   "ok": true,
+   "detail": {
+    "idxVerschillend": [],
+    "aan": [],
+    "uit": []
+   }
+  },
+  {
+   "check": "TABS (H6): na b2Off geen OemplusB2 en 0 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "subCls": false,
+    "subLinks": 0
+   }
+  },
+  {
+   "check": "TABS: geen JS-fouten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "NOWPLAYING: context fmradio/NowPlaying geladen, body.OemplusB2 aan, 5 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "app": "fmradio",
+    "ctxt": "NowPlaying",
+    "subCls": true,
+    "subLinks": 5,
+    "fw": "idle"
+   }
+  },
+  {
+   "check": "NOWPLAYING (H1 cumulatief): hitboxes gelijk B2 aan/uit met ALLE B2Sub-CSS tegelijk",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "check": "NOWPLAYING (H2 cumulatief): focus-wandeling gelijk aan/uit (cw,cw,ccw,select)",
+   "ok": true,
+   "detail": {
+    "idxVerschillend": [],
+    "aan": [],
+    "uit": []
+   }
+  },
+  {
+   "check": "NOWPLAYING (H6): na b2Off geen OemplusB2 en 0 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "subCls": false,
+    "subLinks": 0
+   }
+  },
+  {
+   "check": "NOWPLAYING: geen JS-fouten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "DIALOG3: context phone/DialPad geladen, body.OemplusB2 aan, 5 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "app": "phone",
+    "ctxt": "DialPad",
+    "subCls": true,
+    "subLinks": 5,
+    "fw": "idle"
+   }
+  },
+  {
+   "check": "DIALOG3 (H1 cumulatief): hitboxes gelijk B2 aan/uit met ALLE B2Sub-CSS tegelijk",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "check": "DIALOG3 (H2 cumulatief): focus-wandeling gelijk aan/uit (cw,cw,cw,ccw,select)",
+   "ok": true,
+   "detail": {
+    "idxVerschillend": [],
+    "aan": [],
+    "uit": []
+   }
+  },
+  {
+   "check": "DIALOG3 (H6): na b2Off geen OemplusB2 en 0 B2Sub-links",
+   "ok": true,
+   "detail": {
+    "subCls": false,
+    "subLinks": 0
+   }
+  },
+  {
+   "check": "DIALOG3: geen JS-fouten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H8 statisch: geen selector komt in >1 B2Sub-bestand voor (294 unieke selectors over 5 bestanden)",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "check": "H3 cumulatief: NowPlaying4Ctrl bg = none (B2Sub-40 wint) met alle 5 geladen",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "check": "H3 cumulatief: CommonBgImg = B2SubBg.png (B2Sub-00) met alle 5 geladen",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2SubBg.png\")"
+  },
+  {
+   "check": "H3 cumulatief: List2-item heeft B2ListSep.png (B2Sub-10) met alle 5 geladen",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2ListSep.png\")"
+  }
+ ],
+ "failed": 0
+}

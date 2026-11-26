@@ -1,0 +1,1283 @@
+{
+ "checks": [
+  {
+   "check": "setup: B2 aan na mount (subOn true, 5 B2Sub-links incl. -10-list2 geladen)",
+   "ok": true,
+   "detail": {
+    "version": "inject-v1.3 (2026-11-26)",
+    "on": true,
+    "ctor": "B2",
+    "b2Loaded": true,
+    "hooks": 4,
+    "sbnHooks": 4,
+    "sbnDropped": 0,
+    "cssOn": true,
+    "subOn": true,
+    "subClass": true,
+    "protectedNow": false,
+    "subLinks": 5,
+    "subCtxt": "ecoenergy/FuelConsumption",
+    "lastSub": "aan ecoenergy/FuelConsumption",
+    "ctxtHook": true,
+    "transHook": true,
+    "liveB2": 0,
+    "b2Errors": 0,
+    "regHooked": false,
+    "guard": true,
+    "fwState": "idle",
+    "lastErr": "",
+    "events": [
+     "geladen inject-v1.3 (2026-11-26)",
+     "paneel op FuelConsumptionTmplt",
+     "registerCtrlLoaded(MainMenuCtrl) van B2-bestand geslikt",
+     "bewaker: OemplusB2 gezet (ecoenergy/FuelConsumption)",
+     "B2 aan (hooks 4/4, sbn-hooks 4/4, submenu-CSS 5 posities)"
+    ]
+   }
+  },
+  {
+   "check": "setup: B2Sub-10-list2.css 1x geladen uit overlay (niet 404)",
+   "ok": true,
+   "detail": {
+    "n": 1,
+    "missing": []
+   }
+  },
+  {
+   "check": "setup: P1-PNG's geladen bij gebruik (B2ListSep/B2ListFocus/B2Scroll*...), geen 404",
+   "ok": true,
+   "detail": {
+    "geladen": 3,
+    "missing": 0
+   }
+  },
+  {
+   "check": "system/Communication: List2Ctrl aanwezig, body.OemplusB2 aan, 7 items",
+   "ok": true,
+   "detail": {
+    "ctxt": "Communication",
+    "cls": "List2Ctrl noTitle noDialog normalItems",
+    "nItems": 7,
+    "body": "OemplusB2"
+   }
+  },
+  {
+   "check": "comm (H3): B2Sub-10 actief ondanks later geladen List2Ctrl.css (ctrl bg = none, item-bg B2List*)",
+   "ok": true,
+   "detail": {
+    "ctrlBg": "none",
+    "sepBg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListFocus.png\")"
+   }
+  },
+  {
+   "check": "comm (H5): focus-item bg = B2ListFocus*, line1 rgb(95, 101, 110) + Semibold (disabled=True)",
+   "ok": true,
+   "detail": {
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListFocus.png\")",
+    "l1col": "rgb(95, 101, 110)",
+    "l1ff": "\"Tipperary Semibold\", Tipperary, Arial, sans-serif",
+    "l1fs": "30px"
+   }
+  },
+  {
+   "check": "comm (H4): alle zichtbare line1 font-size >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "comm: scrollbar wrapper 36px breed, duim 30px (B2Scroll*)",
+   "ok": true,
+   "detail": {
+    "sb": [
+     749,
+     64,
+     36,
+     416
+    ],
+    "si": [
+     753,
+     64,
+     30,
+     361
+    ],
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ScrollThumb.png\")",
+    "attach": "fixed",
+    "siTop": "0px",
+    "siH": "361px"
+   }
+  },
+  {
+   "check": "btpairing/BTConnectionManager: List2Ctrl aanwezig, body.OemplusB2 aan, 3 items",
+   "ok": true,
+   "detail": {
+    "ctxt": "BTConnectionManager",
+    "cls": "List2Ctrl listTitle noDialog normalItems listTitleNormal",
+    "nItems": 3,
+    "body": "OemplusB2"
+   }
+  },
+  {
+   "check": "bt (H3): B2Sub-10 actief ondanks later geladen List2Ctrl.css (ctrl bg = none, item-bg B2List*)",
+   "ok": true,
+   "detail": {
+    "ctrlBg": "none",
+    "sepBg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListSep.png\")"
+   }
+  },
+  {
+   "check": "bt (H5): focus-item bg = B2ListFocus*, line1 rgb(255, 255, 255) + Semibold (disabled=False)",
+   "ok": true,
+   "detail": {
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListFocus.png\")",
+    "l1col": "rgb(255, 255, 255)",
+    "l1ff": "\"Tipperary Semibold\", Tipperary, Arial, sans-serif",
+    "l1fs": "30px"
+   }
+  },
+  {
+   "check": "bt (H4): alle zichtbare line1 font-size >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "bt: scrollbar wrapper 36px breed, duim 30px (B2Scroll*)",
+   "ok": true,
+   "detail": {
+    "sb": [
+     749,
+     133,
+     36,
+     347
+    ],
+    "si": [
+     753,
+     133,
+     30,
+     550
+    ],
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ScrollThumb.png\")",
+    "attach": "fixed",
+    "siTop": "0px",
+    "siH": "550px"
+   }
+  },
+  {
+   "check": "syssettings/DisplayTab: List2Ctrl aanwezig, body.OemplusB2 aan, 6 items",
+   "ok": true,
+   "detail": {
+    "ctxt": "DisplayTab",
+    "cls": "List2Ctrl listTitle noDialog normalItems smallItemText listTitleThick",
+    "nItems": 6,
+    "body": "OemplusB2"
+   }
+  },
+  {
+   "check": "display (H3): B2Sub-10 actief ondanks later geladen List2Ctrl.css (ctrl bg = none, item-bg B2List*)",
+   "ok": true,
+   "detail": {
+    "ctrlBg": "none",
+    "sepBg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListSep.png\")"
+   }
+  },
+  {
+   "check": "display (H5): focus-item bg = B2ListFocus*, line1 rgb(255, 255, 255) + Semibold (disabled=False)",
+   "ok": true,
+   "detail": {
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListFocus.png\")",
+    "l1col": "rgb(255, 255, 255)",
+    "l1ff": "\"Tipperary Semibold\", Tipperary, Arial, sans-serif",
+    "l1fs": "30px"
+   }
+  },
+  {
+   "check": "display (H4): alle zichtbare line1 font-size >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "display: scrollbar wrapper 36px breed, duim 30px (B2Scroll*)",
+   "ok": true,
+   "detail": {
+    "sb": [
+     749,
+     256,
+     36,
+     224
+    ],
+    "si": [
+     753,
+     359,
+     30,
+     121
+    ],
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ScrollThumb.png\")",
+    "attach": "fixed",
+    "siTop": "103px",
+    "siH": "121px"
+   }
+  },
+  {
+   "check": "fmradio/GenreList: List2Ctrl aanwezig, body.OemplusB2 aan, 30 items",
+   "ok": true,
+   "detail": {
+    "ctxt": "GenreList",
+    "cls": "List2Ctrl listTitle noDialog normalItems listTitleNormal",
+    "nItems": 30,
+    "body": "OemplusB2"
+   }
+  },
+  {
+   "check": "genre (H3): B2Sub-10 actief ondanks later geladen List2Ctrl.css (ctrl bg = none, item-bg B2List*)",
+   "ok": true,
+   "detail": {
+    "ctrlBg": "none",
+    "sepBg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListSep.png\")"
+   }
+  },
+  {
+   "check": "genre (H5): focus-item bg = B2ListFocus*, line1 rgb(255, 255, 255) + Semibold (disabled=False)",
+   "ok": true,
+   "detail": {
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListFocus.png\")",
+    "l1col": "rgb(255, 255, 255)",
+    "l1ff": "\"Tipperary Semibold\", Tipperary, Arial, sans-serif",
+    "l1fs": "30px"
+   }
+  },
+  {
+   "check": "genre (H4): alle zichtbare line1 font-size >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "genre: scrollbar wrapper 36px breed, duim 30px (B2Scroll*)",
+   "ok": true,
+   "detail": {
+    "sb": [
+     749,
+     133,
+     36,
+     347
+    ],
+    "si": [
+     753,
+     156,
+     30,
+     62
+    ],
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ScrollThumb.png\")",
+    "attach": "fixed",
+    "siTop": "23px",
+    "siH": "62px"
+   }
+  },
+  {
+   "check": "vehsettings/HUDTab: List2Ctrl aanwezig, body.OemplusB2 aan, 6 items",
+   "ok": true,
+   "detail": {
+    "ctxt": "HUDTab",
+    "cls": "List2Ctrl tabsTitle noDialog normalItems smallItemText",
+    "nItems": 6,
+    "body": "OemplusB2"
+   }
+  },
+  {
+   "check": "hud (H3): B2Sub-10 actief ondanks later geladen List2Ctrl.css (ctrl bg = none, item-bg B2List*)",
+   "ok": true,
+   "detail": {
+    "ctrlBg": "none",
+    "sepBg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListSep.png\")"
+   }
+  },
+  {
+   "check": "hud (H5): focus-item bg = B2ListFocus*, line1 rgb(255, 255, 255) + Semibold (disabled=False)",
+   "ok": true,
+   "detail": {
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ListFocus.png\")",
+    "l1col": "rgb(255, 255, 255)",
+    "l1ff": "\"Tipperary Semibold\", Tipperary, Arial, sans-serif",
+    "l1fs": "30px"
+   }
+  },
+  {
+   "check": "hud (H4): alle zichtbare line1 font-size >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "hud: scrollbar wrapper 36px breed, duim 30px (B2Scroll*)",
+   "ok": true,
+   "detail": {
+    "sb": [
+     749,
+     133,
+     36,
+     347
+    ],
+    "si": [
+     753,
+     187,
+     30,
+     293
+    ],
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2ScrollThumb.png\")",
+    "attach": "fixed",
+    "siTop": "54px",
+    "siH": "293px"
+   }
+  },
+  {
+   "check": "comm (H1): hitboxes (ListItem + slider/knob/plus/minus, relatief per item) identiek B2 aan vs uit",
+   "ok": true,
+   "detail": {
+    "aan": 7,
+    "uit": 7,
+    "diff": []
+   }
+  },
+  {
+   "check": "comm (H2): focus-volgorde (cw x4) + focus-index gelijk B2 aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": -1
+    },
+    "uit": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": -1
+    }
+   }
+  },
+  {
+   "check": "comm (H6): na B2 uit geen OemplusB2, geen B2Sub-links",
+   "ok": true,
+   "detail": {
+    "body": "",
+    "links": 0
+   }
+  },
+  {
+   "check": "comm (H6): sep bg weer OEM ListItemSeparator, ctrl bg weer ListBackground",
+   "ok": true,
+   "detail": {
+    "sep_ok": true,
+    "ctrl_ok": true,
+    "ctrl": "rl(\"http://cmu.local/common/controls/List2/images/ListBackground.png\")"
+   }
+  },
+  {
+   "check": "bt (H1): hitboxes (ListItem + slider/knob/plus/minus, relatief per item) identiek B2 aan vs uit",
+   "ok": true,
+   "detail": {
+    "aan": 3,
+    "uit": 3,
+    "diff": []
+   }
+  },
+  {
+   "check": "bt (H2): focus-volgorde (cw x4) + focus-index gelijk B2 aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 1
+    },
+    "uit": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 1
+    }
+   }
+  },
+  {
+   "check": "bt (H6): na B2 uit geen OemplusB2, geen B2Sub-links",
+   "ok": true,
+   "detail": {
+    "body": "",
+    "links": 0
+   }
+  },
+  {
+   "check": "bt (H6): sep bg weer OEM ListItemSeparator, ctrl bg weer ListBackground",
+   "ok": true,
+   "detail": {
+    "sep_ok": true,
+    "ctrl_ok": true,
+    "ctrl": "rl(\"http://cmu.local/common/controls/List2/images/ListBackground.png\")"
+   }
+  },
+  {
+   "check": "display (H1): hitboxes (ListItem + slider/knob/plus/minus, relatief per item) identiek B2 aan vs uit",
+   "ok": true,
+   "detail": {
+    "aan": 6,
+    "uit": 6,
+    "diff": []
+   }
+  },
+  {
+   "check": "display (H2): focus-volgorde (cw x4) + focus-index gelijk B2 aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 2
+    },
+    "uit": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 2
+    }
+   }
+  },
+  {
+   "check": "display (H6): na B2 uit geen OemplusB2, geen B2Sub-links",
+   "ok": true,
+   "detail": {
+    "body": "",
+    "links": 0
+   }
+  },
+  {
+   "check": "display (H6): sep bg weer OEM ListItemSeparator, ctrl bg weer ListBackground",
+   "ok": true,
+   "detail": {
+    "sep_ok": true,
+    "ctrl_ok": true,
+    "ctrl": "rl(\"http://cmu.local/common/controls/List2/images/ListBackground.png\")"
+   }
+  },
+  {
+   "check": "genre (H1): hitboxes (ListItem + slider/knob/plus/minus, relatief per item) identiek B2 aan vs uit",
+   "ok": true,
+   "detail": {
+    "aan": 6,
+    "uit": 6,
+    "diff": []
+   }
+  },
+  {
+   "check": "genre (H2): focus-volgorde (cw x4) + focus-index gelijk B2 aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 5
+    },
+    "uit": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 5
+    }
+   }
+  },
+  {
+   "check": "genre (H6): na B2 uit geen OemplusB2, geen B2Sub-links",
+   "ok": true,
+   "detail": {
+    "body": "",
+    "links": 0
+   }
+  },
+  {
+   "check": "genre (H6): sep bg weer OEM ListItemSeparator, ctrl bg weer ListBackground",
+   "ok": true,
+   "detail": {
+    "sep_ok": true,
+    "ctrl_ok": true,
+    "ctrl": "rl(\"http://cmu.local/common/controls/List2/images/ListBackground.png\")"
+   }
+  },
+  {
+   "check": "hud (H1): hitboxes (ListItem + slider/knob/plus/minus, relatief per item) identiek B2 aan vs uit",
+   "ok": true,
+   "detail": {
+    "aan": 10,
+    "uit": 10,
+    "diff": []
+   }
+  },
+  {
+   "check": "hud (H2): focus-volgorde (cw x4) + focus-index gelijk B2 aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 5
+    },
+    "uit": {
+     "seq": [
+      "consumed",
+      "consumed",
+      "consumed",
+      "consumed"
+     ],
+     "focusIdx": 5
+    }
+   }
+  },
+  {
+   "check": "hud (H6): na B2 uit geen OemplusB2, geen B2Sub-links",
+   "ok": true,
+   "detail": {
+    "body": "",
+    "links": 0
+   }
+  },
+  {
+   "check": "hud (H6): sep bg weer OEM ListItemSeparator, ctrl bg weer ListBackground",
+   "ok": true,
+   "detail": {
+    "sep_ok": true,
+    "ctrl_ok": true,
+    "ctrl": "rl(\"http://cmu.local/common/controls/List2/images/ListBackground.png\")"
+   }
+  },
+  {
+   "check": "H9 synchroon: protected system/DisplayOff -> geen OemplusB2 bij template-constructie/transitie-eind (nu: True)",
+   "ok": true,
+   "detail": {
+    "h9": [
+     [
+      "trans-end",
+      "vehsettings",
+      "HUDTab",
+      true
+     ],
+     [
+      "inst",
+      "OffScreenTmplt",
+      false
+     ],
+     [
+      "trans-end",
+      "vehsettings",
+      "HUDTab",
+      true
+     ],
+     [
+      "inst",
+      "OffScreenTmplt",
+      false
+     ],
+     [
+      "trans-end",
+      "system",
+      "DisplayOff",
+      false
+     ]
+    ],
+    "body": ""
+   }
+  },
+  {
+   "check": "H9: terug op Communication -> OemplusB2 er weer",
+   "ok": true,
+   "detail": "OemplusB2"
+  },
+  {
+   "check": "H8: geen genormaliseerde selector in twee B2Sub-*.css (P0/P1 placeholders meegerekend)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "scrollbar-duim: JS zet top/height (mechanisme intact), duim 30 breed en <= 416 hoog met B2-PNG",
+   "ok": true,
+   "detail": {
+    "top": "-53px",
+    "h": "62px",
+    "rect": [
+     80,
+     62
+    ]
+   }
+  },
+  {
+   "check": "einde: geen JS-fouten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H6 pixel: 'B2 uit' screenshot == stock (content y>=64 pixel-gelijk)",
+   "ok": true,
+   "detail": {
+    "bbox": "None",
+    "content": "None"
+   }
+  }
+ ],
+ "failed": 0,
+ "screens": {
+  "comm": {
+   "on": {
+    "hasList": true,
+    "ctxt": "Communication",
+    "app": "system",
+    "cls": "List2Ctrl noTitle noDialog normalItems",
+    "items": [
+     [
+      "ListItem style06 label1Right disabled",
+      68,
+      64,
+      732,
+      64
+     ],
+     [
+      "ListItem style01 disabled",
+      68,
+      128,
+      732,
+      64
+     ],
+     [
+      "ListItem style01 disabled",
+      68,
+      192,
+      732,
+      64
+     ],
+     [
+      "ListItem style06 label1Right disabled",
+      68,
+      256,
+      732,
+      64
+     ],
+     [
+      "ListItem style01 disabled",
+      68,
+      320,
+      732,
+      64
+     ],
+     [
+      "ListItem style06 label1Right disabled",
+      68,
+      384,
+      732,
+      64
+     ],
+     [
+      "ListItem style01 disabled",
+      68,
+      448,
+      732,
+      64
+     ]
+    ],
+    "hb": [
+     [
+      "ListItem style01",
+      68,
+      128,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      256,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      384,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      64,
+      732,
+      64
+     ],
+     [
+      "ListItem style06 label1Right",
+      68,
+      0,
+      732,
+      64
+     ],
+     [
+      "ListItem style06 label1Right",
+      68,
+      192,
+      732,
+      64
+     ],
+     [
+      "ListItem style06 label1Right",
+      68,
+      320,
+      732,
+      64
+     ]
+    ],
+    "sb": [
+     749,
+     64,
+     36,
+     416
+    ],
+    "si": [
+     753,
+     64,
+     30,
+     361
+    ],
+    "siTop": "0px",
+    "siH": "361px",
+    "body": "OemplusB2",
+    "subLinks": 5,
+    "nItems": 7
+   }
+  },
+  "bt": {
+   "on": {
+    "hasList": true,
+    "ctxt": "BTConnectionManager",
+    "app": "btpairing",
+    "cls": "List2Ctrl listTitle noDialog normalItems listTitleNormal",
+    "items": [
+     [
+      "ListItem styleOnOff checked",
+      68,
+      133,
+      732,
+      64
+     ],
+     [
+      "ListItem style02 focus",
+      68,
+      197,
+      732,
+      64
+     ],
+     [
+      "ListItem style02 disabled",
+      68,
+      261,
+      732,
+      64
+     ]
+    ],
+    "hb": [
+     [
+      "ListItem style02",
+      68,
+      128,
+      732,
+      64
+     ],
+     [
+      "ListItem style02",
+      68,
+      64,
+      732,
+      64
+     ],
+     [
+      "ListItem styleOnOff",
+      68,
+      0,
+      732,
+      64
+     ]
+    ],
+    "sb": [
+     749,
+     133,
+     36,
+     347
+    ],
+    "si": [
+     753,
+     133,
+     30,
+     550
+    ],
+    "siTop": "0px",
+    "siH": "550px",
+    "body": "OemplusB2",
+    "subLinks": 5,
+    "nItems": 3
+   }
+  },
+  "display": {
+   "on": {
+    "hasList": true,
+    "ctxt": "DisplayTab",
+    "app": "syssettings",
+    "cls": "List2Ctrl listTitle noDialog normalItems smallItemText listTitleThick",
+    "items": [
+     [
+      "ListItem style01",
+      68,
+      256,
+      732,
+      64
+     ],
+     [
+      "ListItem style01 focus",
+      68,
+      320,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      576,
+      732,
+      64
+     ],
+     [
+      "ListItem style11",
+      68,
+      384,
+      732,
+      64
+     ],
+     [
+      "ListItem style12 adjustable",
+      68,
+      448,
+      732,
+      64
+     ],
+     [
+      "ListItem style12 adjustable",
+      68,
+      512,
+      732,
+      64
+     ]
+    ],
+    "hb": [
+     [
+      "ListItem style01",
+      68,
+      0,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      64,
+      732,
+      64
+     ],
+     [
+      "ListItem style11",
+      68,
+      128,
+      732,
+      64
+     ],
+     [
+      "ListItem style12",
+      68,
+      192,
+      732,
+      64
+     ],
+     [
+      "knob",
+      473,
+      20,
+      43,
+      43
+     ],
+     [
+      "slider",
+      321,
+      35,
+      346,
+      13
+     ]
+    ],
+    "sb": [
+     749,
+     256,
+     36,
+     224
+    ],
+    "si": [
+     753,
+     256,
+     30,
+     121
+    ],
+    "siTop": "0px",
+    "siH": "121px",
+    "body": "OemplusB2",
+    "subLinks": 5,
+    "nItems": 6
+   }
+  },
+  "genre": {
+   "on": {
+    "hasList": true,
+    "ctxt": "GenreList",
+    "app": "fmradio",
+    "cls": "List2Ctrl listTitle noDialog normalItems listTitleNormal",
+    "items": [
+     [
+      "ListItem style01",
+      68,
+      133,
+      732,
+      64
+     ],
+     [
+      "ListItem style01 focus",
+      68,
+      197,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      261,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      325,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      389,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      453,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      517,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      581,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      645,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      709,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      773,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      837,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      901,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      965,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      1029,
+      732,
+      64
+     ]
+    ],
+    "hb": [
+     [
+      "ListItem style01",
+      68,
+      0,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      128,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      192,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      256,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      320,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      64,
+      732,
+      64
+     ]
+    ],
+    "sb": [
+     749,
+     133,
+     36,
+     347
+    ],
+    "si": [
+     753,
+     133,
+     30,
+     62
+    ],
+    "siTop": "0px",
+    "siH": "62px",
+    "body": "OemplusB2",
+    "subLinks": 5,
+    "nItems": 30
+   }
+  },
+  "hud": {
+   "on": {
+    "hasList": true,
+    "ctxt": "HUDTab",
+    "app": "vehsettings",
+    "cls": "List2Ctrl tabsTitle noDialog normalItems smallItemText",
+    "items": [
+     [
+      "ListItem style12 adjustable",
+      68,
+      133,
+      732,
+      64
+     ],
+     [
+      "ListItem style10 focus",
+      68,
+      197,
+      732,
+      64
+     ],
+     [
+      "ListItem style12 adjustable",
+      68,
+      261,
+      732,
+      64
+     ],
+     [
+      "ListItem styleOnOff checked disabled",
+      68,
+      325,
+      732,
+      64
+     ],
+     [
+      "ListItem styleOnOff",
+      68,
+      389,
+      732,
+      64
+     ],
+     [
+      "ListItem style01",
+      68,
+      453,
+      732,
+      64
+     ]
+    ],
+    "hb": [
+     [
+      "ListItem style01",
+      68,
+      320,
+      732,
+      64
+     ],
+     [
+      "ListItem style10",
+      68,
+      64,
+      732,
+      64
+     ],
+     [
+      "ListItem style12",
+      68,
+      0,
+      732,
+      64
+     ],
+     [
+      "ListItem style12",
+      68,
+      128,
+      732,
+      64
+     ],
+     [
+      "ListItem styleOnOff",
+      68,
+      192,
+      732,
+      64
+     ],
+     [
+      "ListItem styleOnOff",
+      68,
+      256,
+      732,
+      64
+     ],
+     [
+      "knob",
+      473,
+      20,
+      43,
+      43
+     ],
+     [
+      "knob",
+      473,
+      20,
+      43,
+      43
+     ],
+     [
+      "slider",
+      321,
+      35,
+      346,
+      13
+     ],
+     [
+      "slider",
+      321,
+      35,
+      346,
+      13
+     ]
+    ],
+    "sb": [
+     749,
+     133,
+     36,
+     347
+    ],
+    "si": [
+     753,
+     133,
+     30,
+     293
+    ],
+    "siTop": "0px",
+    "siH": "293px",
+    "body": "OemplusB2",
+    "subLinks": 5,
+    "nItems": 6
+   }
+  }
+ }
+}

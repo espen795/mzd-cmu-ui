@@ -1,0 +1,67 @@
+/* OEMPLUS-INJECT v1 (2026-11-25): keuzepaneel over het ecoenergy-template (740x416, onder de statusbalk,
+ * rechts van de Terug-knopkolom). Alleen Presto-veilige CSS (geen flex/grid/calc/var/gradients). */
+.OemplusInjPanel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 740px;
+  height: 416px;
+  z-index: 50;
+  background-color: #050608;
+  color: #ffffff;
+  font-family: 'Tipperary', sans-serif;
+  overflow: hidden;
+}
+.OemplusInjTitle {
+  position: absolute;
+  left: 40px;
+  top: 14px;
+  width: 660px;
+  height: 32px;
+  font-size: 26px;
+  line-height: 32px;
+  color: #c9ced6;
+}
+.OemplusInjState {
+  position: absolute;
+  left: 40px;
+  top: 46px;
+  width: 660px;
+  height: 26px;
+  font-size: 20px;
+  line-height: 26px;
+  color: #8c939e;
+}
+.OemplusInjErr {
+  color: #e0443a;
+}
+.OemplusInjRow {
+  position: absolute;
+  left: 40px;
+  width: 600px;
+  height: 54px;
+  padding-left: 22px;
+  font-size: 28px;
+  line-height: 54px;
+  color: #ffffff;
+  background-color: #111419;
+  border-left: 6px solid #111419;
+}
+.OemplusInjFocus {
+  background-color: #262b33;
+  border-left: 6px solid #d7261e;
+}
+.OemplusInjDim {
+  color: #6a717c;
+}
+.OemplusInjInfo {
+  position: absolute;
+  left: 40px;
+  top: 330px;
+  width: 660px;
+  height: 80px;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b8bec8;
+  overflow: hidden;
+}

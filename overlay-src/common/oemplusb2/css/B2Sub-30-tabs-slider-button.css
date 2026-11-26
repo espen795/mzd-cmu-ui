@@ -1,0 +1,163 @@
+/* OEMPLUS-B2 submenus -- pakket P3 "Tabs / Slider / Button" (B2Sub-30-tabs-slider-button.css)
+ * OEM: common/controls/Tabs/css/TabsCtrl.css (Style2 747x70, knoppen 354x60 top:10; Style3 238x60;
+ *      Style4 143x60 + Prev/Next 86x62; bottom mask 741x1 top:69),
+ *      common/controls/Slider/css/SliderCtrl.css (569x35, black + gray 1px border, fill 2px top:17,
+ *      handle 41x41 top:-3),
+ *      common/controls/Button/css/ButtonCtrl.css (150x100, bg #777, div.* debug classes).
+ * Maten en posities blijven OEM (tab-breedtes/left worden door TabsCtrl.js gezet; slider-handle-left door
+ * SliderCtrl.js). Randen: alleen KLEUR wijzigen (border-color: transparent), nooit border-width -> geen 1px-shift.
+ * Slider-assets B2SliderTrack/Fill/Knob_{En,Focus} zijn P1-eigendom (alleen-lezen; zie README-P1-P4.md):
+ * als ze nog ontbreken referenceert deze CSS dezelfde bestandsnamen en staat de afhankelijkheid in NOTITIE-P3.md.
+ */
+
+/* ================= Tabs ================= */
+/* tabbalk: B2-achtergrond met haarlijn onderaan (breedte/hoogte/positie OEM) */
+body.OemplusB2 .TabsCtrlStyle2,
+body.OemplusB2 .TabsCtrlStyle3,
+body.OemplusB2 .TabsCtrlStyle4 {
+  background-image: url(../images/B2TabsBg.png);
+}
+/* OEM bottom-mask (grijze lijn) weg -- haarlijn zit in B2TabsBg.png */
+body.OemplusB2 .TabsCtrlBottomMask {
+  background-image: none;
+}
+/* tab-tekst: 26 px, inactief grijs (text-3), disabled donkerder (tabs #4D525A) */
+body.OemplusB2 .TabsCtrlStyle2ButtonEnabled,
+body.OemplusB2 .TabsCtrlStyle3ButtonEnabled,
+body.OemplusB2 .TabsCtrlStyle4ButtonEnabled {
+  background-image: none;
+  font-size: 26px;
+  color: #8a919b;
+}
+body.OemplusB2 .TabsCtrlStyle2ButtonEnabledCurrent,
+body.OemplusB2 .TabsCtrlStyle3ButtonEnabledCurrent,
+body.OemplusB2 .TabsCtrlStyle4ButtonEnabledCurrent {
+  background-image: url(../images/B2TabCurrent.png);
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  font-size: 26px;
+  color: #ffffff;
+}
+body.OemplusB2 .TabsCtrlStyle2ButtonDown,
+body.OemplusB2 .TabsCtrlStyle3ButtonDown,
+body.OemplusB2 .TabsCtrlStyle4ButtonDown {
+  background-image: url(../images/B2TabPress.png);
+  font-size: 26px;
+  color: #ffffff;
+}
+body.OemplusB2 .TabsCtrlStyle2ButtonDownCurrent,
+body.OemplusB2 .TabsCtrlStyle3ButtonDownCurrent,
+body.OemplusB2 .TabsCtrlStyle4ButtonDownCurrent {
+  background-image: url(../images/B2TabPressCurrent.png);
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  font-size: 26px;
+  color: #ffffff;
+}
+body.OemplusB2 .TabsCtrlStyle2ButtonDisabled,
+body.OemplusB2 .TabsCtrlStyle3ButtonDisabled,
+body.OemplusB2 .TabsCtrlStyle4ButtonDisabled {
+  background-image: none;
+  font-size: 26px;
+  color: #4d525a;
+}
+/* label-span neemt kleur over van de knop (span zelf heeft geen kleurregel in OEM) */
+body.OemplusB2 .TabsCtrlLabelSpan { color: inherit; }
+/* Style4 vorige/volgende pijlen: B2-PNG over de OEM-achtergrond; de icon-div (Tab_Arrow*.png, inline
+ * style) wordt verborgen -- de pijl zit in onze PNG. downClass = ...PrevNextBtnHit (gedeeld L/R). */
+body.OemplusB2 .TabsCtrlStyle4PrevBtn {
+  background-image: url(../images/B2TabArrow_L_En.png);
+}
+body.OemplusB2 .TabsCtrlStyle4NextBtn {
+  background-image: url(../images/B2TabArrow_R_En.png);
+}
+body.OemplusB2 .TabsCtrlStyle4PrevNextBtnHit {
+  background-image: url(../images/B2TabArrow_L_Hit.png);
+}
+body.OemplusB2 .TabsCtrlStyle4PrevBtn .ButtonCtrlIcon,
+body.OemplusB2 .TabsCtrlStyle4NextBtn .ButtonCtrlIcon {
+  background-image: none !important;
+}
+/* focus op een pijl-knop: rode streep onder de pijl (horizontaal, zoals tab/knop) -- via Hit-PNG
+ * want ButtonCtrl voegt focusedClass toe bovenop enabledClass; de OEM-tab heeft geen focusedClass,
+ * dus het zichtbare focusbeeld is de rode streep in de Hit/press PNG. ButtonCtrl voegt focusedClass
+ * toe ALS die gezet is; TabsCtrl zet geen focusedClass voor pijlen, dus MC-focus op een pijl toont
+ * geen extra klasse -- de rode streep zit al in de Hit/press PNG.
+ * Daarom: niets extra nodig; documentatie in NOTITIE-P3.md. */
+
+/* ================= Slider (los, niet in lijst) ================= */
+/* .SliderCtrl = wrapper: OEM black bg + gray 1px border -> B2: transparant + track-PNG (P1).
+ * Alleen border-COLOR (nooit border: none / width) -> SliderCtrl.js-rekenwerk ongewijzigd (H1). */
+body.OemplusB2 .SliderCtrl {
+  background-color: transparent;
+  border-color: transparent;
+  background-image: url(../images/B2SliderTrack.png);
+  background-position: 0 50%;
+  background-repeat: repeat-x;
+}
+/* vulling: licht #E8EAEE (text-value/primary-outline), repeat-x zodat elke breedte past */
+body.OemplusB2 .SliderCtrlFill,
+body.OemplusB2 .SliderCtrlFillNoCenter,
+body.OemplusB2 .SliderCtrlPivotFillLeft,
+body.OemplusB2 .SliderCtrlFocusedFill {
+  background-color: #e8eaee;
+  background-image: none;
+}
+body.OemplusB2 .SliderCtrlDisabledFill { background-color: #4d525a; }
+/* knop: P1 B2SliderKnob_En.png (43x43, gecentreerd); focus = rode ring (P1 B2SliderKnob_Focus.png) */
+body.OemplusB2 .SliderCtrlHandle {
+  background-color: transparent;
+  background-image: url(../images/B2SliderKnob_En.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+body.OemplusB2 .SliderCtrlFocusedHandle {
+  background-color: transparent;
+  background-image: url(../images/B2SliderKnob_Focus.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+body.OemplusB2 .SliderCtrlDisabledHandle {
+  background-color: transparent;
+  background-image: url(../images/B2SliderKnob_En.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+}
+/* focus/disabled wrapper-vlakken (alleen kleur, geen maat) */
+body.OemplusB2 .SliderCtrlFocusedWrapper,
+body.OemplusB2 .SliderCtrlDisabledWrapper {
+  background-color: transparent;
+}
+
+/* ================= ButtonCtrl (generiek 150x100; oa. losse knoppen in lijsten/dialogs) ================= */
+/* OEM: bg #777 + witte 1px border. B2: wit 8% vlak radius 10 via PNG (B2Btn150_En), border transparant
+ * (alleen KLEUR, width blijft 1px -> geen shift). */
+body.OemplusB2 .ButtonCtrl {
+  background-color: transparent;
+  border-color: transparent;
+  background-image: url(../images/B2Btn150_En.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  color: #e8eaee;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 28px;
+}
+/* ButtonCtrl debug/state-klassen (div.ButtonCtrlFocused/Down/Held/Disabled uit ButtonCtrl.css) --
+ * deze worden o.a. door StatusBar/LeftBtn/ScreenSettings2 gebruikt NIET; de generieke .ButtonCtrl
+ * state-klassen uit ButtonCtrl.css zijn div.-geprefixeerd (0,1,1) -> onze prefix wint. */
+body.OemplusB2 div.ButtonCtrlFocused {
+  background-image: url(../images/B2Btn150_Focus.png);
+  color: #ffffff;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+}
+body.OemplusB2 div.ButtonCtrlDown,
+body.OemplusB2 div.ButtonCtrlHeld {
+  background-image: url(../images/B2Btn150_Hit.png);
+  color: #ffffff;
+}
+body.OemplusB2 div.ButtonCtrlDisabled {
+  background-image: url(../images/B2Btn150_Ds.png);
+  color: #5f656e;
+}
+/* checkbox-variant label (ButtonCtrl buttonStyle=checkbox) */
+body.OemplusB2 .ButtonCtrlCheckBoxLabel { color: #d9dde2; font-size: 24px; }

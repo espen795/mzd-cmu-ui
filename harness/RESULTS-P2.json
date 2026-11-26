@@ -1,0 +1,779 @@
+{
+ "pakket": "P2 Dialog3",
+ "checks": [
+  {
+   "check": "H8 static: geen selector van B2Sub-20 in een ander B2Sub-bestand",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H7 static: marker OEMPLUS-B2 + ASCII-only in B2Sub-20-dialog3.css",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "P2 assets: elke url(../images/...) in de CSS bestaat als PNG",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "setup: B2 aan (subOn, body.OemplusB2 op niet-protected)",
+   "ok": true,
+   "detail": {
+    "on": true,
+    "subOn": true,
+    "subLinks": 5
+   }
+  },
+  {
+   "check": "setup: B2Sub-20-dialog3.css zit in de lader-lijst op positie 20",
+   "ok": true,
+   "detail": [
+    "common/oemplusb2/css/B2Sub-00-base.css",
+    "common/oemplusb2/css/B2Sub-10-list2.css",
+    "common/oemplusb2/css/B2Sub-20-dialog3.css",
+    "common/oemplusb2/css/B2Sub-30-tabs-slider-button.css",
+    "common/oemplusb2/css/B2Sub-40-media-input.css"
+   ]
+  },
+  {
+   "check": "setup: B2Sub-20-dialog3.css daadwerkelijk geladen (niet 404)",
+   "ok": true,
+   "detail": [
+    "common/oemplusb2/css/B2Sub-20-dialog3.css"
+   ]
+  },
+  {
+   "check": "open S1 2-knoppen style13 (system/NoConnectionNotify): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "NoConnectionNotify",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S1 2-knoppen style13: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S1 2-knoppen style13: 2 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     70,
+     382,
+     330,
+     80
+    ],
+    [
+     "buttonCtrl_1",
+     400,
+     382,
+     330,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S1 2-knoppen style13: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S1 2-knoppen style13: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_1",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn2_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S1 2-knoppen style13: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S2 2-knoppen style02 focus0 (btpairing/ConfirmDelete): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "ConfirmDelete",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S2 2-knoppen style02 focus0: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S2 2-knoppen style02 focus0: 2 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     70,
+     382,
+     330,
+     80
+    ],
+    [
+     "buttonCtrl_1",
+     400,
+     382,
+     330,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S2 2-knoppen style02 focus0: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S2 2-knoppen style02 focus0: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn2_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S2 2-knoppen style02 focus0: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S3 3-knoppen style17 (system/NotifyDialog): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "NotifyDialog",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S3 3-knoppen style17: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S3 3-knoppen style17: 3 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     70,
+     382,
+     220,
+     80
+    ],
+    [
+     "buttonCtrl_1",
+     290,
+     382,
+     220,
+     80
+    ],
+    [
+     "buttonCtrl_2",
+     510,
+     382,
+     220,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S3 3-knoppen style17: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S3 3-knoppen style17: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_2",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn3_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S3 3-knoppen style17: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S4 fullscreen 2-knoppen style02 (syssettings/FactoryResetConfirm): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "FactoryResetConfirm",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S4 fullscreen 2-knoppen style02: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBgFs.png\")"
+  },
+  {
+   "check": "H1 S4 fullscreen 2-knoppen style02: 2 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     70,
+     382,
+     330,
+     80
+    ],
+    [
+     "buttonCtrl_1",
+     400,
+     382,
+     330,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S4 fullscreen 2-knoppen style02: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S4 fullscreen 2-knoppen style02: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn2_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S4 fullscreen 2-knoppen style02: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S5 indeterminate meter style14 0 knoppen (btpairing/ConnectingDevice): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "ConnectingDevice",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S5 indeterminate meter style14 0 knoppen: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S5 indeterminate meter style14 0 knoppen: 0 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H4 S5 indeterminate meter style14 0 knoppen: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S5 indeterminate meter style14 0 knoppen: gefocuste knop (0) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "P2 bounds S5 indeterminate meter style14 0 knoppen: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S6 indeterminate als imagePath1 style03 (btpairing/PairingInProcess): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "PairingInProcess",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S6 indeterminate als imagePath1 style03: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S6 indeterminate als imagePath1 style03: 0 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H4 S6 indeterminate als imagePath1 style03: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S6 indeterminate als imagePath1 style03: gefocuste knop (0) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "P2 bounds S6 indeterminate als imagePath1 style03: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S7 PIN style16 2 knoppen (satradio/VuiConfirmNewPIN): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "VuiConfirmNewPIN",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S7 PIN style16 2 knoppen: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S7 PIN style16 2 knoppen: 2 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     70,
+     382,
+     330,
+     80
+    ],
+    [
+     "buttonCtrl_1",
+     400,
+     382,
+     330,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S7 PIN style16 2 knoppen: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S7 PIN style16 2 knoppen: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn2_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S7 PIN style16 2 knoppen: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S8 determinate meter style03 2 knoppen (aharadio/ShoutRecording): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "ShoutRecording",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S8 determinate meter style03 2 knoppen: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+  },
+  {
+   "check": "H1 S8 determinate meter style03 2 knoppen: 2 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     70,
+     382,
+     330,
+     80
+    ],
+    [
+     "buttonCtrl_1",
+     400,
+     382,
+     330,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S8 determinate meter style03 2 knoppen: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S8 determinate meter style03 2 knoppen: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn2_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S8 determinate meter style03 2 knoppen: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "open S9 1 knop + titel + fullscreen style02 (system/Disclaimer): Dialog3Ctrl aanwezig, body.OemplusB2 aan",
+   "ok": true,
+   "detail": {
+    "ctxt": "Disclaimer",
+    "hasCtrl": true,
+    "subCls": true,
+    "errors": []
+   }
+  },
+  {
+   "check": "open S9 1 knop + titel + fullscreen style02: B2-paneel actief (bg = B2DialogBg*.png)",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBgFs.png\")"
+  },
+  {
+   "check": "H1 S9 1 knop + titel + fullscreen style02: 1 knoppen met hitbox (l,t,w,h) gemeten",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     69,
+     382,
+     662,
+     80
+    ]
+   ]
+  },
+  {
+   "check": "H4 S9 1 knop + titel + fullscreen style02: alle zichtbare dialog-teksten >= 24px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H5 S9 1 knop + titel + fullscreen style02: gefocuste knop (1) toont B2DlgBtn*_Focus.png",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn1_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "P2 bounds S9 1 knop + titel + fullscreen style02: geen content-tekst buiten paneel x 70-730 (titel uitgezonderd, OEM-breed)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "H6 setup: na b2Off geen body.OemplusB2 en geen B2Sub-links",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "H6 S1: na uit (context herladen zonder B2) bg = OEM DialogBG_Style01.png",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/controls/Dialog3/images/DialogBG_Style01.png\")"
+  },
+  {
+   "check": "H1 S1: knop-hitboxes identiek met B2 aan/uit (0 px verschil)",
+   "ok": true,
+   "detail": {
+    "aan": [
+     [
+      "buttonCtrl_0",
+      70,
+      382,
+      330,
+      80
+     ],
+     [
+      "buttonCtrl_1",
+      400,
+      382,
+      330,
+      80
+     ]
+    ],
+    "uit": [
+     [
+      "buttonCtrl_0",
+      70,
+      382,
+      330,
+      80
+     ],
+     [
+      "buttonCtrl_1",
+      400,
+      382,
+      330,
+      80
+     ]
+    ]
+   }
+  },
+  {
+   "check": "H2 S1: focus-wissel cw/cw/ccw + index gelijk aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "res": [
+      null,
+      null,
+      null
+     ],
+     "idx": [
+      1,
+      1,
+      0
+     ]
+    },
+    "uit": {
+     "res": [
+      null,
+      null,
+      null
+     ],
+     "idx": [
+      1,
+      1,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "check": "H2 S1: select vuurt zelfde appData met B2 aan/uit",
+   "ok": true,
+   "detail": {
+    "aan": {
+     "fired": [],
+     "idx": 0
+    },
+    "uit": {
+     "fired": [],
+     "idx": 0
+    }
+   }
+  },
+  {
+   "check": "H3: OEM Dialog3Ctrl.css geladen (boot-control) maar B2Sub-20 wint op specificiteit (bg=B2)",
+   "ok": true,
+   "detail": {
+    "oem": true,
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+   }
+  },
+  {
+   "check": "H3b: gefocuste knop bg = B2DlgBtn*_Focus.png (niet OEM Dialog_*Btn_Focus)",
+   "ok": true,
+   "detail": [
+    [
+     "buttonCtrl_0",
+     "url(\"http://cmu.local/common/oemplusb2/images/B2DlgBtn2_Focus.png\")"
+    ]
+   ]
+  },
+  {
+   "check": "S5 indeterminate (meter): meter-div bg = B2Indeterminate_0N.png en OEM <img> verborgen",
+   "ok": true,
+   "detail": {
+    "indet": "url(\"http://cmu.local/common/oemplusb2/images/B2Indeterminate_01.png\")",
+    "img": "hidden"
+   }
+  },
+  {
+   "check": "S6 indeterminate als imagePath1 (style03, geen meter): image1-div toont B2Indeterminate frame (B2-variant van spinner)",
+   "ok": true,
+   "detail": {
+    "img1": "url(\"http://cmu.local/common/oemplusb2/images/B2Indeterminate_01.png\")",
+    "cls": "Dialog3Ctrl_Style03_Image1"
+   }
+  },
+  {
+   "check": "S8 determinate: track = B2ProgressTrack.png, highlight = B2ProgressFill.png repeat-x, breedte = JS inline",
+   "ok": true,
+   "detail": {
+    "meter": "url(\"http://cmu.local/common/oemplusb2/images/B2ProgressTrack.png\")",
+    "hl": "url(\"http://cmu.local/common/oemplusb2/images/B2ProgressFill.png\")",
+    "w": "608px"
+   }
+  },
+  {
+   "check": "S7 PIN: PinEntryBkg vervangen door B2PinField.png",
+   "ok": true,
+   "detail": "url(\"http://cmu.local/common/oemplusb2/images/B2PinField.png\")"
+  },
+  {
+   "check": "S9 titel: separator = B2DialogTitleSep.png; bg = B2DialogBgFs (fullScreen)",
+   "ok": true,
+   "detail": {
+    "sep": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogTitleSep.png\")",
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBgFs.png\")"
+   }
+  },
+  {
+   "check": "inventaris: protected Dialog3-contexts gevonden (73)",
+   "ok": true,
+   "detail": [
+    [
+     "androidauto",
+     "ErrorCondition_DNR"
+    ],
+    [
+     "androidauto",
+     "ErrorCondition_DSU"
+    ],
+    [
+     "androidauto",
+     "ErrorCondition_NVSSU"
+    ],
+    [
+     "androidauto",
+     "NoteOnUseAudio"
+    ],
+    [
+     "androidauto",
+     "NoteOnUseData"
+    ],
+    [
+     "androidauto",
+     "TerminateCPAndLaunchAA"
+    ]
+   ]
+  },
+  {
+   "check": "H9 androidauto/NoteOnUseData (protected): GEEN body.OemplusB2 en bg = OEM DialogBG (geen B2)",
+   "ok": true,
+   "detail": {
+    "ctxt": "NoteOnUseData",
+    "subCls": false,
+    "bg": "url(\"http://cmu.local/common/controls/Dialog3/images/DialogBG_Style01.png\")"
+   }
+  },
+  {
+   "check": "H9 mobile911/CollisionDetectedDialog (protected): geen OemplusB2, OEM bg",
+   "ok": true,
+   "detail": {
+    "ctxt": "CollisionDetectedDialog",
+    "subCls": false,
+    "bg": "url(\"http://cmu.local/common/controls/Dialog3/images/DialogBG_Style01.png\")"
+   }
+  },
+  {
+   "check": "H9 system/DisplayOff: body.OemplusB2 weg binnen de wissel",
+   "ok": true,
+   "detail": {
+    "cls": false,
+    "ctxt": "DisplayOff"
+   }
+  },
+  {
+   "check": "H9 herstel: terug op niet-protected Dialog3 -> OemplusB2 er weer + B2 bg",
+   "ok": true,
+   "detail": {
+    "subCls": true,
+    "bg": "url(\"http://cmu.local/common/oemplusb2/images/B2DialogBg.png\")"
+   }
+  },
+  {
+   "check": "einde: geen JS-fouten (pageerrors + window.__errors)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "stock S1: geen OemplusB2, bg = OEM",
+   "ok": true,
+   "detail": {
+    "subCls": false,
+    "bg": "url(\"http://cmu.local/common/controls/Dialog3/images/DialogBG_Style01.png\")"
+   }
+  },
+  {
+   "check": "H1 stock S1: knop-hitboxes gelijk aan B2-aan (verg across sessies)",
+   "ok": true,
+   "detail": {
+    "stock": [
+     [
+      "buttonCtrl_0",
+      70,
+      382,
+      330,
+      80
+     ],
+     [
+      "buttonCtrl_1",
+      400,
+      382,
+      330,
+      80
+     ]
+    ],
+    "b2aan": [
+     [
+      "buttonCtrl_0",
+      70,
+      382,
+      330,
+      80
+     ],
+     [
+      "buttonCtrl_1",
+      400,
+      382,
+      330,
+      80
+     ]
+    ]
+   }
+  },
+  {
+   "check": "H6 pixel: uit-shot content (y64-480) == stock-shot -> uit = OEM",
+   "ok": true,
+   "detail": {
+    "uit": "7090c4470aca",
+    "stock": "7090c4470aca"
+   }
+  },
+  {
+   "check": "pixel: aan-shot content verschild van stock (B2 zichtbaar in dialog)",
+   "ok": true,
+   "detail": "(0, 0, 800, 416)"
+  }
+ ],
+ "failed": 0
+}

@@ -1,0 +1,212 @@
+/* OEMPLUS-B2 submenus -- pakket P1 "List2" (B2Sub-10-list2.css)
+ * Doel: List2Tmplt / List2Ctrl (149 schermen, 39 %). OEM: common/controls/List2/css/List2Ctrl.css (~8900 r.).
+ * Twee lagen:
+ *  (A) TOKEN-regels: tekstkleur/-grootte/-font voor ALLE item-styles in een paar regels, met !important
+ *      (OEM heeft per style een eigen selector tot specificiteit 0,6,0; !important + body-prefix wint altijd,
+ *      ook van inline style die app-JS zet). Alleen color/font-size/font-family -- NOOIT maten/posities.
+ *  (B) STATE-regels: achtergronden (separator, focus, hit, grijs) op de EXACTE OEM-selector + prefix.
+ * Item-hoogtes 64/82, posities van .ListItem, .image*, .caret en de mask/scroller blijven OEM (hitbox/scroll-JS).
+ * Presto 2.12: geen gradients/box-shadow/var(); multiple backgrounds wel (OEM gebruikt ze zelf, r.4693). */
+
+/* ================= container ================= */
+body.OemplusB2 .List2Ctrl {
+  background-image: none;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+}
+/* R-cmu F6: GEEN background-image:none !important op .List2CtrlCustomBackground meer -- die regel wint van de
+ * inline style die List2Ctrl.setListBackground zet (schedmaint: onderhoudsschema/bandenrotatie, schedmaintApp.js
+ * r.645-698). De OEM-standaardachtergrond van de control zelf staat hierboven (zonder !important, op .List2Ctrl). */
+
+/* ================= titel (69 px) ================= */
+body.OemplusB2 .List2Ctrl.listTitle.listTitleNormal .List2CtrlTitle,
+body.OemplusB2 .List2Ctrl.listTitle.listTitleMedium .List2CtrlTitle,
+body.OemplusB2 .List2Ctrl.listTitle.listTitleThick .List2CtrlTitle {
+  background-image: url(../images/B2TitleBg.png);
+}
+body.OemplusB2 .List2Ctrl.tabsTitle .List2CtrlTitle {
+  background-image: none;
+}
+body.OemplusB2 .List2CtrlTitle .line1 {
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+  font-size: 30px !important;
+  color: #f2f3f5 !important;
+}
+
+/* ================= (A) tekst-tokens ================= */
+body.OemplusB2 .List2Ctrl .ListItem .line1,
+body.OemplusB2 .List2Ctrl .ListItem .label1 {
+  color: #d9dde2 !important;
+}
+body.OemplusB2 .List2Ctrl.normalItems .ListItem .line1 { font-size: 30px !important; }
+body.OemplusB2 .List2Ctrl.thickItems .ListItem .line1 { font-size: 32px !important; }
+body.OemplusB2 .List2Ctrl .ListItem .line2,
+body.OemplusB2 .List2Ctrl .ListItem .label2 {
+  color: #9aa1aa !important;
+  font-size: 24px !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem .label1 {
+  font-size: 24px !important;
+}
+/* label1 als rechter waarde (style06/style03a/style07): iets lichter dan line2 */
+body.OemplusB2 .List2Ctrl .ListItem.style06 .label1,
+body.OemplusB2 .List2Ctrl .ListItem.style03a .label1,
+body.OemplusB2 .List2Ctrl .ListItem.style07 .label1 {
+  color: #aeb4bd !important;
+}
+/* styleStep: label1 is de naam (links) -> als line1 */
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.styleStep .label1 {
+  font-size: 30px !important;
+  color: #d9dde2 !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem.styleStep .label2 {
+  font-size: 28px !important;
+  color: #f2f3f5 !important;
+}
+
+/* focus: wit + semibold (breedte van de tekst kan wijzigen -> alleen ellipsis, geen layout) */
+body.OemplusB2 .List2Ctrl .ListItem.focus .line1,
+body.OemplusB2 .List2Ctrl .ListItem.focus .label1,
+body.OemplusB2 .List2Ctrl .ListItem.hit .line1 {
+  color: #ffffff !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem.focus .line2,
+body.OemplusB2 .List2Ctrl .ListItem.focus .label2 {
+  color: #c4c9d0 !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem.focus.styleStep .label2 {
+  color: #ffffff !important;
+}
+/* uitgeschakeld */
+body.OemplusB2 .List2Ctrl .ListItem.disabled .line1,
+body.OemplusB2 .List2Ctrl .ListItem.disabled .line2,
+body.OemplusB2 .List2Ctrl .ListItem.disabled .label1,
+body.OemplusB2 .List2Ctrl .ListItem.disabled .label2 {
+  color: #5f656e !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem.disabled .image1 {
+  opacity: 0.4;
+}
+
+/* ================= (B) item-achtergronden: exacte OEM-selectors (List2Ctrl.css r.682, 4680-4735, 8870-8930) ===== */
+body.OemplusB2 .List2Ctrl.normalItems .ListItem,
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.disabled,
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.secondaryFocus {
+  background-image: url(../images/B2ListSep.png) !important;
+  background-position: 0 100% !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.thickItems .ListItem,
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.disabled,
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.secondaryFocus {
+  background-image: url(../images/B2ListSep.png) !important;
+  background-position: 0 100% !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.focus,
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.disabled.focus {
+  background-image: url(../images/B2ListFocus.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.focus,
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.disabled.focus {
+  background-image: url(../images/B2ListFocus_Thick.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.hit,
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.hit.focus {
+  background-image: url(../images/B2ListFocus_Press.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.hit,
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.hit.focus {
+  background-image: url(../images/B2ListFocus_Press_Thick.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.longpress,
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.bgGrey.disabled,
+body.OemplusB2 .List2Ctrl.normalItems .ListItem.bgLightGrey.disabled {
+  background-image: url(../images/B2ListFocus_Gray.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.longpress,
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.bgGrey.disabled,
+body.OemplusB2 .List2Ctrl.thickItems .ListItem.bgLightGrey.disabled {
+  background-image: url(../images/B2ListFocus_Gray_Thick.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+/* focus_entry-animatie (r.38) laten staan: alleen opacity/positie van de achtergrond, Presto-OEM */
+
+/* ================= caret ================= */
+body.OemplusB2 .List2Ctrl .ListItem.hasCaret .caret {
+  background-image: url(../images/B2Caret.png) !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem.hasCaret.focus .caret {
+  background-image: url(../images/B2Caret_Focus.png) !important;
+}
+
+/* ================= checkbox / radio / tick (style03, style03a: image1) ================= */
+body.OemplusB2 .List2Ctrl .ListItem.checkbox .image1 { background-image: url(../images/B2Check_Off_En.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.checked.checkbox .image1 { background-image: url(../images/B2Check_On_En.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.disabled.checkbox .image1 { background-image: url(../images/B2Check_Off_Ds.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.disabled.checked.checkbox .image1 { background-image: url(../images/B2Check_On_Ds.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.radio .image1 { background-image: url(../images/B2Radio_Off_En.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.checked.radio .image1 { background-image: url(../images/B2Radio_On_En.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.disabled.radio .image1 { background-image: url(../images/B2Radio_Off_Ds.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.disabled.checked.radio .image1 { background-image: url(../images/B2Radio_On_Ds.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.checked.tick .image1 { background-image: url(../images/B2Tick.png) !important; }
+
+/* ================= aan/uit-schakelaar (styleOnOff: image2, r.2094-2108) ================= */
+body.OemplusB2 .List2Ctrl .ListItem.styleOnOff .image2 { background-image: url(../images/B2Toggle_Off_En.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.styleOnOff.checked .image2 { background-image: url(../images/B2Toggle_On_En.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.styleOnOff.disabled .image2 { background-image: url(../images/B2Toggle_Off_Ds.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.styleOnOff.disabled.checked .image2 { background-image: url(../images/B2Toggle_On_Ds.png) !important; }
+
+/* ================= in-lijst schuif (style12/13, r.1557-1600) ================= */
+body.OemplusB2 .List2Ctrl .ListItem .List2CtrlSliderCtrl {
+  background: url(../images/B2SliderTrack.png) 50% 50% no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem .List2CtrlSliderCtrlFill,
+body.OemplusB2 .List2Ctrl .ListItem .List2CtrlSliderCtrlFocusedFill {
+  background: url(../images/B2SliderFill.png) 0 0 repeat-x !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem .List2CtrlSliderCtrlHandle {
+  background: url(../images/B2SliderKnob_En.png) 50% 50% no-repeat !important;
+}
+body.OemplusB2 .List2Ctrl .ListItem .List2CtrlSliderCtrlFocusedHandle,
+body.OemplusB2 .List2Ctrl .ListItem.focus .List2CtrlSliderCtrlHandle {
+  background: url(../images/B2SliderKnob_Focus.png) 50% 50% no-repeat !important;
+}
+
+/* ================= stapper (styleStep: plus/minus, r.2158-2200) ================= */
+body.OemplusB2 .List2Ctrl .ListItem.styleStep .plus { background-image: url(../images/B2Plus.png) !important; }
+body.OemplusB2 .List2Ctrl .ListItem.styleStep .minus { background-image: url(../images/B2Minus.png) !important; }
+
+/* ================= schuifbalk (r.131-156) -- mechanisme (background-position door JS) blijft ================= */
+body.OemplusB2 .List2CtrlScrollIndicatorWrapper {
+  background-image: url(../images/B2ScrollTrack.png);
+}
+body.OemplusB2 .List2CtrlScrollIndicator {
+  background-image: url(../images/B2ScrollThumb.png);
+}
+
+/* ================= letter-index (IndexedListBg, r.300-330) ================= */
+body.OemplusB2 .List2CtrlLetterIndexWrapper {
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.04);
+}
+body.OemplusB2 .List2CtrlLetterIndex .letter {
+  color: #8a919b;
+  font-size: 24px;
+}
+body.OemplusB2 .List2CtrlLetterIndex .letter.focus {
+  color: #ffffff;
+  background-image: none;
+  background-color: rgba(200, 16, 46, 0.85);
+}

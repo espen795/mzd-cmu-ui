@@ -1,0 +1,393 @@
+/* OEMPLUS-B2 v1 (2026-11-25): home-layout B2 "lijst + contextueel mini-overzicht".
+ * Vervangt de stock coin-boog. Presto 2.12: alleen absolute positionering, -o-transition,
+ * geen CSS-gradients/variabelen/flex/grid (verlopen en gloed zitten in images/b2/*.png).
+ * v1.1 (2026-11-25): op home is de OEM-statusbalk verborgen (StatusBarCtrl.css, body.OemplusB2Home). MainMenuCtrl
+ * beslaat daarom het hele scherm (top -64 binnen TemplateWithStatus = pagina-y 0, 800x480): alle coordinaten hieronder
+ * zijn PAGINA-coordinaten en gelijk aan de mockup ui-mockup-v1.0/layouts/lb2-context (rijen y 75 + 66*i).
+ * DOM (zie MainMenuCtrl.js): per item MainMenuCtrl<Key>Div (rij 372x66) met kinderen
+ *   <Key>Focus  = contextvak rechts (alleen zichtbaar bij MainMenuCtrlCoinFocus)
+ *   <Key>Normal = rij in rust (grijs icoon + label)
+ * en los <Key>Highlight (focusband + wit icoon/label, krijgt .Visible).
+ * v1.2 (2026-11-26): BOVENSTE 64 px gereserveerd voor de SBN-banner (SbnCtrl, x 59-685, y 1-59). De B2-kop schuift
+ * van y 25/82/120 naar y 71/128/166 en de rijen van y 75+66*i naar y 121+66*i, zodat klok/inhoud NOOIT onder de banner
+ * valt (live-test 2026-11-26: straatnaam-banner viel over de klok).
+ * Rij-tops: 121 + 66*i  |  contextvak: x=420, y=188, 352x286 (Focus-tops 67/1/-65/-131/-197; fix B1: v1.2 zette ze
+ * +46 waardoor het vak op 234-520 landde)  |  kop: klok/datum x=420 (y 71/128), statusiconen rechts (y 82). */
+
+/* OEMPLUS-B2 */
+.MainMenuCtrl {
+  position: absolute;
+  left: 0px;
+  top: -64px;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+  background: #030405 url(../images/b2/HomeBg.png) no-repeat 0 0;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+  color: #f2f3f5;
+  -o-transition-property: left;
+  -o-transition-duration: .15s;
+  -o-transition-timing-function: ease-in;
+  -o-transition-delay: 0;
+  -o-transform-origin: top left; }
+
+/* OEMPLUS-B2: boog en het ene gedeelde label van de stock-layout zijn niet meer nodig.
+ * IconName blijft in de DOM (systemApp.setText / CarPlay-workaround schrijft erin) maar onzichtbaar. */
+.MainMenuCtrlEllipse { display: none; }
+.MainMenuCtrlIconName {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden; }
+  .MainMenuCtrlIconName.Visible { opacity: 0; }
+
+/* OEMPLUS-B2 v1.2: verticale scheidingslijn + kop rechts, ALLEMAAL onder de 64 px SBN-reservering (was top 40/25/82/120). */
+.MainMenuCtrlB2Divider {
+  position: absolute;
+  left: 372px;
+  top: 76px;
+  width: 1px;
+  height: 364px;
+  background: url(../images/b2/Divider.png) no-repeat; }
+
+.MainMenuCtrlB2Clock {
+  position: absolute;
+  left: 418px;
+  top: 71px;
+  width: 200px;
+  height: 52px;
+  font-size: 50px;
+  line-height: 52px;
+  color: #f6f7f9;
+  white-space: nowrap; }
+
+.MainMenuCtrlB2Date {
+  position: absolute;
+  left: 421px;
+  top: 128px;
+  width: 352px;
+  height: 22px;
+  font-size: 17px;
+  line-height: 22px;
+  color: #858c96;
+  white-space: nowrap; }
+
+.MainMenuCtrlB2TopRule {
+  position: absolute;
+  left: 420px;
+  top: 166px;
+  width: 352px;
+  height: 1px;
+  background: url(../images/b2/RuleTop.png) no-repeat; }
+
+/* OEMPLUS-B2 v1.1: statusiconen in de kop (gespiegeld uit de verborgen OEM-statusbalk, zelfde PNG's
+ * common/images/icons/IcnSb*.png 37x29). Max 4, rechts uitgelijnd tot x 772. v1.2: top 36 -> 82 (onder de SBN-reservering). */
+.MainMenuCtrlB2Stat {
+  position: absolute;
+  left: 624px;
+  top: 82px;
+  width: 148px;
+  height: 29px;
+  overflow: hidden;
+  text-align: right;
+  white-space: nowrap; }
+.B2StatIcon {
+  display: none;
+  width: 37px;
+  height: 29px;
+  background-repeat: no-repeat;
+  background-position: center center; }
+.B2StatIcon.B2On { display: inline-block; }
+
+/* OEMPLUS-B2: rijen (de <Key>Div's). De rij zelf heeft een eigen opacity-transitie op focus,
+ * zodat OTransitionEnd gegarandeerd op de div zelf vuurt (open-na-transitie, _setHighlightEnd). */
+.MainMenuCtrlAppDiv, .MainMenuCtrlEntDiv, .MainMenuCtrlComDiv, .MainMenuCtrlNavDiv, .MainMenuCtrlSetDiv {
+  position: absolute;
+  left: 0px;
+  width: 372px;
+  height: 66px;
+  opacity: 0.99;
+  -o-transition: opacity 0.2s linear; }
+
+/* OEMPLUS-B2 v1.2: rijen beginnen op y 121 (was 75) zodat de SBN-banner (y 1-59) nooit over een rij valt. */
+.MainMenuCtrlAppDiv { top: 121px; }
+.MainMenuCtrlEntDiv { top: 187px; }
+.MainMenuCtrlComDiv { top: 253px; }
+.MainMenuCtrlNavDiv { top: 319px; }
+.MainMenuCtrlSetDiv { top: 385px; }
+
+div.MainMenuCtrlCoinFocus { opacity: 1; }
+
+/* rij in rust */
+.MainMenuCtrlAppNormal, .MainMenuCtrlEntNormal, .MainMenuCtrlComNormal, .MainMenuCtrlNavNormal, .MainMenuCtrlSetNormal {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 372px;
+  height: 66px;
+  opacity: 1;
+  -o-transition: opacity 0.18s linear; }
+
+div.MainMenuCtrlCoinFocus .MainMenuCtrlAppNormal,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlEntNormal,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlComNormal,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlNavNormal,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlSetNormal { opacity: 0; }
+
+.MainMenuCtrlB2RowIcon {
+  position: absolute;
+  left: 46px;
+  top: 16px;
+  width: 34px;
+  height: 34px;
+  background-repeat: no-repeat; }
+
+.MainMenuCtrlB2RowLabel {
+  position: absolute;
+  left: 100px;
+  top: 0px;
+  width: 266px;
+  height: 66px;
+  line-height: 66px;
+  font-size: 29px;
+  color: #858c96;
+  white-space: nowrap;
+  overflow: hidden; }
+
+.MainMenuCtrlAppNormal .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcApp.png); }
+.MainMenuCtrlEntNormal .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcEnt.png); }
+.MainMenuCtrlComNormal .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcCom.png); }
+.MainMenuCtrlNavNormal .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcNav.png); }
+.MainMenuCtrlSetNormal .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcSet.png); }
+
+/* focusband (los element, krijgt .Visible) */
+.MainMenuCtrlAppHighlight, .MainMenuCtrlEntHighlight, .MainMenuCtrlComHighlight, .MainMenuCtrlNavHighlight, .MainMenuCtrlSetHighlight {
+  position: absolute;
+  left: 0px;
+  width: 372px;
+  height: 66px;
+  opacity: 0;
+  background: url(../images/b2/RowHighlight.png) no-repeat;
+  -o-transition: opacity 200ms linear; }
+
+.MainMenuCtrlAppHighlight { top: 121px; }
+.MainMenuCtrlEntHighlight { top: 187px; }
+.MainMenuCtrlComHighlight { top: 253px; }
+.MainMenuCtrlNavHighlight { top: 319px; }
+.MainMenuCtrlSetHighlight { top: 385px; }
+
+.MainMenuCtrlAppHighlight.Visible, .MainMenuCtrlEntHighlight.Visible, .MainMenuCtrlComHighlight.Visible,
+.MainMenuCtrlNavHighlight.Visible, .MainMenuCtrlSetHighlight.Visible { opacity: 1; }
+
+.MainMenuCtrlAppHighlight .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcApp_Focus.png); }
+.MainMenuCtrlEntHighlight .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcEnt_Focus.png); }
+.MainMenuCtrlComHighlight .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcCom_Focus.png); }
+.MainMenuCtrlNavHighlight .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcNav_Focus.png); }
+.MainMenuCtrlSetHighlight .MainMenuCtrlB2RowIcon { background-image: url(../images/b2/IcSet_Focus.png); }
+
+.MainMenuCtrlAppHighlight .MainMenuCtrlB2RowLabel, .MainMenuCtrlEntHighlight .MainMenuCtrlB2RowLabel,
+.MainMenuCtrlComHighlight .MainMenuCtrlB2RowLabel, .MainMenuCtrlNavHighlight .MainMenuCtrlB2RowLabel,
+.MainMenuCtrlSetHighlight .MainMenuCtrlB2RowLabel {
+  color: #ffffff;
+  font-family: "Tipperary Semibold", Arial, Helvetica, sans-serif; }
+
+/* OEMPLUS-B2: contextvak = <Key>Focus, absoluut verschoven zodat elk vak op (420,188) landt.
+ * v1.2-fix B1: de Focus-tops zijn de v1.1-waarden (67/1/-65/-131/-197 = 188 - rijTop 121/187/253/319/385);
+ * v1.2 had ze +46 gezet waardoor het vak dubbel verschoven werd (234-520, onderkant van het scherm). */
+.MainMenuCtrlAppFocus, .MainMenuCtrlEntFocus, .MainMenuCtrlComFocus, .MainMenuCtrlNavFocus, .MainMenuCtrlSetFocus {
+  position: absolute;
+  left: 420px;
+  width: 352px;
+  height: 286px;
+  overflow: hidden;
+  opacity: 0;
+  -o-transition: opacity 0.22s linear; }
+
+.MainMenuCtrlAppFocus { top: 67px; }
+.MainMenuCtrlEntFocus { top: 1px; }
+.MainMenuCtrlComFocus { top: -65px; }
+.MainMenuCtrlNavFocus { top: -131px; }
+.MainMenuCtrlSetFocus { top: -197px; }
+
+div.MainMenuCtrlCoinFocus .MainMenuCtrlAppFocus,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlEntFocus,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlComFocus,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlNavFocus,
+div.MainMenuCtrlCoinFocus .MainMenuCtrlSetFocus { opacity: 1; }
+
+/* raster in elk vak: kop 0 | held 28-110 | regel 150 | onderblok 166-280 */
+.B2Hd {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 352px;
+  height: 18px; }
+.B2HdIcon {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat; }
+.B2HdText {
+  position: absolute;
+  left: 28px;
+  top: 0px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #8a919b;
+  font-family: "Tipperary Semibold", Arial, Helvetica, sans-serif;
+  white-space: nowrap; }
+
+.B2Hero {
+  position: absolute;
+  left: 0px;
+  top: 30px;
+  width: 352px;
+  height: 52px;
+  font-size: 44px;
+  line-height: 52px;
+  color: #f6f7f9;
+  white-space: nowrap;
+  overflow: hidden; }
+
+.B2Sub {
+  position: absolute;
+  left: 0px;
+  top: 94px;
+  width: 352px;
+  height: 24px;
+  font-size: 19px;
+  line-height: 24px;
+  color: #9aa1aa;
+  white-space: nowrap;
+  overflow: hidden; }
+.B2SubIcon {
+  position: absolute;
+  left: 0px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  background-repeat: no-repeat;
+  background-position: left center; }
+.B2SubText { position: absolute; left: 32px; top: 0px; width: 320px; height: 24px; white-space: nowrap; overflow: hidden; }
+
+.B2Rule {
+  position: absolute;
+  left: 0px;
+  top: 150px;
+  width: 352px;
+  height: 1px;
+  background: url(../images/b2/Rule.png) no-repeat; }
+
+.B2Note {
+  position: absolute;
+  left: 0px;
+  top: 252px;
+  width: 352px;
+  height: 20px;
+  font-size: 15px;
+  line-height: 20px;
+  color: #6f7680;
+  white-space: nowrap;
+  overflow: hidden; }
+
+/* statisch vak (App, Nav, en terugval als er nog geen data is) */
+.B2Big {
+  position: absolute;
+  left: -27px;
+  top: 6px;
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat; }
+.B2Desc {
+  position: absolute;
+  left: 128px;
+  top: 52px;
+  width: 224px;
+  height: 64px;
+  font-size: 23px;
+  line-height: 30px;
+  color: #b3b9c2; }
+.B2Static .B2Rule { top: 176px; }
+.B2Static .B2Note { top: 194px; }
+
+.B2Dyn { display: none; }
+.B2HasData .B2Dyn { display: block; }
+.B2HasData .B2Static { display: none; }
+
+/* Ent/Set: onderblok "OPENT" + omschrijving */
+.B2Open {
+  position: absolute;
+  left: 0px;
+  top: 198px;
+  width: 352px;
+  height: 26px;
+  font-size: 20px;
+  line-height: 26px;
+  color: #b3b9c2;
+  white-space: nowrap;
+  overflow: hidden; }
+
+/* Com: twee tellers */
+.B2Num {
+  position: absolute;
+  top: 168px;
+  width: 60px;
+  height: 58px;
+  font-size: 54px;
+  line-height: 58px;
+  color: #f6f7f9; }
+.B2NumLbl {
+  position: absolute;
+  top: 178px;
+  height: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 1.8px;
+  color: #7c838d;
+  font-family: "Tipperary Semibold", Arial, Helvetica, sans-serif;
+  white-space: nowrap; }
+.B2NumSub {
+  position: absolute;
+  top: 198px;
+  height: 20px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #8a919b;
+  white-space: nowrap; }
+.B2C1 { left: 0px; }
+.B2C1L { left: 66px; }
+.B2C2 { left: 186px; }
+.B2C2L { left: 252px; }
+.B2Zero { color: #5d636c; }
+
+.B2SbIcons {
+  position: absolute;
+  left: 0px;
+  top: 92px;
+  width: 352px;
+  height: 30px; }
+.B2SbSig, .B2SbBatt {
+  position: absolute;
+  top: 0px;
+  width: 44px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: left center; }
+.B2SbSig { left: 0px; }
+.B2SbBatt { left: 52px; }
+
+/* OEMPLUS-B2: de stock-explode-animaties (vaste left/top van de coins) zijn uitgeschakeld;
+ * de framework-transitie schuift het hele scherm al weg. Klassen blijven bestaan (JS zet ze). */
+.MainMenuCtrlCoinAExplode, .MainMenuCtrlCoinBExplode, .MainMenuCtrlHighlightExplode { }
+
+/* OEMPLUS-B2 v1.2: de klasse .B2SbnUp (gezet door _b2WatchSbn als er een SBN-banner bovenin staat) is een puur
+ * marker voor bewaking; de banner past binnen de 64 px reservering (SbnCtrl y 1-59, bottom 61 incl. 1px-randen),
+ * dus de layout schuift niet en er is bewust GEEN lege CSS-regel voor (CSS-opschoning B7). */

@@ -1,0 +1,79 @@
+/* OEMPLUS-INJECT v1.2 (2026-11-26): B2-stijl voor de SBN-banner (SbnCtrl) ZOLANG body.OemplusB2Home staat
+ * (op B2-home is de OEM-statusbalk verborgen, StatusBarCtrl-oemplusb2.css). Elders ongewijzigd.
+ *
+ * Waarom: live-test 2026-11-26 (logs/shots-2026-11-26/inject-03-home-b2.png) toonde de straatnaam-SBN als een
+ * rood omlijnd vak over de B2-klok. Wens: banner visueel in het B2-thema (donker, subtiel, B2-typografie) en
+ * ruimte bovenin vrijhouden (klok/rijen beginnen op y >= 71/121, zie MainMenuCtrl-oemplusb2.css).
+ *
+ * Presto 2.12-veilig: alleen absolute positionering, -o-transition op top (Presto ondersteunt -o-transition; OEM
+ * gebruikt het zelf in TransitionsGen.css). Geen gradients (donkere achtergrond is een vlakke rgba), geen
+ * box-shadow/filter, geen keyframes. De OEM-achtergrondafbeelding (StatusNotificationBg.png) wordt vervangen door
+ * een vlakke donkere kleur zodat de melding in het B2-thema opgaat.
+ *
+ * In-animatie: Common._displaySbn bouwt de SbnCtrl en voegt hem direct toe; de control schuift via -o-transition
+ * naar top:1px (klasse B2SbnIn, gezet door MainMenuCtrl._b2WatchSbn).
+ * Fix B2 (review V2): de verborgen startpositie top:-60px geldt ALLEEN zolang de B2-watcher actief is
+ * (body.OemplusB2Home.OemplusB2.B2SbnWatch), zodat een banner NOOIT verborgen kan blijven als de watcher niet draait of
+ * _b2Start faalt -- zonder die klasse staat de banner direct op de normale plaats top:1px.
+ * Bij verwijderen (Common._removeDisplayedSbn -> framework.destroyControl) gaat het element meteen uit de DOM,
+ * dus een uit-animatie is niet zichtbaar; daarom alleen een subtiele in-animatie (slide van boven). */
+
+/* OEMPLUS-INJECT v1.2 / OEMPLUS-B2
+ * R-cmu F7 (v1.3-review): op home staat OemplusB2Home EN OemplusB2; B2Sub-00 (body.OemplusB2 .SbnCtrl,
+ * specificiteit 0,2,1) zou anders op home winnen op laadvolgorde. Daarom hier body.OemplusB2Home.OemplusB2 ...
+ * (0,3,1): de home-variant wint op home ongeacht laadvolgorde; elders (alleen OemplusB2) geldt B2Sub-00.
+ * B2SbnWatch staat los van OemplusB2 (de watcher zet/halt hemzelf), dus de fail-visible-regel werkt op
+ * home (OemplusB2Home + B2SbnWatch) en op submenu's (alleen B2SbnWatch). */
+body.OemplusB2Home.OemplusB2 .SbnCtrl {
+  top: 1px;
+  background-image: none;
+  background-color: rgba(3, 4, 5, 0.94);
+  border-top: 1px solid #262b33;
+  border-bottom: 1px solid #262b33;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+  font-size: 26px;
+  line-height: 54px;
+  color: #e8eaee;
+  -o-transition-property: top;
+  -o-transition-duration: 0.25s;
+  -o-transition-timing-function: ease-out;
+  -o-transition-delay: 0s;
+}
+
+/* verborgen startpositie ALLEEN zolang de watcher actief is (fix B2: fail-visible in plaats van fail-hidden);
+ * op home en op submenu's (OemplusB2Home optioneel) */
+body.OemplusB2.B2SbnWatch .SbnCtrl,
+body.OemplusB2Home.B2SbnWatch .SbnCtrl {
+  top: -60px;
+}
+
+/* startpositie net toegevoegd -> schuif naar de normale plaats (klasse B2SbnIn wordt door _b2WatchSbn gezet;
+ * hogere specificiteit dan de regel hierboven, dus wint) */
+body.OemplusB2.B2SbnWatch .SbnCtrl.B2SbnIn,
+body.OemplusB2Home.B2SbnWatch .SbnCtrl.B2SbnIn {
+  top: 1px;
+}
+
+/* Style01 (tekst-only) en Style02 (icoon+tekst) in B2-typografie: subtiel, niet schreeuwerig */
+body.OemplusB2Home.OemplusB2 .SbnCtrl_Style01_Text1,
+body.OemplusB2Home.OemplusB2 .SbnCtrl_Style02_Text1 {
+  font-size: 28px;
+  line-height: 56px;
+  color: #e8eaee;
+}
+
+body.OemplusB2Home.OemplusB2 .SbnCtrl_Style02_Image1 {
+  top: 2px;
+  width: 52px;
+  height: 52px;
+}
+
+/* Style05 (navigatie: maneuver-icoon + afstand + straatnaam) -- wordt door OemplusInject gefilterd, maar voor
+ * de volledigheid (bv. als de filter uit is) toch in B2-stijl. */
+body.OemplusB2Home.OemplusB2 .SbnCtrl_Style05_Text1,
+body.OemplusB2Home.OemplusB2 .SbnCtrl_Style05_Text2,
+body.OemplusB2Home.OemplusB2 .SbnCtrl_Style05_Text3 {
+  color: #e8eaee;
+  line-height: 56px;
+  height: 56px;
+}

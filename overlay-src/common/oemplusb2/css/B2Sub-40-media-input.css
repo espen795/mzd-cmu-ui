@@ -1,0 +1,701 @@
+/* OEMPLUS-B2 submenus -- pakket P4 "media & invoer" (B2Sub-40-media-input.css)
+ * NowPlaying4 (14 contexts) + Ump3 (bedienbalk), DialPad2 (11), Keyboard (4).
+ * OEM: common/controls/NowPlaying4/css/NowPlaying4Ctrl.css, Ump3/css/Ump3Ctrl.css,
+ *      DialPad2/css/DialPad2Ctrl.css (.btn 126x79), Keyboard/css/KeyboardCtrl.css (3225 r., #id-selectors).
+ * LET OP specificiteit Keyboard: OEM-selectors bevatten #btnShift/#btnOK (1,x,x). Body-prefix alleen wint daar
+ * NIET van -> neem het #id over in onze selector (DESIGN-SYSTEEM par.0.3 / 8.4).
+ * Regels: elke selector begint met "body.OemplusB2 " (+0,1,1 wint van lazy OEM-CSS); ALLEEN skin (color/font/
+ * background-image/-color/opacity/border-radius); NOOIT left/top/width/height van hitbox-elementen (H1).
+ * Presto 2.12: ASCII-only, geen gradients/flex/grid/calc/box-shadow; alle gloed/afgeronde vormen in ../images/. */
+
+/* ================= NowPlaying4 ================= */
+body.OemplusB2 .NowPlaying4Ctrl {
+  background-image: none;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+}
+/* titel (station/track) + titel-breedte variant; 44px hero (DESIGN-SYSTEEM par.3) */
+body.OemplusB2 .NowPlaying4CtrlAudioTitle,
+body.OemplusB2 .NowPlaying4CtrlAudioTitleFull,
+body.OemplusB2 .NowPlaying4CtrlAudioTitleStyle3,
+body.OemplusB2 .NowPlaying4CtrlAudioTitleBlock {
+  font-size: 44px !important;
+  line-height: 43px;
+  color: #f6f7f9 !important;
+}
+body.OemplusB2 .NowPlaying4CtrlTitle,
+body.OemplusB2 .NowPlaying4CtrlTitleFull,
+body.OemplusB2 .NowPlaying4CtrlSubtitle,
+body.OemplusB2 .NowPlaying4CtrlUnformattedText {
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+  color: #f6f7f9 !important;
+}
+/* detailregels: 1 = 28px #C4C9D0, 2-3 = 24px text-2 */
+body.OemplusB2 .NowPlaying4CtrlDetailLine1,
+body.OemplusB2 .NowPlaying4CtrlDetailLine1Full,
+body.OemplusB2 .NowPlaying4CtrlDetailLine1Block {
+  font-size: 28px !important;
+  color: #c4c9d0 !important;
+}
+body.OemplusB2 .NowPlaying4CtrlDetailLine2,
+body.OemplusB2 .NowPlaying4CtrlDetailLine2Full,
+body.OemplusB2 .NowPlaying4CtrlDetailLine3,
+body.OemplusB2 .NowPlaying4CtrlDetailLine3Full {
+  font-size: 24px !important;
+  color: #9aa1aa !important;
+}
+body.OemplusB2 .NowPlaying4CtrlTrackDisplay,
+body.OemplusB2 .NowPlaying4CtrlDistanceDirection,
+body.OemplusB2 .NowPlaying4CtrlPhoneNumber {
+  font-size: 24px;
+  color: #c4c9d0;
+}
+/* HD-subkanalen (NowPlaying4CtrlHdSubst1..8 / ...Active): klein, actief = wit ipv oranje */
+body.OemplusB2 .NowPlaying4Ctrl [class*="HdSubst"] {
+  color: #8a919b !important;
+}
+body.OemplusB2 .NowPlaying4Ctrl [class*="HdSubst"][class*="Active"] {
+  color: #f2f3f5 !important;
+}
+/* radio-frequentie fragmenten */
+body.OemplusB2 .NowPlaying4CtrlFreqFragment {
+  font-size: 40px;
+  color: #f6f7f9;
+}
+body.OemplusB2 .NowPlaying4CtrlUnitFragment {
+  font-size: 24px;
+  color: #9aa1aa;
+}
+body.OemplusB2 .NowPlaying4CtrlStationFragment,
+body.OemplusB2 .NowPlaying4CtrlRelayFragment {
+  font-size: 28px;
+  color: #c4c9d0;
+}
+/* albumhoes: OEM-frame vervangen door B2ArtFrame (146x146 = OEM ArtworkImageBorder-maat; artwork zelf blijft OEM,
+ * dus USB/BT-covers blijven zichtbaar -- geen overflow-wijziging) */
+body.OemplusB2 .NowPlaying4CtrlArtworkImageBorder {
+  background-image: url(../images/B2ArtFrame.png) !important;
+}
+body.OemplusB2 .NowPlaying4CtrlArtworkImage {
+  border-radius: 12px;
+}
+
+/* ================= Ump3 (bedienbalk onder NowPlaying) ================= */
+body.OemplusB2 .Ump3CtrlBackground,
+body.OemplusB2 .Ump3CtrlBgArch,
+body.OemplusB2 .Ump3CtrlSeparator {
+  background-image: none;
+}
+/* knop-states Ump3Ctrl{2..10}Button_{En,Ds,focused,down,held}: alleen de achtergrond; iconen (Ump3CtrlButtonIcon) blijven OEM.
+ * OEM zet focused/down als MEERDERE background-images (focus-PNG + basis-PNG) met !important -> wij overschrijven
+ * de hele background met een enkele B2-PNG + !important. */
+body.OemplusB2 .Ump3Ctrl [class*="Button_En"],
+body.OemplusB2 .Ump3Ctrl [class*="Button_Ds"] {
+  background-image: none !important;
+}
+body.OemplusB2 .Ump3Ctrl [class*="Button_focused"] {
+  background: url(../images/B2UmpBtn_Focus.png) 50% 50% no-repeat !important;
+}
+body.OemplusB2 .Ump3Ctrl [class*="Button_down"],
+body.OemplusB2 .Ump3Ctrl [class*="Button_held"] {
+  background: url(../images/B2UmpBtn_Focus.png) 50% 50% no-repeat !important;
+  opacity: 0.85;
+}
+/* tijden */
+body.OemplusB2 .Ump3CtrlElapsedTime,
+body.OemplusB2 .Ump3CtrlTotalTime {
+  font-size: 24px;
+  color: #9aa1aa;
+}
+/* voortgang (Ump-scrubber = SliderCtrl met wrapperClass UmpScrubberStyleNN): track + vulling in B2-stijl
+ * (eigen P4-PNG's B2UmpScrub*; NIET P2's B2Progress*). Alleen background-image; maten/posities blijven JS/OEM. */
+body.OemplusB2 .Ump3Ctrl [class*="UmpScrubberStyle"] {
+  background-image: url(../images/B2UmpScrubTrack.png) !important;
+  background-repeat: repeat-x !important;
+}
+body.OemplusB2 .Ump3Ctrl [class*="UmpScrubberFill"],
+body.OemplusB2 .Ump3Ctrl [class*="UmpScrubberFocusedFill"] {
+  background-image: url(../images/B2UmpScrubFill.png) !important;
+  background-repeat: repeat-x !important;
+}
+body.OemplusB2 .Ump3Ctrl [class*="UmpScrubberHandle"] {
+  background-image: none !important;
+  background-color: #e8eaee !important;
+  border-radius: 33px;
+}
+body.OemplusB2 .Ump3Ctrl [class*="UmpScrubberFocusedHandle"] {
+  background-image: none !important;
+  background-color: #ffffff !important;
+  border-radius: 33px;
+}
+body.OemplusB2 .Ump3Ctrl [class*="Ump3CtrlBuffer"] {
+  background-image: none;
+  border-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+/* ================= DialPad2 ================= */
+body.OemplusB2 .DialPad2Ctrl .ctrlBackground {
+  background-image: none;
+}
+/* DTMF-fake UMP onderaan Style01 weg (valt over de B2-achtergrond) */
+body.OemplusB2 .DialPad2Ctrl .DialPadFakeUmp,
+body.OemplusB2 .DialPad2Ctrl .DialPadFakeUmpArc {
+  background-image: none;
+}
+body.OemplusB2 .DialPad2Ctrl .btn {
+  background: url(../images/B2DialKey_En.png) center center no-repeat !important;
+  color: #f2f3f5;
+  text-shadow: none;
+}
+body.OemplusB2 .DialPad2Ctrl .btn span {
+  color: #8a919b;
+  text-shadow: none;
+}
+body.OemplusB2 .DialPad2Ctrl .btn.focused {
+  background: url(../images/B2DialKey_Focus.png) center center no-repeat !important;
+  color: #ffffff;
+}
+body.OemplusB2 .DialPad2Ctrl .btn.active {
+  background: url(../images/B2DialKey_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .DialPad2Ctrl .btn.disabled {
+  color: #4d525a;
+}
+/* bel-toets (Style02 callBtn, 126x318) en Style03 OK: groen vlak ipv OEM-afbeelding */
+body.OemplusB2 .DialPad2Ctrl .callBtn {
+  background: url(../images/B2DialKey_Green.png) center center no-repeat, url(../images/B2DialKey_Green.png) center center no-repeat !important;
+}
+body.OemplusB2 .DialPad2Ctrl .callBtn.focused,
+body.OemplusB2 .DialPad2Ctrl .callBtn.active {
+  background: url(../images/B2DialKey_Green.png) center center no-repeat, url(../images/B2DialKey_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .DialPad2Ctrl.DialpadStyle03 .btnOK {
+  background: url(../images/B2DialKey_Green.png) center center no-repeat !important;
+  color: #ffffff;
+}
+/* invoerveld: vlak 6% wit radius 10, caret = Soul Red, fade = none (donkere PNG i.p.v. OEM-gradient) */
+body.OemplusB2 .DialPad2Ctrl .inputDiv,
+body.OemplusB2 .DialPad2Ctrl .pinStyleInput {
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  color: #f6f7f9;
+}
+body.OemplusB2 .DialPad2Ctrl .inputDiv .inputFade {
+  background-image: none;
+}
+body.OemplusB2 .DialPad2Ctrl .inputDiv .caret,
+body.OemplusB2 .DialPad2Ctrl .pinStyleInput .caret {
+  background-image: none;
+  background-color: #c8102e;
+}
+body.OemplusB2 .DialPad2Ctrl .pinStyleInput .pinHolder {
+  color: #f2f3f5;
+}
+
+/* ================= Keyboard ================= */
+body.OemplusB2 .KeyboardCtrl {
+  background-image: none;
+  font-family: "Tipperary", Arial, Helvetica, sans-serif;
+}
+/* invoerveld: 6% wit vlak radius 10 (Char_Input.png weg), rode cursor */
+body.OemplusB2 .KeyboardCtrl .inputBoxTouchActiveArea {
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+body.OemplusB2 .KeyboardCtrl .inputBoxTouchActiveArea.focused,
+body.OemplusB2 .KeyboardCtrl .inputBoxTouchActiveArea.activeState {
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.14);
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv {
+  background-image: none;
+  color: #f6f7f9;
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv .inputFade,
+body.OemplusB2 .KeyboardCtrl .inputDiv #fadeLeft,
+body.OemplusB2 .KeyboardCtrl .inputDiv #fadeRight {
+  background-image: none;
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv .caret {
+  background-image: none;
+  background-color: #c8102e;
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv .caret.focused,
+body.OemplusB2 .KeyboardCtrl .inputDiv .caret.activeState {
+  background-image: none;
+  background-color: #c8102e;
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv .inputSpan.placeholder {
+  color: #8a919b;
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv.disabled {
+  color: #5f656e;
+}
+body.OemplusB2 .KeyboardCtrl .inputDiv .highlightedSpan {
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+
+/* ---- toetsen per layout: maten uit KeyboardCtrl.css (v74) -> B2Key{w}x{h}_*.png ----
+ * fiveTen 74x91, sixTen 75x68, sixTwelve 62x68, suggFiveTen 75x71, suggSevenTen 75x46, suggSevenEleven 68x46.
+ * OEM zet focused/activeState als MEERDERE background-images (state-PNG + basis-PNG) -> wij overschrijven met
+ * enkele B2-PNG + !important. */
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .btn {
+  background: url(../images/B2Key74x91_En.png) center center no-repeat !important;
+  color: #f2f3f5;
+  font-size: 30px;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .btn.focused {
+  background: url(../images/B2Key74x91_Focus.png) center center no-repeat !important;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .btn.activeState {
+  background: url(../images/B2Key74x91_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .btn.disabled {
+  background: url(../images/B2Key74x91_En.png) center center no-repeat !important;
+  color: #4d525a;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .btn {
+  background: url(../images/B2Key75x68_En.png) center center no-repeat !important;
+  color: #f2f3f5;
+  font-size: 30px;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .btn.focused {
+  background: url(../images/B2Key75x68_Focus.png) center center no-repeat !important;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .btn.activeState {
+  background: url(../images/B2Key75x68_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .btn.disabled {
+  background: url(../images/B2Key75x68_En.png) center center no-repeat !important;
+  color: #4d525a;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .btn {
+  background: url(../images/B2Key62x68_En.png) center center no-repeat !important;
+  color: #f2f3f5;
+  font-size: 26px;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .btn.focused {
+  background: url(../images/B2Key62x68_Focus.png) center center no-repeat !important;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .btn.activeState {
+  background: url(../images/B2Key62x68_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .btn.disabled {
+  background: url(../images/B2Key62x68_En.png) center center no-repeat !important;
+  color: #4d525a;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .btn {
+  background: url(../images/B2Key75x71_En.png) center center no-repeat !important;
+  color: #f2f3f5;
+  font-size: 30px;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .btn.focused {
+  background: url(../images/B2Key75x71_Focus.png) center center no-repeat !important;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .btn.activeState {
+  background: url(../images/B2Key75x71_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .btn.disabled {
+  background: url(../images/B2Key75x71_En.png) center center no-repeat !important;
+  color: #4d525a;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .btn,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+  color: #f2f3f5;
+  font-size: 24px;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .btn.focused,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn.focused {
+  background: url(../images/B2Key75x46_Focus.png) center center no-repeat !important;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .btn.activeState,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn.activeState {
+  background: url(../images/B2Key75x46_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .btn.disabled,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn.disabled {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+  color: #4d525a;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn {
+  background-image: url(../images/B2Key68x46_En.png) !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn.focused {
+  background-image: url(../images/B2Key68x46_Focus.png) !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .btn.activeState {
+  background-image: url(../images/B2Key68x46_Hit.png) !important;
+}
+
+/* ---- bedieningsrij (controlsWrapper #id's): #id overnemen in onze selector (specificiteit 1,x,x) ---- */
+/* fiveTen: #btnShift/#btnLayoutSwitch 112x91, #btnCancel/#btnOK 93x65, #btnSpacebar 511x64, #btnGlobe 62x64, #btnMod 75x46 */
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnLayoutSwitch {
+  background: url(../images/B2Key112x91_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnLayoutSwitch {
+  background: url(../images/B2Key112x91_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnLayoutSwitch {
+  background: url(../images/B2Key112x91_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnCancel {
+  background: url(../images/B2Key93x65_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnCancel {
+  background: url(../images/B2Key93x65_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnCancel {
+  background: url(../images/B2Key93x65_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_Green.png) center center no-repeat !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnOK {
+  background: url(../images/B2Key93x65_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnOK {
+  background: url(../images/B2Key93x65_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnSpacebar {
+  background: url(../images/B2Key511x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnSpacebar {
+  background: url(../images/B2Key511x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnSpacebar {
+  background: url(../images/B2Key511x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnGlobe {
+  background: url(../images/B2Key62x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnGlobe {
+  background: url(../images/B2Key62x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnGlobe {
+  background: url(../images/B2Key62x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper #btnMod {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .focused#btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.fiveTen .controlsWrapper .activeState#btnMod {
+  background: url(../images/B2Key75x46_Focus.png) center center no-repeat !important;
+}
+/* sixTen: #btnShift/#btnLayoutSwitch 113x68, rest gelijk aan fiveTen */
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnLayoutSwitch {
+  background: url(../images/B2Key113x68_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnLayoutSwitch {
+  background: url(../images/B2Key113x68_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnLayoutSwitch {
+  background: url(../images/B2Key113x68_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnOK {
+  background: url(../images/B2Key93x65_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnOK {
+  background: url(../images/B2Key93x65_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_Green.png) center center no-repeat !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnSpacebar {
+  background: url(../images/B2Key511x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnSpacebar {
+  background: url(../images/B2Key511x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnSpacebar {
+  background: url(../images/B2Key511x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnGlobe {
+  background: url(../images/B2Key62x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnGlobe {
+  background: url(../images/B2Key62x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnGlobe {
+  background: url(../images/B2Key62x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper #btnMod {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .focused#btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTen .controlsWrapper .activeState#btnMod {
+  background: url(../images/B2Key75x46_Focus.png) center center no-repeat !important;
+}
+/* sixTwelve: #btnShift/#btnLayoutSwitch 94x68 */
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnLayoutSwitch {
+  background: url(../images/B2Key94x68_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnLayoutSwitch {
+  background: url(../images/B2Key94x68_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnLayoutSwitch {
+  background: url(../images/B2Key94x68_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnOK {
+  background: url(../images/B2Key93x65_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnOK {
+  background: url(../images/B2Key93x65_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_Green.png) center center no-repeat !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnSpacebar {
+  background: url(../images/B2Key511x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnSpacebar {
+  background: url(../images/B2Key511x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnSpacebar {
+  background: url(../images/B2Key511x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnGlobe {
+  background: url(../images/B2Key62x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnGlobe {
+  background: url(../images/B2Key62x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnGlobe {
+  background: url(../images/B2Key62x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper #btnMod {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .focused#btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.sixTwelve .controlsWrapper .activeState#btnMod {
+  background: url(../images/B2Key75x46_Focus.png) center center no-repeat !important;
+}
+/* suggFiveTen: #btnShift/#btnLayoutSwitch 108x70, spacebar 511x64 */
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnLayoutSwitch {
+  background: url(../images/B2Key108x70_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnLayoutSwitch {
+  background: url(../images/B2Key108x70_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnLayoutSwitch {
+  background: url(../images/B2Key108x70_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnOK {
+  background: url(../images/B2Key93x65_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnOK {
+  background: url(../images/B2Key93x65_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_Green.png) center center no-repeat !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnSpacebar {
+  background: url(../images/B2Key511x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnSpacebar {
+  background: url(../images/B2Key511x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnSpacebar {
+  background: url(../images/B2Key511x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnGlobe {
+  background: url(../images/B2Key62x64_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnGlobe {
+  background: url(../images/B2Key62x64_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnGlobe {
+  background: url(../images/B2Key62x64_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper #btnMod {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .focused#btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggFiveTen .controlsWrapper .activeState#btnMod {
+  background: url(../images/B2Key75x46_Focus.png) center center no-repeat !important;
+}
+/* suggSevenTen / suggSevenEleven: alle bedieningsknoppen 75x46 (spacebar 460x46) */
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnMod {
+  background: url(../images/B2Key75x46_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnMod {
+  background: url(../images/B2Key75x46_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnMod,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnMod {
+  background: url(../images/B2Key75x46_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnOK,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnOK {
+  background: url(../images/B2Key93x65_Green.png) center center no-repeat !important;
+  background-size: 100% 100% !important;
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif;
+  color: #ffffff;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper #btnSpacebar,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper #btnSpacebar {
+  background: url(../images/B2Key460x46_En.png) center center no-repeat !important;
+  background-size: 100% 100% !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .focused#btnSpacebar,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .focused#btnSpacebar {
+  background: url(../images/B2Key460x46_Focus.png) center center no-repeat !important;
+  background-size: 100% 100% !important;
+}
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenTen .controlsWrapper .activeState#btnSpacebar,
+body.OemplusB2 .KeyboardCtrl .btnWrapper.suggSevenEleven .controlsWrapper .activeState#btnSpacebar {
+  background: url(../images/B2Key460x46_Hit.png) center center no-repeat !important;
+  background-size: 100% 100% !important;
+}
+/* backspace (KeyboardCtrlDeleteBtn_{En,Ds,Fs,Dwn,Hd}, 75x59) -- ButtonCtrl-klassen, #id niet nodig (klasse uniek) */
+body.OemplusB2 .KeyboardCtrl .controlsWrapper .KeyboardCtrlDeleteBtn_En {
+  background: url(../images/B2Key75x59_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .controlsWrapper .KeyboardCtrlDeleteBtn_Ds {
+  background: url(../images/B2Key75x59_En.png) center center no-repeat !important;
+  opacity: 0.5;
+}
+body.OemplusB2 .KeyboardCtrl .controlsWrapper .KeyboardCtrlDeleteBtn_Fs {
+  background: url(../images/B2Key75x59_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .controlsWrapper .KeyboardCtrlDeleteBtn_Dwn,
+body.OemplusB2 .KeyboardCtrl .controlsWrapper .KeyboardCtrlDeleteBtn_Hd {
+  background: url(../images/B2Key75x59_Hit.png) center center no-repeat !important;
+}
+/* disabled-toetsen: B2-En vlak + gedimde tekst (OEM gebruikt KeyNN_Dead.png) */
+body.OemplusB2 .KeyboardCtrl .btnWrapper .controlsWrapper .disabled#btnShift,
+body.OemplusB2 .KeyboardCtrl .btnWrapper .controlsWrapper .disabled#btnLayoutSwitch,
+body.OemplusB2 .KeyboardCtrl .btnWrapper .controlsWrapper .disabled#btnCancel,
+body.OemplusB2 .KeyboardCtrl .btnWrapper .controlsWrapper .disabled#btnSpacebar,
+body.OemplusB2 .KeyboardCtrl .btnWrapper .controlsWrapper .disabled#btnGlobe,
+body.OemplusB2 .KeyboardCtrl .btnWrapper .controlsWrapper .disabled#btnMod {
+  opacity: 0.5;
+}
+
+/* ---- suggestierij (suggestionRowWrapper.<layout>) ---- */
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .suggestionBgDiv {
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .suggestionBgDiv .suggestionWrapper .suggestionSpan {
+  color: #aeb4bd;
+  font-size: 26px;
+  background-image: none;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .suggestionBgDiv .suggestionWrapper .suggestionSpan.focused {
+  color: #ffffff;
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .suggestionBgDiv .suggestionWrapper .suggestionSpan.activeState {
+  color: #ffffff;
+  background-image: none;
+  background-color: rgba(255, 255, 255, 0.24);
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .suggestionBgDiv .suggestionWrapper .suggestionSpan.disabled {
+  background-image: none;
+  color: #4d525a;
+}
+/* suggestiepijlen (#arrowLeft/#arrowRight, OEM Key12-achtergrond 75x59): B2-toets eronder, pijl-icoon blijft OEM */
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper #arrowLeft {
+  background: url(../../controls/Keyboard/images/Icn_Bck.png) center center no-repeat, url(../images/B2Key75x59_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper #arrowRight {
+  background: url(../../controls/Keyboard/images/Icn_Fwd.png) center center no-repeat, url(../images/B2Key75x59_En.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .focused#arrowLeft {
+  background: url(../../controls/Keyboard/images/Icn_Bck.png) center center no-repeat, url(../images/B2Key75x59_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .focused#arrowRight {
+  background: url(../../controls/Keyboard/images/Icn_Fwd.png) center center no-repeat, url(../images/B2Key75x59_Focus.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .activeState#arrowLeft {
+  background: url(../../controls/Keyboard/images/Icn_Bck.png) center center no-repeat, url(../images/B2Key75x59_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .activeState#arrowRight {
+  background: url(../../controls/Keyboard/images/Icn_Fwd.png) center center no-repeat, url(../images/B2Key75x59_Hit.png) center center no-repeat !important;
+}
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .disabled#arrowLeft,
+body.OemplusB2 .KeyboardCtrl .suggestionRowWrapper .disabled#arrowRight {
+  opacity: 0.5;
+}
