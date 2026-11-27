@@ -18,9 +18,16 @@ from _lib import OUT, SS, RED, WHITE, LIGHT, INK, canvas, done, red_bar
 
 
 def dialog_bg():
-    """B2DialogBg.png 800x416: paneel x 70-730, y 10-406, radius 16, wit 4% vlak + 10% rand (DESIGN-SYSTEEM par.1/4)."""
+    """B2DialogBg.png 800x416: paneel x 70-730, y 10-406, radius 16.
+     * v1.4 (live 27-11 v13-sysinfo.png): de oude PNG had een paneel van wit alpha 10 -> de dialoog-achtergrond
+     * liet de ONDERLIGGENDE lijst doorschijnen (tekst "OS-versie..." liep over "Overeenkomsten en rechten").
+     * Fix: dekkend donker vlak (bg #030405, alpha 255) over het hele 800x416, met het lichtere paneel
+     * (wit 10% + rand 26%) erbovenop -- net als OEM DialogBG_Style01 (alpha 247 in het midden) maar dan
+     * echt dekkend. Buiten het paneel blijft de PNG transparant zodat de hoeken van het scherm de
+     * B2-achtergrond (B2SubBg) tonen. Fullscreen-variant idem binnen y 74..470."""
     w, h = 800, 416
     im = canvas(w, h); d = ImageDraw.Draw(im)
+    d.rectangle([0, 0, w * SS - 1, h * SS - 1], fill=(3, 4, 5, 255))          # dekkend scrim
     box = [70 * SS, 10 * SS, 730 * SS, 406 * SS]
     d.rounded_rectangle(box, radius=16 * SS, fill=(255, 255, 255, 10))
     d.rounded_rectangle(box, radius=16 * SS, outline=(255, 255, 255, 26), width=SS)
@@ -28,6 +35,7 @@ def dialog_bg():
     # fullscreen-variant (Dialog3CtrlFs / .TemplateFull, 800x480): paneel binnen y 74..470 (64 px banner vrij)
     w, h = 800, 480
     im = canvas(w, h); d = ImageDraw.Draw(im)
+    d.rectangle([0, 64 * SS, w * SS - 1, h * SS - 1], fill=(3, 4, 5, 255))      # dekkend onder de banner
     box = [70 * SS, 74 * SS, 730 * SS, 470 * SS]
     d.rounded_rectangle(box, radius=16 * SS, fill=(255, 255, 255, 10))
     d.rounded_rectangle(box, radius=16 * SS, outline=(255, 255, 255, 26), width=SS)

@@ -3,22 +3,22 @@
 # Schrijft uitsluitend onder /data_persist/oemplus-test/. Raakt /jci nooit aan (alleen md5 lezen als bewijs).
 # Geen mount, geen smctl, geen kill: mounten doet de operator (draaiboek), Opera blijft draaien.
 # Indeling op de CMU:
-#   /data_persist/oemplus-test/injectv13/overlay/<pad onder gui>  (4 vervangen eco-templates + 179 nieuw,
+#   /data_persist/oemplus-test/injectv15/overlay/<pad onder gui>  (4 vervangen eco-templates + 179 nieuw,
 #                                                                plus ORIGINAL-MD5.txt, OVERLAY-MD5.txt, SHA256SUMS)
-#   /data_persist/oemplus-test/injectv13/{apply_inject.sh,revert_inject.sh,kopie_gelijk.sh,...}
+#   /data_persist/oemplus-test/injectv15/{apply_inject.sh,revert_inject.sh,kopie_gelijk.sh,...}
 # v1.1 (R-cmu): kopie moet VOORAF exact == /jci/gui zijn (kopie_gelijk.sh schoon, H1) en ACHTERAF mogen alleen de
 # 183 overlaypaden afwijken (kopie_gelijk.sh overlay). Geen mount: dat doet mount_inject.sh (met AA-guard-precheck).
 # Exit: 0 = OK | 1 = precheck faalt (niets gewijzigd in de kopie) | 2 = fout tijdens/na kopieren (draai revert_inject.sh)
-# Let op (L3): exit 1 bij de backup-stap (4) of later kan een (deels) geschreven $BASE/injectv13-backup achterlaten; dat is
+# Let op (L3): exit 1 bij de backup-stap (4) of later kan een (deels) geschreven $BASE/injectv15-backup achterlaten; dat is
 # onschadelijk (wordt bij een volgende apply overschreven) en de kopie zelf is dan nog niet gewijzigd.
 BASE=/data_persist/oemplus-test
 COPY=$BASE/gui
-PKG=$BASE/injectv13
+PKG=$BASE/injectv15
 OVL=$PKG/overlay
-BAK=$BASE/injectv13-backup
+BAK=$BASE/injectv15-backup
 ORIG=$OVL/ORIGINAL-MD5.txt
 MARK=$BASE/OVERLAY-ACTIEF
-NAME=injectv13
+NAME=injectv15
 INDEX_V74_MD5=0ad187b787e242953a9a7612f55bfcfb
 SYSAPP_V74_MD5=383d7e688256e09b825ced9e3eb69ee9
 MMCTRL_V74_MD5=40ccb293b8c6f80960f0b953dd2e173e
@@ -112,5 +112,5 @@ done < "$ORIG"
 
 # 8. Volledige boom na apply: alleen de overlaypaden wijken af (H1)
 sh "$PKG/kopie_gelijk.sh" overlay || { echo "STOP: boomvergelijking na apply faalt -- niet mounten; revert_inject.sh"; exit 2; }
-echo "OK: inject-v1.3 toegepast op $COPY (OVERLAY-ACTIEF=injectv13). Nog NIET actief: zie draaiboek (mount_inject.sh camera-ok)."
+echo "OK: inject-v1.5 toegepast op $COPY (OVERLAY-ACTIEF=injectv15). Nog NIET actief: zie draaiboek (mount_inject.sh camera-ok)."
 exit 0

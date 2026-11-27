@@ -1,5 +1,5 @@
 #!/bin/bash
-# test_scripts_bb119.sh (HOST) v1.3 -- test de CMU-scripts van inject-v1.3 onder de officiele busybox 1.19.0 als ash,
+# test_scripts_bb119.sh (HOST) v1.3 -- test de CMU-scripts van inject-v1.5 onder de officiele busybox 1.19.0 als ash,
 # in een eigen user+mount+pid-namespace met chroot: /jci = kopie van de harnas-stock-root (v74), /data_persist = tmp.
 # Scripts: apply_inject.sh, revert_inject.sh, kopie_gelijk.sh, kopie_vers.sh, aa_wacht.sh, mount_inject.sh, terug_inject.sh.
 # Nep: /proc/uptime (bind-mount van een bestand), Opera-proces (sh-script), /bin/reboot (schrijft een vlag).
@@ -12,7 +12,7 @@ BB=/tmp/rcmu-bb119/busybox
 [ -d "$ROOT/harness/root-stock" ] || sh "$ROOT/harness/build_root.sh" >/dev/null
 T=$(mktemp -d /tmp/inject-bb119-XXXX)
 R=$T/root
-mkdir -p $R/dev $R/bin $R/jci/opera $R/data_persist/oemplus-test/injectv13 $R/proc $R/tmp
+mkdir -p $R/dev $R/bin $R/jci/opera $R/data_persist/oemplus-test/injectv15 $R/proc $R/tmp
 cp $BB $R/bin/busybox
 for a in $($BB --list); do [ "$a" = busybox ] || ln -s busybox $R/bin/$a; done
 rm $R/bin/reboot
@@ -20,16 +20,16 @@ printf '#!/bin/ash\necho called > /tmp/reboot-called\n' > $R/bin/reboot; chmod 7
 printf '#!/bin/ash\nsleep 3600\n' > $R/jci/opera/opera; chmod 755 $R/jci/opera/opera
 cp -a "$ROOT/harness/root-stock" $R/jci/gui; rm -rf $R/jci/gui/_harness_fonts
 cp -a $R/jci/gui $R/data_persist/oemplus-test/gui
-cp -a "$ROOT/overlay" $R/data_persist/oemplus-test/injectv13/overlay
+cp -a "$ROOT/overlay" $R/data_persist/oemplus-test/injectv15/overlay
 for s in apply_inject.sh revert_inject.sh kopie_gelijk.sh kopie_vers.sh aa_wacht.sh mount_inject.sh terug_inject.sh; do
-  cp "$ROOT/tools/$s" $R/data_persist/oemplus-test/injectv13/
+  cp "$ROOT/tools/$s" $R/data_persist/oemplus-test/injectv15/
 done
-(cd $R/data_persist/oemplus-test/injectv13 && md5sum *.sh > TOOLS-MD5.txt)
+(cd $R/data_persist/oemplus-test/injectv15 && md5sum *.sh > TOOLS-MD5.txt)
 cat > $R/t.sh <<'EOF'
 P=0; F=0
 ok() { if [ "$1" = 0 ]; then P=$((P+1)); echo "PASS $2"; else F=$((F+1)); echo "FAIL $2"; fi; }
 B=/data_persist/oemplus-test
-I=$B/injectv13
+I=$B/injectv15
 C=$B/gui
 AA=/data_persist/dev/aa
 up() { echo "$1.00 100.00" > /tmp/fakeup; }
@@ -43,13 +43,13 @@ J0=$(find /jci -type f -exec md5sum {} \; | sort | md5sum)
 # --- kopie_gelijk / apply / revert (oude checks + H1) ---
 ash $I/kopie_gelijk.sh schoon > /tmp/k0.log 2>&1; ok $? "kopie_gelijk schoon op verse kopie exit 0"
 ash $I/apply_inject.sh > /tmp/a1.log 2>&1; ok $? "apply exit 0"
-[ "$(cat $B/OVERLAY-ACTIEF)" = injectv13 ]; ok $? "marker injectv13"
+[ "$(cat $B/OVERLAY-ACTIEF)" = injectv15 ]; ok $? "marker injectv15"
 grep -q OEMPLUS-INJECT $C/apps/ecoenergy/templates/FuelConsumption/js/FuelConsumptionTmplt.js; ok $? "template gepatcht in kopie"
 [ -f $C/apps/system/controls/MainMenu/js/MainMenuCtrl-oemplusb2.js ]; ok $? "B2-js nieuw in kopie"
 cmp -s $C/apps/system/js/systemApp.js /jci/gui/apps/system/js/systemApp.js; ok $? "systemApp.js in kopie onaangeroerd"
-grep -q "KOPIE GELIJK: alleen de inject-v1.3-overlaypaden" /tmp/a1.log; ok $? "apply draaide kopie_gelijk overlay (H1)"
+grep -q "KOPIE GELIJK: alleen de inject-v1.5-overlaypaden" /tmp/a1.log; ok $? "apply draaide kopie_gelijk overlay (H1)"
 ash $I/kopie_gelijk.sh overlay > /tmp/k1.log 2>&1; ok $? "kopie_gelijk overlay na apply exit 0"
-grep -q "toegestaan (overlay) 183" /tmp/k1.log; ok $? "precies 183 toegestane overlaypaden (make_overlay v1.3: 4 vervangen + 179 nieuw = 183; P0 41 + P1-P4 142)"
+grep -q "toegestaan (overlay) 274" /tmp/k1.log; ok $? "precies 274 toegestane overlaypaden (v1.5: 4 vervangen + 270 nieuw; v1.4 was 267, +7 nieuw: OemplusLive.js, B2DriveView.js, B2Sub-70-drive.css, 4x B2Drive*.png)"
 ash $I/kopie_gelijk.sh schoon > /tmp/k2.log 2>&1; [ $? = 1 ]; ok $? "kopie_gelijk schoon na apply exit 1"
 ash $I/apply_inject.sh > /tmp/a2.log 2>&1; [ $? = 1 ]; ok $? "tweede apply weigert (exit 1)"
 # H1: afwijking buiten de overlay na apply -> overlay-check faalt
@@ -129,11 +129,11 @@ ash $I/mount_inject.sh camera-ok > /tmp/m6.log 2>&1; [ $? = 1 ] && [ "$(mnt)" = 
 ash $I/terug_inject.sh geen-reboot > /tmp/t1.log 2>&1; [ $? = 0 ] && [ "$(mnt)" = 0 ] && [ ! -e /tmp/reboot-called ]; ok $? "terug geen-reboot: umount, geen reboot"
 ash $I/mount_inject.sh camera-ok > /tmp/m7.log 2>&1; [ $? = 1 ] && grep -q "al gemount" /tmp/m7.log; ok $? "geen tweede mount in dezelfde boot"
 # onverwachte reset in deze sessie: mount van een andere boot zonder terug
-echo "andere-boot-1234 mount uptime=600.00" >> $B/injectv13-sessie.log
+echo "andere-boot-1234 mount uptime=600.00" >> $B/injectv15-sessie.log
 ash $I/mount_inject.sh camera-ok > /tmp/m8.log 2>&1; [ $? = 1 ] && grep -q "onverwachte reset" /tmp/m8.log && [ "$(mnt)" = 0 ]; ok $? "na onverwachte reset in de sessie: mount weigert (V3)"
 mount --bind $C /jci/gui
 ash $I/terug_inject.sh > /tmp/t2.log 2>&1; [ "$(mnt)" = 0 ] && [ -e /tmp/reboot-called ]; ok $? "terug: umount + reboot aangeroepen"
-grep -c " terug " $B/injectv13-sessie.log | grep -q 2; ok $? "sessielog: 2x terug"
+grep -c " terug " $B/injectv15-sessie.log | grep -q 2; ok $? "sessielog: 2x terug"
 umount /jci/gui 2>/dev/null
 ash $I/revert_inject.sh > /tmp/r2.log 2>&1; ok $? "revert na sessie exit 0 (kopie == /jci/gui)"
 [ "$(find /jci -type f -exec md5sum {} \; | sort | md5sum)" = "$J0" ]; ok $? "/jci onaangeroerd (einde)"

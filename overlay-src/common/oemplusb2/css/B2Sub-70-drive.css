@@ -1,0 +1,125 @@
+/* OEMPLUS-B2 rit-live proto: B2Sub-70-drive.css (ontwerp 2026-11-27, Presto 2.12-veilig, ASCII).
+ * Paneel "Rit & rijstijl" = eigen DOM-overlay in de Applications-template (TemplateWithStatusLeft, pagina x 60 / y 64,
+ * 740x416). Alle maten hieronder zijn PANEEL-coordinaten (pagina = +60 / +64). Inhoud vanaf paneel-x 44 (pagina 104),
+ * zodat de LeftBtn-hitbox (pagina x 0-94) vrij blijft. Geen flex/grid/calc/gradient/box-shadow/filter.
+ * Kleuren: DESIGN-SYSTEEM par.2 + P5: OK = donkerrood #8E1A22/#B0202C, waarschuwing = amber #E7A23A,
+ * Soul Red #C8102E ALLEEN voor "hier staat de draaiknop" (huidige paginabolletje). */
+
+body.OemplusB2 .B2DrivePanel { position: absolute; left: 0; top: 0; width: 740px; height: 416px; z-index: 50; overflow: hidden;
+  background: #030405 url(../images/B2SubBg.png) no-repeat -60px -64px; color: #F6F7F9; font-family: "Tipperary", sans-serif; }
+
+/* kop (paneel y 0-60) */
+body.OemplusB2 .B2DriveHead { position: absolute; left: 44px; top: 0; width: 676px; height: 60px; }
+body.OemplusB2 .B2DriveTitle { position: absolute; left: 0; top: 8px; width: 460px; height: 44px; line-height: 44px; font-size: 30px;
+  font-family: "Tipperary Semibold", sans-serif; color: #F6F7F9; white-space: nowrap; overflow: hidden; }
+body.OemplusB2 .B2DriveChip { position: absolute; right: 0; top: 14px; height: 32px; line-height: 32px; font-size: 24px; color: #C4C9D0;
+  text-align: right; white-space: nowrap; }
+body.OemplusB2 .B2DriveChipDot { display: inline-block; width: 12px; height: 12px; border-radius: 6px; margin: 0 10px 2px 0; vertical-align: middle; }
+body.OemplusB2 .B2DriveDotOk { background-color: #B0202C; }
+body.OemplusB2 .B2DriveDotAmber { background-color: #E7A23A; }
+body.OemplusB2 .B2DriveDotGrey { background-color: #5F656E; }
+body.OemplusB2 .B2DriveAmber { color: #E7A23A; }
+body.OemplusB2 .B2DriveRule { position: absolute; left: 44px; top: 60px; width: 676px; height: 1px; background: url(../images/B2DriveRule.png) no-repeat 0 0; }
+
+/* body (paneel y 76-344) */
+body.OemplusB2 .B2DriveBody { position: absolute; left: 44px; top: 76px; width: 676px; height: 268px; overflow: hidden; }
+body.OemplusB2 .B2DriveBody div { position: absolute; }
+body.OemplusB2 .B2DriveBody .B2DriveVal div, body.OemplusB2 .B2DriveFacts div { position: static; }
+body.OemplusB2 .B2DriveUnit { font-size: 24px; color: #9AA1AA; font-family: "Tipperary", sans-serif; }
+
+/* tegels */
+body.OemplusB2 .B2DriveTile { background-color: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.09); border-radius: 12px; }
+body.OemplusB2 .B2DriveKick { left: 20px; top: 12px; font-size: 18px; letter-spacing: 2.2px; color: #8A919B; font-family: "Tipperary Semibold", sans-serif; white-space: nowrap; }
+body.OemplusB2 .B2DriveVal { left: 20px; top: 36px; font-size: 44px; line-height: 50px; color: #F6F7F9; font-family: "Tipperary Semibold", sans-serif; white-space: nowrap; }
+body.OemplusB2 .B2DriveVal30 { font-size: 32px; line-height: 44px; top: 38px; }
+body.OemplusB2 .B2DriveTileS .B2DriveVal { font-size: 30px; line-height: 36px; top: 36px; }
+body.OemplusB2 .B2DriveSub { left: 20px; top: 88px; font-size: 24px; line-height: 28px; color: #9AA1AA; white-space: nowrap; }
+body.OemplusB2 .B2DriveMiniTrack { left: 20px; top: 94px; width: 290px; height: 12px; border-radius: 6px; background-color: rgba(255,255,255,0.08); overflow: hidden; }
+body.OemplusB2 .B2DriveMiniTrack .B2DriveFill { left: 0; top: 0; height: 12px; border-radius: 6px; }
+
+/* vullingen (balkjes in CSS) */
+body.OemplusB2 .B2DriveFillOk { background-color: #B0202C; }
+body.OemplusB2 .B2DriveFillOkDim { background-color: #8E1A22; }
+body.OemplusB2 .B2DriveFillWarn { background-color: #E7A23A; }
+body.OemplusB2 .B2DriveFillWarnSoft { background-color: rgba(231,162,58,0.5); }
+body.OemplusB2 .B2DriveFillNone { background-color: #3A3F46; }
+
+/* rijdend: zelfde pagina's (besluit de gebruiker: geen rustscherm-lock); alleen de titel iets gedempt, geen animaties */
+body.OemplusB2 .B2DriveDriving .B2DriveTitle { color: #C4C9D0; }
+
+/* schakelen */
+body.OemplusB2 .B2DriveHero { left: 0; top: 0; font-size: 64px; line-height: 70px; font-family: "Tipperary Semibold", sans-serif; color: #F6F7F9; white-space: nowrap; }
+body.OemplusB2 .B2DriveHeroUnit { font-size: 28px; color: #C4C9D0; font-family: "Tipperary", sans-serif; margin-left: 14px; }
+body.OemplusB2 .B2DriveStack { left: 0; top: 84px; width: 676px; height: 32px; border-radius: 8px; overflow: hidden; background-color: rgba(255,255,255,0.08); }
+body.OemplusB2 .B2DriveStack .B2DriveSeg { position: relative; float: left; height: 32px; }
+body.OemplusB2 .B2DriveLegend { left: 0; top: 122px; height: 32px; line-height: 32px; font-size: 26px; color: #D9DDE2; white-space: nowrap; }
+body.OemplusB2 .B2DriveSw { display: inline-block; width: 16px; height: 16px; border-radius: 4px; margin: 0 10px 0 28px; }
+body.OemplusB2 .B2DriveLegend .B2DriveSw:first-child { margin-left: 0; }
+body.OemplusB2 .B2DriveRecent { left: 0; top: 154px; width: 676px; height: 26px; line-height: 26px; font-size: 24px; color: #9AA1AA; white-space: nowrap; overflow: hidden; }
+
+/* optrekken & remmen */
+body.OemplusB2 .B2DriveGauge { left: 0; width: 676px; height: 108px; }
+body.OemplusB2 .B2DriveGLabel { left: 0; top: 0; font-size: 26px; line-height: 36px; color: #D9DDE2; }
+body.OemplusB2 .B2DriveGVal { right: 0; top: -4px; font-size: 36px; line-height: 40px; font-family: "Tipperary Semibold", sans-serif; color: #F6F7F9; text-align: right; }
+body.OemplusB2 .B2DriveGTrack { left: 0; top: 46px; width: 676px; height: 18px; border-radius: 9px; background-color: rgba(255,255,255,0.08); }
+body.OemplusB2 .B2DriveGTrack .B2DriveFill { left: 0; top: 0; height: 18px; border-radius: 9px; }
+body.OemplusB2 .B2DriveGThr { top: -6px; width: 3px; height: 30px; margin-left: -1px; background-color: #E8EAEE; opacity: 0.55; }
+body.OemplusB2 .B2DriveGSub { left: 0; top: 72px; font-size: 24px; line-height: 28px; color: #9AA1AA; white-space: nowrap; }
+body.OemplusB2 .B2DriveFootLine { left: 0; top: 236px; width: 676px; font-size: 24px; line-height: 30px; color: #9AA1AA; white-space: nowrap; }
+
+/* vorige rit (niveau N): cijfer links, feiten rechts, tip over de volle breedte (max 5 regels, JS kort af op ~230 tekens) */
+body.OemplusB2 .B2DriveScore { left: 0; top: -8px; font-size: 96px; line-height: 100px; font-family: "Tipperary Semibold", sans-serif; color: #FFFFFF; }
+body.OemplusB2 .B2DriveScoreSub { left: 4px; top: 94px; font-size: 24px; line-height: 26px; color: #8A919B; white-space: nowrap; }
+body.OemplusB2 .B2DriveFacts { left: 300px; top: 0; width: 376px; font-size: 26px; line-height: 38px; color: #D9DDE2; white-space: nowrap; }
+body.OemplusB2 .B2DriveFacts .B2DriveDelta { position: static; font-size: 24px; color: #D9DDE2; }
+body.OemplusB2 .B2DriveUpArrow { color: #B0202C; }
+body.OemplusB2 .B2DriveDownArrow { color: #E7A23A; }
+body.OemplusB2 .B2DriveTip { left: 0; top: 128px; width: 676px; height: 140px; background-color: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.09); border-radius: 12px; overflow: hidden; }
+body.OemplusB2 .B2DriveTipTxt { left: 18px; top: 4px; width: 640px; height: 130px; font-size: 24px; line-height: 26px; color: #F2F3F5; white-space: normal; overflow: hidden; }
+body.OemplusB2 .B2DriveTipKick { font-size: 18px; letter-spacing: 2.2px; color: #8A919B; font-family: "Tipperary Semibold", sans-serif; }
+
+/* deelcijfers */
+body.OemplusB2 .B2DrivePart { left: 0; width: 676px; height: 38px; }
+body.OemplusB2 .B2DrivePLabel { left: 0; top: 0; width: 230px; font-size: 24px; line-height: 38px; color: #D9DDE2; white-space: nowrap; }
+body.OemplusB2 .B2DrivePTrack { left: 240px; top: 12px; width: 360px; height: 14px; border-radius: 7px; background-color: rgba(255,255,255,0.08); overflow: hidden; }
+body.OemplusB2 .B2DrivePTrack .B2DriveFill { left: 0; top: 0; height: 14px; border-radius: 7px; }
+body.OemplusB2 .B2DrivePVal { left: 612px; top: 0; width: 64px; text-align: right; font-size: 26px; line-height: 38px; font-family: "Tipperary Semibold", sans-serif; color: #F6F7F9; }
+body.OemplusB2 .B2DrivePartLow .B2DrivePLabel { color: #FFFFFF; font-family: "Tipperary Semibold", sans-serif; }
+body.OemplusB2 .B2DrivePartLow .B2DrivePVal { color: #E7A23A; }
+
+/* trend */
+body.OemplusB2 .B2DriveTBase { left: 0; top: 176px; width: 676px; height: 1px; background-color: rgba(255,255,255,0.16); }
+body.OemplusB2 .B2DriveTBar { width: 44px; border-radius: 6px 6px 0 0; }
+body.OemplusB2 .B2DriveTEmpty { top: 166px; width: 44px; height: 10px; border-radius: 3px; background-color: rgba(255,255,255,0.06); }
+body.OemplusB2 .B2DriveTVal { width: 84px; text-align: center; font-size: 26px; line-height: 30px; color: #F6F7F9; font-family: "Tipperary Semibold", sans-serif; }
+body.OemplusB2 .B2DriveTLab { top: 184px; width: 84px; text-align: center; font-size: 24px; color: #8A919B; }
+body.OemplusB2 .B2DriveTLabLast { color: #D9DDE2; }
+
+/* uitleg */
+body.OemplusB2 .B2DriveTxt { left: 0; width: 676px; font-size: 24px; line-height: 32px; color: #D9DDE2; white-space: nowrap; overflow: hidden; }
+body.OemplusB2 .B2DriveTxt b { font-weight: normal; font-family: "Tipperary Semibold", sans-serif; color: #FFFFFF; }
+body.OemplusB2 .B2DriveTxt2 { color: #AEB4BD; }
+body.OemplusB2 .B2DriveTxt3 { color: #8A919B; }
+body.OemplusB2 .B2DriveSep { left: 0; width: 676px; height: 1px; background-color: rgba(255,255,255,0.09); }
+
+/* leeg / geen data */
+body.OemplusB2 .B2DriveEmpty { left: 0; top: 0; width: 676px; height: 268px; text-align: center; }
+body.OemplusB2 .B2DriveEmptyRing { left: 310px; top: 20px; width: 52px; height: 52px; border: 3px solid #3A3F46; border-radius: 29px; }
+body.OemplusB2 .B2DriveEmptyT1 { left: 0; top: 96px; width: 676px; font-size: 34px; line-height: 40px; color: #F2F3F5; font-family: "Tipperary Semibold", sans-serif; }
+body.OemplusB2 .B2DriveEmptyT2 { left: 0; top: 148px; width: 676px; font-size: 24px; line-height: 30px; color: #9AA1AA; }
+body.OemplusB2 .B2DriveEmptyT3 { left: 0; top: 182px; width: 676px; font-size: 24px; line-height: 30px; color: #8A919B; }
+
+/* oud (age > 5 s): alles gedempt, geen rood/amber in de inhoud */
+body.OemplusB2 .B2DriveStale .B2DriveVal, body.OemplusB2 .B2DriveStale .B2DriveHero, body.OemplusB2 .B2DriveStale .B2DriveGVal,
+body.OemplusB2 .B2DriveStale .B2DriveScore, body.OemplusB2 .B2DriveStale .B2DrivePVal, body.OemplusB2 .B2DriveStale .B2DriveTVal { color: #8A919B; }
+body.OemplusB2 .B2DriveStale .B2DriveFill, body.OemplusB2 .B2DriveStale .B2DriveSeg, body.OemplusB2 .B2DriveStale .B2DriveTBar,
+body.OemplusB2 .B2DriveStale .B2DriveSw { background-color: #4D525A; }
+
+/* voet (paneel y 352-408): buren + paginabolletjes */
+body.OemplusB2 .B2DriveFoot { position: absolute; left: 44px; top: 352px; width: 676px; height: 56px; }
+body.OemplusB2 .B2DrivePrev { position: absolute; left: 0; top: 12px; width: 190px; font-size: 24px; line-height: 32px; color: #8A919B; white-space: nowrap; overflow: hidden; }
+body.OemplusB2 .B2DriveNext { position: absolute; right: 0; top: 12px; width: 190px; text-align: right; font-size: 24px; line-height: 32px; color: #8A919B; white-space: nowrap; overflow: hidden; }
+body.OemplusB2 .B2DriveDots { position: absolute; left: 338px; top: 14px; height: 28px; white-space: nowrap; }
+body.OemplusB2 .B2DriveDot { display: inline-block; width: 26px; height: 28px; background: url(../images/B2DriveDot.png) no-repeat 0 0; }
+body.OemplusB2 .B2DriveDot.B2DriveDotCur { background-image: url(../images/B2DriveDotFocus.png); }
+body.OemplusB2 .B2DriveDot.B2DriveDotCurDim { background-image: url(../images/B2DriveDotDim.png); }

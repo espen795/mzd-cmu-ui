@@ -1,0 +1,449 @@
+/* OEMPLUS-B2 / P5-eco -- pakket P5 (eco-bel, optie B, 2026-11-27) in inject-v1.4.
+ * Bron: ui-mockup-v1.0/eco-bel/optieB/ONTWERP-B.md (commit 601d9626) + BORD-B.png + de gebruiker-wijzigingen:
+ *   Klaar/OK = donkerrood (#8E1A22 lijn / #B0202C accent, Mazda Soul Red donker) i.p.v. groen; focus
+ *   blijft fel rood #C8102E met gloed (DESIGN-SYSTEEM par.2). Waarschuwing = amber #E7A23A.
+ *   Motor-uit gloed = donkerrood. Effectiviteit-bomen blijven eco-groen #3FB68B. Brandstofverbruik-
+ *   staven = rood (huidig/beste #E8323C, zuinig #B0202C, rest grijs).
+ *   TPMS = indirect (geen bar/per-wiel): 2 bandenbubbels via eigen JS-divs (B2EcoTpmsL/R), zie
+ *   OemplusInject.js (P5-blok); "geen data" = verborgen (ONTWERP-B B6).
+ * Spelregels (README-P1-P4.md): alleen body.OemplusB2-prefix; alleen skin (background/color/font/
+ *   border-color/border-radius) BEHALVE de gedocumenteerde uitzondering: de decoratieve statusvakken
+ *   (iStopStatusAC/Engine/Battery) zijn NIET klikbaar en krijgen left/top/width/height + background-
+ *   position, zodat de 800x416 PNG (bubbel+lijn+schijf) op het vaste raster landt (ONTWERP-B par.6,
+ *   zie ook OPTIES.md par.2). Hitboxes (SwitchView/ShowUmp/switchElementBtn/Ump3/Home) blijven OEM (H1).
+ * Presto 2.12 / ASCII-only; valideer: python3 tools/check_presto.py. NIET aanraken: .OemplusInj* (paneel,
+ * z-index 50) en apps/ecoenergy/templates/*/js/*Tmplt.js (injectie-ingang, overlaypatch). */
+
+/* =================================================================== 1. EcoStatus (i-stop) -- foto + raster */
+/* container-achtergrond = gebakken foto-auto JPEG 800x416 (optieB/assets, uit ref/eco-car-front-logo-v1.jpg);
+ * de OEM auto-lagen (Car_Bottom/TopLayer, J03A/J03K/J7136/J78A-varianten) gaan uit (decoratief). */
+body.OemplusB2 .EcoStatusCtrl,
+body.OemplusB2 .EcoStatusCtrl_iEloop_Container,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_Container,
+body.OemplusB2 .EcoStatusCtrl_mHybridOnly_Container {
+  background-image: url(../images/B2EcoCarPhoto_B.jpg) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarBottomLayer,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_CarBottomLayer,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarBottomLayer_J03A,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_CarBottomLayer_J03A,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarBottomLayer_J03K,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_CarBottomLayer_J03K,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarBottomLayer_J7136,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_CarBottomLayer_J7136,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarBottomLayer_J78A,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_CarBottomLayer_J78A,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarTopLayer,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_iEloop_CarTopLayer,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarTopLayer_J03A,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarTopLayer_J03K,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarTopLayer_J7136,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarTopLayer_J78A,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarGlow,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarGlow_J03A,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarGlow_J03K,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarGlow_J7136,
+body.OemplusB2 .EcoStatusCtrl_iEloop_CarGlow_J78A {
+  background-image: none !important;
+}
+/* J12A (zijaanzicht) blijft OEM: geen B2EcoCarPhoto op _J12-varianten. */
+
+/* ------------------------------------------------------------------ 2. statusvakken (decoratief, NIET klikbaar)
+ * ONTWERP-B par.1/6: elk vak wordt 800x416 (de PNG-maat) en staat op control-coord (container = pagina
+ * y 64..480, dus control-y = pagina-y - 64). De PNG bevat bubbel + leader-lijn + schijf in de
+ * toestandskleur: Glow-klasse = Klaar (donkerrood), plain = blokkeert (amber). De klasse wisselt
+ * OEM-JS (EcoStatusCtrl.setIStopStatus); DisplayOff = EcoStatusCtrlHidden (display:none, OEM). */
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_AC,
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_AC_Glow {
+  left: 0px !important;
+  top: -328px !important;
+  width: 800px !important;
+  height: 416px !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_AC_Glow { background-image: url(../images/B2EcoIstopAC_Glow.png) !important; }
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_AC { background-image: url(../images/B2EcoIstopAC.png) !important; }
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Engine,
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Engine_Glow {
+  left: 0px !important;
+  top: -328px !important;
+  width: 800px !important;
+  height: 416px !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Engine_Glow { background-image: url(../images/B2EcoIstopEngine_Glow.png) !important; }
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Engine { background-image: url(../images/B2EcoIstopEngine.png) !important; }
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Battery,
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Battery_Glow {
+  left: 0px !important;
+  top: -328px !important;
+  width: 800px !important;
+  height: 416px !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Battery_Glow { background-image: url(../images/B2EcoIstopBatt_Glow.png) !important; }
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Battery { background-image: url(../images/B2EcoIstopBatt.png) !important; }
+/* J12-varianten: OEM (zijaanzicht, geen foto-raster) */
+
+/* ------------------------------------------------------------------ 3. GEREED-pil (iStopStatusText) -- CSS-only wit
+ * ONTWERP-B par.6: neutraal wit (de span staat voor de statusdivs in de DOM, geen sibling-selector
+ * naar rood/amber mogelijk). Positie = centrale pil (control x 270..530, y 256..308). */
+body.OemplusB2 .EcoStatusCtrl_iStop_Status_Text {
+  left: 270px !important;
+  top: -72px !important;
+  width: 260px !important;
+  height: 52px !important;
+  line-height: 48px !important;
+  font-size: 30px !important;
+  font-family: "Tipperary Semibold", Arial, sans-serif !important;
+  color: #f6f7f9 !important;
+  background-color: rgba(11, 13, 16, 0.80) !important;
+  background-image: url(../images/B2EcoGereedPill.png) !important;
+  background-repeat: no-repeat !important;
+  border: 2px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 14px !important;
+  text-align: center !important;
+}
+
+/* ------------------------------------------------------------------ 4. Gem. km/L kaart (fuelEfficiencyContainer)
+ * ONTWERP-B par.3: vaste plek rechtsboven rij 1 (control 612..788, y 24..88). De container is een
+ * position:fixed 0x0 div in controlDiv (pagina-coord). STRIKT BEPERKT: de kaart mag ALLEEN op het
+ * EcoStatus-scherm (ControlStatus) zichtbaar zijn; op FuelConsumption/Effectiveness/EnergyFlow en alle
+ * niet-eco schermen wordt hij verborgen (display:none) zodat hij NOOIT over een OEM+ B2-menu lekt
+ * (defect p5-controlstatus-aan-ump: kaart lekte naar het B2-menuscherm). */
+body.OemplusB2 .EcoStatusCtrl .EcoStatusCtrl_FuelEfficiency_Container,
+body.OemplusB2 .EcoStatusCtrl_FuelEfficiency_Container {
+  left: 612px !important;
+  top: 88px !important;         /* v1.5-r2: PAGINA-y 88 (= control-y 24, rij 1). Was 24 -> kaart lag OVER de klok */
+  width: 176px !important;
+  height: 64px !important;
+  display: block !important;
+  background-image: url(../images/B2EcoKpiCard.png) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+}
+/* KPI-kaart VERBORGEN op alle andere eco-/niet-eco schermen (alleen ControlStatus/EcoStatusCtrl toont hem).
+ * De controlDiv krijgt per scherm de klasse .EcoStatusCtrl / .FuelConsumptionCtrl / .EcoEffectCtrl /
+ * .EcoFlowCtrl; de fuelEfficiencyContainer zit IN die controlDiv. */
+body.OemplusB2 .FuelConsumptionCtrl .EcoStatusCtrl_FuelEfficiency_Container,
+body.OemplusB2 .EcoEffectCtrl .EcoStatusCtrl_FuelEfficiency_Container,
+body.OemplusB2 .EcoFlowCtrl .EcoStatusCtrl_FuelEfficiency_Container,
+body.OemplusB2 .FuelConsumptionCtrlFuelEfficiencyContainer,
+body.OemplusB2 .EcoStatusCtrl_iEloopOnly_FuelEfficiency_Container,
+body.OemplusB2 .EcoStatusCtrl_mHybridOnly_FuelEfficiency_Container {
+  display: none !important;
+  background-image: none !important;
+}
+/* KPI-kaart ALLEEN zichtbaar binnen .EcoStatusCtrl (ControlStatus) */
+body.OemplusB2 .EcoStatusCtrl .EcoStatusCtrl_FuelEfficiency_Container {
+  display: block !important;
+  background-image: url(../images/B2EcoKpiCard.png) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+}
+/* v1.5-r2 (defect 2, BORD-BOUW): zolang het OEM+ proefmenu open staat (OemplusInject.js zet dan de klasse
+ * B2EcoPanelOpen op de template-div) zijn ALLE B2-eco decoraties weg: de KPI-kaart is position:fixed en
+ * lag boven het menu, en de 800x416 bubbel-lagen (Accu/banden) staken rechts naast het 740-brede menu uit.
+ * Puur display:none op decoratieve, niet-klikbare elementen; hitboxes blijven OEM. */
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl .EcoStatusCtrl_FuelEfficiency_Container,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_FuelEfficiency_Container,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_FuelEfficiency_Value,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_WithCylinder_Value,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_AC,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_AC_Glow,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_Engine,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_Engine_Glow,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_Battery,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_Battery_Glow,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Status_Text,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Time_Frame,
+body.OemplusB2 .B2EcoPanelOpen .EcoStatusCtrl_iStop_Error_Text,
+body.OemplusB2 .B2EcoPanelOpen .B2EcoTpmsL,
+body.OemplusB2 .B2EcoPanelOpen .B2EcoTpmsR {
+  display: none !important;
+}
+/* v1.5 (v1.4-open punt, de gebruiker 2026-11-27): rij 3 eco (TPMS-bandenbubbels + pil/accu-bubbels) verbergen zolang het
+ * UMP open is (klasse B2UmpOpen op de template-div, gezet door OemplusInject.js zodang de OEM-UMP eroverheen staat).
+ * Review v1.5: B2EcoAccuL/R bestonden niet; de accu/motor/AC-bubbels + pil zijn de iStop_Status-lagen.
+ * De TPMS-bubbels waren al weg bij het proefmenu (B2EcoPanelOpen); nu ook bij de UMP. Puur display:none op decoratieve,
+ * niet-klikbare lagen; hitboxes blijven OEM. */
+body.OemplusB2 .B2UmpOpen .B2EcoTpmsL,
+body.OemplusB2 .B2UmpOpen .B2EcoTpmsR,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_AC,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_AC_Glow,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_Engine,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_Engine_Glow,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_Battery,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_Battery_Glow,
+body.OemplusB2 .B2UmpOpen .EcoStatusCtrl_iStop_Status_Text {
+  display: none !important;
+}
+body.OemplusB2 .EcoStatusCtrl_FuelEfficiency_Title,
+body.OemplusB2 .EcoStatusCtrl_FuelEfficiency_SinceReset,
+body.OemplusB2 .EcoStatusCtrl_FuelEfficiency_Unit,
+body.OemplusB2 .EcoStatusCtrl_WithCylinder_Unit {
+  visibility: hidden !important;
+}
+body.OemplusB2 .EcoStatusCtrl_FuelEfficiency_Value,
+body.OemplusB2 .EcoStatusCtrl_WithCylinder_Value {
+  left: 624px !important;
+  top: 112px !important;        /* v1.5-r2: onder het label "Gemiddeld" (PNG y 4..26) in de kaart (pagina 88..152) */
+  width: 164px !important;
+  height: 36px !important;
+  font-size: 28px !important;
+  font-family: "Tipperary Semibold", Arial, sans-serif !important;
+  color: #ffffff !important;
+  text-align: left !important;
+  line-height: 36px !important;
+  z-index: 2 !important;        /* v1.5-r2: waarde lag ONDER de (fixed, 80% dekkende) kaart-PNG -> grijs */
+}
+/* eenheid (OEM-span na de waarde, volgt de instelling km/L of L/100km): klein + grijs; label "Gemiddeld" zit in de PNG */
+body.OemplusB2 .EcoStatusCtrl_FuelEfficiency_Value span {
+  font-size: 20px !important;
+  font-family: Tipperary, Arial, sans-serif !important;
+  color: #9aa1aa !important;
+  padding-left: 6px !important;
+}
+
+/* ------------------------------------------------------------------ 5. Time-modus (iStopTimeFrame) -- centrale kaart
+ * ONTWERP-B par.5: kaart 328x88, onderrand = rij 3 (control y 314 = pagina 378), groeit omhoog.
+ * De kaart zelf is ABSOLUUT binnen de control (position:absolute, top 226 -> pagina 290) zodat de
+ * teksten erbinnen nooit onder de kaart uit kunnen vallen (defect p5-time: "MOTOR UIT"+stoptijd
+ * vielen uit/werden geclipt onder de kaart). OEM-JS verbergt in Time-modus de 3 statusdivs + GEREED
+ * (EcoStatusCtrlHidden) en zet iEloopEngine -> EngineGlow. */
+body.OemplusB2 .EcoStatusCtrl_iStop_Container .EcoStatusCtrl_iStop_Time_Frame,
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Frame {
+  position: absolute !important;
+  left: 236px !important;
+  top: -102px !important;       /* container top 328: 328-102 = 226 control-y = pagina 290; onderrand 314 (rij 3) */
+  width: 328px !important;
+  height: 88px !important;
+  background-image: url(../images/B2EcoTimeCard.png) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+  overflow: hidden !important;  /* teksten kunnen nooit buiten de kaart vallen */
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Bg_Left,
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Bg_Right { background-image: none !important; }
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Title,
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_TotalTitle { visibility: hidden !important; }
+/* waarden INSIDE de kaart (frame is nu absoluut): links stoptijd, rechts totaal */
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Frame .EcoStatusCtrl_iStop_Time_Value,
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Value {
+  position: absolute !important;
+  left: 16px !important;
+  top: 34px !important;         /* onder de kicker "MOTOR UIT" (PNG y 8..32) */
+  width: 152px !important;
+  height: 46px !important;
+  line-height: 46px !important;
+  font-size: 36px !important;
+  font-family: "Tipperary Semibold", Arial, sans-serif !important;
+  text-align: left !important;
+  color: #f2f3f5 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Frame .EcoStatusCtrl_iStop_Time_TotalValue,
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_TotalValue {
+  position: absolute !important;
+  left: 192px !important;
+  top: 38px !important;         /* onder de kicker "Totaal" (PNG y 8..32) */
+  width: 124px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-size: 30px !important;
+  font-family: "Tipperary Semibold", Arial, sans-serif !important;
+  text-align: left !important;
+  color: #d9dde2 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+/* eenheden (OEM-span "m "/"s", 27px Tipperary) kleiner en grijs in de kaart */
+body.OemplusB2 .EcoStatusCtrl_iStop_Time_Frame .EcoStatusCtrl_timeUnit {
+  font-size: 22px !important;
+  font-family: Tipperary, Arial, sans-serif !important;
+  color: #9aa1aa !important;
+}
+/* motorgloed in Time-modus: donkerrood (de gebruiker) i.p.v. groen */
+body.OemplusB2 .EcoStatusCtrl_iEloop_Engine { background-image: none !important; }
+body.OemplusB2 .EcoStatusCtrl_iEloop_EngineGlow,
+body.OemplusB2 .EcoStatusCtrl_iEloop_EngineGlow_J78A {
+  background-image: url(../images/B2EcoGlowOk.png) !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ------------------------------------------------------------------ 6. Error-modus (iStopErrorText)
+ * ONTWERP-B par.5: kaart 328 breed, ABSOLUUT binnen de control met onderrand op control-y 314
+ * (top 226, height 88; pagina 290..378), hoogte groeit NIET mee (vaste 88) zodat de kaart NOOIT
+ * buiten het scherm/onder de kaart valt (defect p5-error: kaart was onzichtbaar omdat bottom:-226
+ * t.o.v. de 800x416 statusdivs hem op pagina y 552 duwde). Amber rand + kop-PNG bovenaan;
+ * Line2 (conditie) + Line1 (OEM-status) als absolute children BINNEN de kaart. */
+body.OemplusB2 .EcoStatusCtrl_iStop_Container .EcoStatusCtrl_iStop_Error_Text,
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text {
+  position: absolute !important;
+  left: 236px !important;
+  top: -134px !important;       /* v1.5-r2: container top 328: 328-134 = 194 control-y = pagina 258; onderrand 314 = rij 3 */
+  width: 324px !important;      /* + 2x2 rand = 328 x 120 */
+  height: 116px !important;
+  min-height: 116px !important;
+  overflow: hidden !important;
+  white-space: normal !important;
+  background-color: rgba(11, 13, 16, 0.88) !important;
+  background-image: url(../images/B2EcoErrorHead.png) !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+  border: 2px solid #E7A23A !important;
+  border-radius: 14px !important;
+  padding: 0 !important;
+  color: #f2f3f5 !important;
+  font-family: "Tipperary Semibold", Arial, sans-serif !important;
+  font-size: 22px !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text .EcoStatusCtrl_iStop_Error_Text_Line1,
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text_Line1 {
+  position: absolute !important;
+  left: 14px !important;
+  top: 84px !important;         /* OEM-status onder de (max 2-regelige) conditie */
+  width: 296px !important;
+  height: 26px !important;
+  line-height: 26px !important;
+  font-size: 20px !important;
+  font-family: Tipperary, Arial, sans-serif !important;
+  color: #9aa1aa !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text .EcoStatusCtrl_iStop_Error_Text_Line2,
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text .EcoStatusCtrl_iStop_Error_Text_LineCenter,
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text_Line2,
+body.OemplusB2 .EcoStatusCtrl_iStop_Error_Text_LineCenter {
+  position: absolute !important;
+  left: 14px !important;
+  top: 32px !important;         /* conditie: max 2 regels (ONTWERP-B par.5), geen ellipsis meer */
+  width: 296px !important;
+  height: 52px !important;
+  line-height: 26px !important;
+  font-size: 22px !important;
+  color: #f2f3f5 !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+}
+
+/* ------------------------------------------------------------------ 7. TPMS-bandenbubbels (eigen JS-divs, indirect TPMS)
+ * Aangemaakt door het P5-blok in OemplusInject.js: <div class="B2EcoTpmsL/R"> in .EcoStatusCtrl, 800x416
+ * op (0,0), background = B2EcoTpms{L,R}_{Ok,Low,Fault}.png. "Laag" pulseert via PNG-wissel (JS), zie JS.
+ * Geen data (nooit warnguide-berichten gehad) = de divs worden verborgen (ONTWERP-B B6). */
+body.OemplusB2 .B2EcoTpmsL,
+body.OemplusB2 .B2EcoTpmsR {
+  position: absolute !important;
+  left: 0px !important;
+  top: 0px !important;
+  width: 800px !important;
+  height: 416px !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 0 !important;
+  pointer-events: none !important;
+}
+body.OemplusB2 .B2EcoTpmsL_Ok,
+body.OemplusB2 .B2EcoTpmsR_Ok { background-image: url(../images/B2EcoTpmsL_Ok.png) !important; }
+body.OemplusB2 .B2EcoTpmsR_Ok { background-image: url(../images/B2EcoTpmsR_Ok.png) !important; }
+body.OemplusB2 .B2EcoTpmsL_Low,
+body.OemplusB2 .B2EcoTpmsR_Low { background-image: url(../images/B2EcoTpmsL_Low.png) !important; }
+body.OemplusB2 .B2EcoTpmsR_Low { background-image: url(../images/B2EcoTpmsR_Low.png) !important; }
+body.OemplusB2 .B2EcoTpmsL_LowPulse,
+body.OemplusB2 .B2EcoTpmsR_LowPulse { background-image: url(../images/B2EcoTpmsL_LowPulse.png) !important; }
+body.OemplusB2 .B2EcoTpmsR_LowPulse { background-image: url(../images/B2EcoTpmsR_LowPulse.png) !important; }
+body.OemplusB2 .B2EcoTpmsL_Fault,
+body.OemplusB2 .B2EcoTpmsR_Fault { background-image: url(../images/B2EcoTpmsL_Fault.png) !important; }
+body.OemplusB2 .B2EcoTpmsR_Fault { background-image: url(../images/B2EcoTpmsR_Fault.png) !important; }
+body.OemplusB2 .B2EcoTpmsHidden { display: none !important; }
+
+/* ------------------------------------------------------------------ 8. i-stop-banner (onderbalk) + titel
+ * De banner (iStopContainer, OEM 800x88 op y 328) is in optie B overbodig: de status staat in de
+ * vakken. Verberg de OEM-banner + het i-stop logo; de container zelf laten we (leeg, geen hitbox). */
+body.OemplusB2 .EcoStatusCtrl_iStop_Container {
+  background-image: none !important;
+}
+body.OemplusB2 .EcoStatusCtrl_iStop_Title { background-image: none !important; }
+
+/* =================================================================== 9. Brandstofverbruik (FuelConsumption)
+ * Staven rood (de gebruiker, v1.5-r2): huidige reis = HELDER rood #E8323C, zuinig = #B0202C, overig = GEDEMPT
+ * donkerrood #701E26 (B2EcoBarNarrow/Wide.png; NIET meer grijs), kapjes lichtrood #D65C64. JS zet alleen
+ * height (repeat-y) -> de PNG-kolom wordt uitgerekt. De "huidige reis"-staaf (CDFEBarGraphCoreCurrent
+ * / CFERBarGraphCoreCurrent / ...CurrentGreen) is HELDER ROOD; de zuinige "Green"-staven donkerrood;
+ * de rest grijs (defect p5-fuel: alles was grijs -> nu per klasse de juiste rode/grijze PNG). */
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCore { background-image: url(../images/B2EcoBarNarrow.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCoreCurrent { background-image: url(../images/B2EcoBarNarrow_Current.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCoreCurrentGreen { background-image: url(../images/B2EcoBarNarrow_GreenCurrent.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCoreRight,
+body.OemplusB2 .FuelConsumptionCtrlCFERBarGraphCore { background-image: url(../images/B2EcoBarWide.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCoreGreenRight { background-image: url(../images/B2EcoBarWide_Green.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCFERBarGraphCoreCurrent { background-image: url(../images/B2EcoBarWide_Current.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlHevCDFEBarGraphCore { background-image: url(../images/B2EcoBarNarrow.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlHevCDFEBarGraphCoreCurrent { background-image: url(../images/B2EcoBarNarrow_Current.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCap { background-image: url(../images/B2EcoBarCapNarrow.png) !important; }
+body.OemplusB2 .FuelConsumptionCtrlCDFEBarGraphCapRight,
+body.OemplusB2 .FuelConsumptionCtrlCFERBarGraphCap { background-image: url(../images/B2EcoBarCapWide.png) !important; }
+/* GEEN KPI-kaart op FuelConsumption: de OEM "Gemiddeld (Deze reis)"-kolom rechts (FuelEfficiencyArea,
+ * x 648..796) blijft OEM-tekst en mag NIET overlappen met de klok/titel (klok = StatusBarCtrlClock
+ * 674..788 y 1..62; titel zit in de 64px banner). De Gem.-kaart is ALLEEN op EcoStatus (zie par.4). */
+body.OemplusB2 .FuelConsumptionCtrlFuelEfficiencyArea,
+body.OemplusB2 .FuelConsumptionCtrlFuelEfficiencyTitle,
+body.OemplusB2 .FuelConsumptionCtrlFuelEfficiencyThisDrive,
+body.OemplusB2 .FuelConsumptionCtrlFuelEfficiencyValue,
+body.OemplusB2 .FuelConsumptionCtrlFuelEfficiencyUnit {
+  background-image: none !important;
+}
+
+/* =================================================================== 10. Effectiviteit (EcoEffect)
+ * B2-kaartstijl consistent met optie B (defect p5-tree-3: scherm had nauwelijks B2-stijl):
+ * - achtergrond van .EcoEffectCtrl = B2EcoEffectBg.png (donker B2-vlak, zelfde als andere B2-schermen)
+ * - de percent-meter (canvas #EcoIstopEffectiveRateDrawingCanvas) krijgt een B2-kaart-rand PNG
+ * - percentDiv ("%"-teken) in B2-stijl
+ * - tijd/boost-labels als B2-kickers (grijs, kleiner), waarden wit Semibold
+ * - bomen blijven eco-groen #3FB68B (de gebruiker: "snap ik bij eco"). */
+body.OemplusB2 .EcoEffectCtrl {
+  background-image: url(../images/B2EcoEffectBg.png) !important;
+  background-position: 0 0 !important;   /* v1.5-r2: 0 0 (kaarten liggen op pixel-coord = pagina - (10,64)) */
+  background-repeat: no-repeat !important;
+}
+/* v1.5-r2: de kaarten (meter / tijden / gestimuleerd) zijn in B2EcoEffectBg.png gebakken op de OEM-posities;
+ * B2EcoMeterCard.png is transparant (canvas = hitbox, blijft OEM). Bomen eco-groen; boom-kaart eco-groene rand. */
+body.OemplusB2 .EcoEffectCtrl #EcoIstopEffectiveRateDrawingCanvas {
+  background-image: url(../images/B2EcoMeterCard.png) !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .EcoEffectCtrl .percentDiv {
+  background-image: url(../images/B2EcoPercent.png) !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  color: #f2f3f5 !important;
+}
+body.OemplusB2 .EcoEffectCtrl .iStopText,
+body.OemplusB2 .EcoEffectCtrl .actualTime,
+body.OemplusB2 .EcoEffectCtrl .stopTime,
+body.OemplusB2 .EcoEffectCtrl .iStopBoostText {
+  color: #9aa1aa !important;
+  font-size: 24px !important;
+}
+body.OemplusB2 .EcoEffectCtrl .iStopValue,
+body.OemplusB2 .EcoEffectCtrl .actualTimeValue,
+body.OemplusB2 .EcoEffectCtrl .stopTimeValue,
+body.OemplusB2 .EcoEffectCtrl .iStopBoostValue,
+body.OemplusB2 .EcoEffectCtrl .treeValue {
+  color: #f6f7f9 !important;
+  font-family: "Tipperary Semibold", Arial, sans-serif !important;
+}
+body.OemplusB2 .EcoEffectCtrl .treeWithTwoLeaves { background-image: url(../images/B2EcoTree_01.png) !important; }
+body.OemplusB2 .EcoEffectCtrl .treeWithThreeLeaves { background-image: url(../images/B2EcoTree_02.png) !important; }
+body.OemplusB2 .EcoEffectCtrl .fullBlownTree { background-image: url(../images/B2EcoTree_03.png) !important; }
+body.OemplusB2 .EcoEffectCtrl .tree { background-image: url(../images/B2EcoTree_03_sm.png) !important; }
+/* de kleine boom-achtergrond (SmallTree_Bg) in B2-stijl */
+body.OemplusB2 .EcoEffectCtrl .treeBackground { background-image: url(../images/B2EcoTreeBg.png) !important; }

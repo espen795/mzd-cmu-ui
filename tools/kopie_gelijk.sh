@@ -2,7 +2,7 @@
 # kopie_gelijk.sh v1.0 -- draait OP DE CMU (busybox 1.19 ash). ALLEEN LEZEN (lijsten in /tmp). R-cmu H1/V1.
 # Volledige boomvergelijking proefkopie /data_persist/oemplus-test/gui <-> /jci/gui, in beide richtingen, per bestand md5.
 # Gebruik:  sh kopie_gelijk.sh schoon    kopie moet EXACT gelijk zijn aan /jci/gui (voor apply, na revert)
-#           sh kopie_gelijk.sh overlay   enige toegestane differences = de 183 inject-v1.3-paden (4 vervangen + 179 nieuw), en die moeten exact de
+#           sh kopie_gelijk.sh overlay   enige toegestane differences = de 262 inject-v1.5-paden (4 vervangen + 258 nieuw), en die moeten exact de
 #                                        overlay-md5 hebben (na apply, voor de mount)
 # Ook: symlinks in kopie == symlinks in /jci/gui (zelfde paden); geen enkel overlay-pad is een symlink.
 # Eis: /jci/gui NIET gemount (anders vergelijk je de kopie met zichzelf).
@@ -10,7 +10,7 @@
 MODE=${1:-}
 BASE=/data_persist/oemplus-test
 COPY=$BASE/gui
-OVL=$BASE/injectv13/overlay
+OVL=$BASE/injectv15/overlay
 ORIG=$OVL/ORIGINAL-MD5.txt
 OVMD5=$OVL/OVERLAY-MD5.txt
 
@@ -82,8 +82,8 @@ BEGIN {
 }' </dev/null
 RC=$?
 if [ "$RC" = 0 ]; then
-  if [ "$MODE" = schoon ]; then echo "KOPIE GELIJK: proefkopie == /jci/gui (hele boom, md5)"; else echo "KOPIE GELIJK: alleen de inject-v1.3-overlaypaden wijken af (hele boom, md5)"; fi
+  if [ "$MODE" = schoon ]; then echo "KOPIE GELIJK: proefkopie == /jci/gui (hele boom, md5)"; else echo "KOPIE GELIJK: alleen de inject-v1.5-overlaypaden wijken af (hele boom, md5)"; fi
   exit 0
 fi
-echo "STOP: proefkopie wijkt af van /jci/gui ($MODE) -- NIET mounten. Herstel: revert van de overlay; blijft het verschil: sh $BASE/injectv13/kopie_vers.sh"
+echo "STOP: proefkopie wijkt af van /jci/gui ($MODE) -- NIET mounten. Herstel: revert van de overlay; blijft het verschil: sh $BASE/injectv15/kopie_vers.sh"
 exit 1

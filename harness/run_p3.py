@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""run_p3.py -- P3-harnas (Tabs/Slider/Button) voor ui-oemplus-inject-v1.3 (BOUWPLAN.md P3, checks H1-H9).
+"""run_p3.py -- P3-harnas (Tabs/Slider/Button) voor ui-oemplus-inject-v1.4 (BOUWPLAN.md P3, checks H1-H9).
 
 Schermen (echte v74-GUI in Chromium, nep-MMUI, root-inject = overlay incl. B2Sub-30):
   S1 syssettings/DisplayTab   -- TabsCtrlStyle4 (8 tabs, 4 zichtbaar, Prev/Next pijlen), in-lijst sliders
@@ -189,8 +189,8 @@ def main():
     press(h, "m"); press(h, "n")
     press(h, "Enter", 1500)
     st = h.ev(STATE_JS)
-    check("P3-0 'B2 aan': subOn true, 5 B2Sub-links (00 geladen, 10/20/40 404, 30 geladen)",
-          st["inj"] and st["inj"]["subOn"] and len(st["links"]) == 5 and st["subCls"] is True, {k: st[k] for k in ("subCls", "links")})
+    check("P3-0 'B2 aan': subOn true, 7 B2Sub-links (00..40,50,60 geladen sinds v1.4 P5/P6)",
+          st["inj"] and st["inj"]["subOn"] and len(st["links"]) == 7 and st["subCls"] is True, {k: st[k] for k in ("subCls", "links")})
     p30 = [l for l in st["links"] if "B2Sub-30" in l]
     check("P3-0 B2Sub-30-tabs-slider-button.css in link-lijst", len(p30) == 1, st["links"])
     miss30 = [m for m in h.missing if "B2Sub-30" in m or "B2Tab" in m or "B2Btn150" in m]

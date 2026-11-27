@@ -1,0 +1,81 @@
+{
+ "v": 1,
+ "src": "pi-live",
+ "versie": "1.0",
+ "ts": 1767001234,
+ "age_s": 0.0,
+ "seg": "sample-trip.raw",
+ "nu": {
+  "cmu_tijd": 1767001200.0,
+  "kmh": 0.1,
+  "g_langs": -0.107,
+  "rpm_schatting": 650,
+  "g_zij": 0.0,
+  "rem": true,
+  "limiet": null,
+  "straat": "Sample Street",
+  "gas_pct": 0.0,
+  "versnelling": 0,
+  "istop_klaar": true,
+  "rijdend": false
+ },
+ "rit": {
+  "start": "2026-01-10 10:15:00",
+  "km": 42.0,
+  "rijdend_min": 38.0,
+  "max_kmh": 96.0,
+  "cijfer": 8.6494,
+  "oordeel": "uitstekend",
+  "cijfer_voorlopig": false,
+  "schakelingen": 50,
+  "soepel": 31,
+  "hard_optrekken": 4,
+  "hard_remmen": 1,
+  "opschakelen_rpm": 1801.5066,
+  "recent": {
+   "venster_s": 120.0,
+   "rijdend_s": 64.5,
+   "calm_2min": 0.9628,
+   "schakelingen": 4,
+   "soepel": 2,
+   "merkbaar": 2,
+   "hard": 0,
+   "hard_optrekken": 0,
+   "hard_remmen": 0
+  },
+  "ruwste": {
+   "min": 80.3249,
+   "van": "N",
+   "naar": 1,
+   "kmh": 13.4965,
+   "rpm_voor": 1360.4571,
+   "rpm_na": 2015.6775,
+   "duur": 69.9067,
+   "j_in": null,
+   "j_uit": 9.1421,
+   "oordeel": "hard",
+   "oorzaak": "wegrijden; tegelijk geremd"
+  },
+  "analyse_leeftijd_s": 4.2
+ },
+ "vorige_rit": {
+  "start": "2026-01-09 17:30:00",
+  "km": 37.5,
+  "rijdend_min": 33.0,
+  "cijfer": 7.9368,
+  "oordeel": "goed",
+  "deelcijfers": {
+   "Inkoppelen (koppeling op)": 7.7381,
+   "Gas los / koppeling in": 4.4048,
+   "Schakelmoment": 9.8767,
+   "Rustig optrekken": 4.2541,
+   "Anticiperen / remmen": 9.284,
+   "Motorvriendelijk": 10.0,
+   "Constante snelheid": 10.0
+  },
+  "tip": "32 van 38x opschakelen: knik bij gas los/koppeling in (gem. 71 % gas vlak ervoor). Hoort deels bij vlot optrekken; gas een tel eerder en rustiger loslaten helpt.",
+  "trend": [
+   7.9368
+  ]
+ }
+}

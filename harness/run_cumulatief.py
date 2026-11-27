@@ -124,7 +124,7 @@ def main():
     check("setup: 'B2 aan' gelukt", pn["inj"]["on"] and pn["inj"]["subOn"], pn["inj"])
     st = h.ev(STATE_JS)
     check("setup: ALLE 5 B2Sub-links (00,10,20,30,40) in DOM, geen 404",
-          st["subLinks"] == 5 and not any("B2Sub" in m for m in h.missing),
+          st["subLinks"] == 7 and not any("B2Sub" in m for m in h.missing),
           {"n": st["subLinks"], "hrefs": st["hrefs"], "missing": [m for m in h.missing if "B2Sub" in m]})
     check("setup: geen JS-fouten", not errs(h), errs(h))
 
@@ -149,7 +149,7 @@ def main():
         ok = goto(h, uia, ctxt, 2800)
         st = h.ev(STATE_JS)
         check("%s: context %s/%s geladen, body.OemplusB2 aan, 5 B2Sub-links" % (name, uia, ctxt),
-              ok and st["subCls"] is True and st["subLinks"] == 5,
+              ok and st["subCls"] is True and st["subLinks"] == 7,
               {k: st[k] for k in ("app", "ctxt", "subCls", "subLinks", "fw")})
         try:
             h.ev("(function(){ var a = framework.getAppInstance('%s'); var t = a && a._currentContextTemplate; if (t) t.handleControllerEvent('controllerActive'); })()" % uia)

@@ -10,7 +10,8 @@ An alternative dark "B2" theme/UI layer for the Mazda Connect CMU (head unit) on
 It is injected at runtime into the stock Opera-based GUI (Presto 2.12 / Opera 12.10): a bind-mounted overlay
 replaces **four** ecoenergy (fuel consumption) app templates with hook-enabled copies and adds its own
 JS/CSS/PNG assets. Everything is toggled from an in-car panel under **Applications > Fuel consumption**
-("Fuel consumption" in a Dutch-locale car).
+("Brandstofverbruik" in a Dutch-locale car). v1.5 adds a **Trip & driving style** panel (draft, untested on
+the car) that shows live trip and driving-style figures from a companion data server.
 
 **Stock files are never overwritten.** The overlay lives in a copy of `/jci/gui` under
 `/data_persist/oemplus-test/gui`, bind-mounted over `/jci/gui` at runtime (RAM-only). Revert = unmount + reboot
@@ -25,19 +26,32 @@ labels are Dutch because it was developed on a Dutch-locale car.
 
 ## Status
 
+Current version: **inject-v1.5 (2026-11-27)** - see [CHANGELOG.md](CHANGELOG.md) for details per version.
+
+**On the car:** v1.1 (2026-11-26) and v1.3 incl. the v1.2 home changes (2026-11-27) were tested once each in a
+stationary car (mount, browse, reversing camera, revert). **v1.4 and v1.5 are harness-only and still have to be
+tested on the car.**
+
 | Part | What | Status |
 |---|---|---|
-| B2 home | Alternative home screen (clock, app rows, context panels), replacing MainMenuCtrl at runtime | Implemented, harness-proven; live-on-car tested once |
-| P0 base | `body.OemplusB2` class + loader for the submenu CSS files + protected-screen guard + base CSS/assets | Done (harness 86/86) |
-| P1 list | List2 screens (Applications, Communication, lists with checkboxes/radios/toggles/sliders/scrollbar) | Done (harness 54/54) |
-| P2 dialogs | Dialog3 popups (buttons, progress meters, PIN entry, splash dialogs) | Done (harness 82/82) |
-| P3 tabs/sliders | TabsCtrl tabs + prev/next arrows, standalone sliders, generic 150x100 buttons | Done (harness 72/72) |
-| P4 media/input | NowPlaying4/Ump3 (radio/USB audio), DialPad, on-screen Keyboard | Done in harness (52/52); Bluetooth-audio screen not yet covered by the harness |
+| B2 home | Alternative home screen (clock, app rows, context panels), replacing MainMenuCtrl at runtime | Tested on the car (v1.1 + v1.2) |
+| v1.2 banner/clock | Top 64 px reserved for the notification banner, banner in B2 style, navigation street-name banners suppressed | Clock layout confirmed on the car; banner styling/suppression harness-proven |
+| P0 base | `body.OemplusB2` class + loader for the submenu CSS files + protected-screen guard + base CSS/assets | Tested on the car (v1.3); guard flap fix (v1.4) harness only |
+| P1 list | List2 screens (Applications, Communication, lists with checkboxes/radios/toggles/sliders/scrollbar) | Tested on the car (v1.3) |
+| P2 dialogs | Dialog3 popups (buttons, progress meters, PIN entry, splash dialogs) | On the car (v1.3) some dialogs were see-through; fixed in v1.4, harness only |
+| P3 tabs/sliders | TabsCtrl tabs + prev/next arrows, standalone sliders, generic 150x100 buttons | Tested on the car (v1.3); tab-title fix v1.4 harness only |
+| P4 media/input | NowPlaying4/Ump3 (radio/USB audio), DialPad, on-screen Keyboard | Radio Now Playing tested on the car (v1.3); dark control bar v1.4 harness only |
+| P5 eco | Fuel consumption / eco status / energy flow / effectiveness restyle, indirect TPMS bubbles | **v1.4, harness only** |
+| P6 phone | Call screen, incoming call, dial pad focus rings | **v1.4, harness only** |
+| Terminal item | "Terminal" in Applications at runtime (needs the terminal trigger from mzd-toolkit) | **v1.4, harness only** |
+| Trip & driving style | New Applications item *Rit & rijstijl* with 7 pages + home summary line, live data via WebSocket/JSONP/XHR | **v1.5 NEW, harness only - needs a companion live-data server (not in this repo yet)** |
 
-All harness suites together: 374 checks + 53 shell-script checks under busybox 1.19.0, 0 failures
-(see `docs/TESTING-ON-THE-CAR.md` for how to run them). Placeholder work that is still open: icon restyling
-(P5), messaging/scroll-detail/tuner screens, animated spinner (Presto cannot animate a div background, so the
-progress spinner is static).
+Harness v1.5 (all suites run from a fresh export of this repo with a stock dump in `stock/`): **537 checks,
+0 failures** (trip panel 7 modes 168, live transport 15, inject/home 88, terminal 15, guard 15, banners 12,
+dialogs/screens 26, all CSS together 28, eco 112, phone 58) + **53/53** shell-script checks under busybox
+1.19.0 + static Presto/ES5 check OK. Overlay: 4 replaced templates + 270 new files.
+Still open: icon restyling, messaging/scroll-detail/tuner screens, animated spinner (Presto cannot animate a
+div background, so the progress spinner is static).
 
 ## Repo layout
 
@@ -48,7 +62,8 @@ progress spinner is static).
   - `common/controls/StatusBar/css/StatusBarCtrl-oemplusb2.css`, `common/controls/Sbn/css/SbnCtrl-oemplusb2.css` -
     status bar / notification banner styling
   - `common/oemplusb2/css/B2Sub-00..40-*.css` - submenu skin files, loaded in fixed order
-  - `common/oemplusb2/images/*.png` - generated PNG assets (137 files)
+  - `common/oemplusb2/js/B2DriveView.js`, `src/OemplusLive.js` - trip panel view + live-data transport (v1.5)
+  - `common/oemplusb2/images/*.png` - generated PNG assets; `B2EcoCarPhoto_B.jpg` is a neutral placeholder
 - `tools/` - host and on-CMU scripts:
   - `make_overlay.py` (host) - builds `overlay/` from your own stock dump in `stock/` + `src/` + `overlay-src/`;
     patches the 4 ecoenergy templates byte-exactly and verifies md5 against the CMU-made checksum list
@@ -61,6 +76,7 @@ progress spinner is static).
 - `docs/overview.png` - UI overview image (above)
 - `stock/` - **your own CMU dumps go here** (see `stock/README.md`); everything under `stock/` except the
   README is gitignored
+- `CHANGELOG.md` - per version: what changed, what was tested on the car, what still has to be tested
 - `docs/DESIGN.md` - architecture; `docs/TESTING-ON-THE-CAR.md` - build, harness and on-car test procedure
 
 ## Requirements

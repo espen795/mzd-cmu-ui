@@ -879,8 +879,8 @@ MainMenuCtrl.prototype._b2BuildRow = function(i, focusDiv, normalDiv, highlightD
         this._b2El(st, "B2Rule");
         this._b2Text(this._b2El(st, "B2Note"), "Druk of tik om te openen");
 
-        // dynamisch deel (alleen Ent, Com, Set in v1)
-        if (key === "Ent" || key === "Com" || key === "Set")
+        // dynamisch deel (v1: Ent, Com, Set; v1.5: ook App met de rijstijl-regel uit de live-data)
+        if (key === "Ent" || key === "Com" || key === "Set" || key === "App")
         {
             var dy = this._b2El(focusDiv, "B2Dyn");
             els.hero = this._b2El(dy, "B2Hero");
@@ -907,6 +907,15 @@ MainMenuCtrl.prototype._b2BuildRow = function(i, focusDiv, normalDiv, highlightD
                 this._b2Text(els.hero, "Telefoon");
                 this._b2Text(els.num1, "\u2013");
                 this._b2Text(els.num2, "\u2013");
+            }
+            else if (key === "App")
+            {
+                /* v1.5 punt 7 (de gebruiker 2026-11-27): contextvak bij Applicaties toont de rijstijl-regel:
+                 * "Rijstijl 8,6 \u25b2" (vorige rit) of "Rit 12 km \u00b7 9/11 soepel" (lopend); verborgen zonder data.
+                 * Leeg bij eerste start (nog geen live frame) -> B2HasData pas bij echte data (zie _b2UpdateRit). */
+                this._b2Text(this._b2El(dy, "B2NumLbl B2C1"), "RIJSTIJL");
+                els.ritLine = this._b2El(dy, "B2RitLine");
+                this._b2Text(els.ritLine, "\u2013");
             }
             else
             {
@@ -1452,14 +1461,75 @@ MainMenuCtrl.prototype._b2Refresh = function(index)
 {
     try
     {
-        if (index >= 0 && index < this._coins.length && this._coins[index].key === "Com")
+        if (index >= 0 && index < this._coins.length)
         {
-            this._b2UpdateSbIcons();
+            var k = this._coins[index].key;
+            if (k === "Com")
+            {
+                this._b2UpdateSbIcons();
+            }
+            else if (k === "App")
+            {
+                this._b2UpdateRit();
+            }
         }
     }
     catch (e)
     {
         this._b2Log("_b2Refresh", e);
+    }
+};
+
+/* v1.5 punt 7: rijstijl-regel in het contextvak bij Applicaties (App). Bron: window.OemplusLive (als geladen).
+ * Vorige rit (N): "Rijstijl 8,6 \u25b2" (trend t.o.v. de rit ervoor; \u25bc/\u2013 anders). Lopende rit (S):
+ * "Rit 12 km \u00b7 9/11 soepel". Zonder data: verborgen (B2HasData eraf, regel "\u2013"). Alleen lezen. */
+MainMenuCtrl.prototype._b2UpdateRit = function()
+{
+    try
+    {
+        var app = this._b2.els.App;
+        if (!app || !app.ritLine) { return; }
+        var L = window.OemplusLive;
+        var st = L && L.status ? L.status() : null;
+        var d = st && st.last;
+        var txt = null;
+        /* v1.5 review: vers = server age_s <= 5 EN lokaal laatste frame <= 5 s geleden (anders blijft oude tekst staan als de Pi wegvalt);
+         * soepel/schakelingen = HELE rit (rit.soepel/rit.schakelingen), niet rit.recent (= laatste 2 min). */
+        if (d && typeof d.age_s === "number" && d.age_s <= 5 && st && typeof st.rxAgeS === "number" && st.rxAgeS <= 5)
+        {
+            var rit = d.rit, vr = d.vorige_rit;
+            if (rit && typeof rit.km === "number" && rit.km >= 0.5)
+            {
+                var sm = (typeof rit.soepel === "number" && typeof rit.schakelingen === "number" && rit.schakelingen > 0)
+                    ? (rit.soepel + "/" + rit.schakelingen + " soepel") : null;
+                txt = "Rit " + rit.km.toFixed(0) + " km" + (sm ? (" \u00b7 " + sm) : "");
+            }
+            else if (vr && typeof vr.cijfer === "number")
+            {
+                var arr = " \u25b2";
+                if (Object.prototype.toString.call(vr.trend) === "[object Array]" && vr.trend.length >= 2 &&
+                    typeof vr.trend[vr.trend.length - 2] === "number")
+                {
+                    var dd = vr.cijfer - vr.trend[vr.trend.length - 2];
+                    arr = Math.abs(dd) < 0.05 ? " \u2013" : (dd > 0 ? " \u25b2" : " \u25bc");
+                }
+                txt = "Rijstijl " + vr.cijfer.toFixed(1).replace(".", ",") + arr;
+            }
+        }
+        if (txt)
+        {
+            this._b2Text(app.ritLine, txt);
+            app.box.classList.add("B2HasData");
+        }
+        else
+        {
+            this._b2Text(app.ritLine, "\u2013");
+            app.box.classList.remove("B2HasData");
+        }
+    }
+    catch (e)
+    {
+        this._b2Log("_b2UpdateRit", e);
     }
 };
 

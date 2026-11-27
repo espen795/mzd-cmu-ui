@@ -1,11 +1,11 @@
 #!/bin/sh
 # terug_inject.sh v1.0 -- draait OP DE CMU (busybox 1.19 ash). TERUG = umount + reboot (geen Opera-reload: 1023-hang).
-# Schrijft alleen een regel in /data_persist/oemplus-test/injectv13-sessie.log. Geen smctl, geen kill.
+# Schrijft alleen een regel in /data_persist/oemplus-test/injectv15-sessie.log. Geen smctl, geen kill.
 # Na de reboot draait de GUI weer uit /jci/gui (fabriek). Daarna: wachten op AA-guard, stap0_v74.sh 5d, revert_inject.sh.
 # Gebruik: sh terug_inject.sh            (umount + reboot)
 #          sh terug_inject.sh geen-reboot (alleen umount + log; reboot doet de gebruiker: Mute+Navi 10 s)
 BASE=/data_persist/oemplus-test
-SLOG=$BASE/injectv13-sessie.log
+SLOG=$BASE/injectv15-sessie.log
 bootid() { cat /proc/sys/kernel/random/boot_id 2>/dev/null || grep '^btime' /proc/stat | cut -d' ' -f2; }
 B=$(bootid)
 if grep -q " /jci/gui " /proc/mounts; then

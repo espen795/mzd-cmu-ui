@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""check_presto.py (HOST) -- statische Opera 12.10/Presto 2.12-check voor ui-oemplus-inject-v1.3/overlay.
+"""check_presto.py (HOST) -- statische Opera 12.10/Presto 2.12-check voor ui-oemplus-inject-v1.5/overlay.
 
 Hergebruikt de regels van ui-oemplus-b2-v1/tools/check_presto.py (JS_RULES, CSS_RULES, strip_js, acorn ES5-parse):
   * NIEUWE JS/CSS: hele bestand: ASCII, ES5-regels / CSS-regels, marker OEMPLUS-INJECT of OEMPLUS-B2.
@@ -87,7 +87,7 @@ for f in cssfiles:
             if re.search(rx, line):
                 errors.append("%s:%d %s: %s" % (rel, ln, what, line.strip()[:90]))
 
-print("check_presto (inject-v1.3): %d JS, %d CSS in %s" % (len(jsfiles), len(cssfiles), OVL))
+print("check_presto (inject-v1.5): %d JS, %d CSS in %s" % (len(jsfiles), len(cssfiles), OVL))
 for n in notes:
     print("  info  " + n)
 for e in errors:

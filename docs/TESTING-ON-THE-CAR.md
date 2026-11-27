@@ -29,7 +29,7 @@ ssh -p 2222 cmu@<CMU_IP>
    python3 tools/check_presto.py
    ```
 
-3. Copy the payload to the CMU (into `/data_persist/oemplus-test/injectv13/`): the scripts
+3. Copy the payload to the CMU (into `/data_persist/oemplus-test/injectv15/`): the scripts
    `tools/{apply_inject,revert_inject,kopie_gelijk,kopie_vers,aa_wacht,mount_inject,terug_inject}.sh`
    plus `overlay/` and a `TOOLS-MD5.txt` (md5 of the scripts themselves, made on the host).
    Also create the test copy of the GUI (on the CMU):
@@ -46,12 +46,22 @@ Chromium with a mock MMUI, and simulates the bind mount by switching the served 
 
 ```
 sh harness/build_root.sh                 # builds harness/root-stock and harness/root-inject
-python3 harness/run_inject.py            # 86 checks: inject panel, B2 on/off, failure paths
-python3 harness/checks_p1.py             # 54 checks: List2
-python3 harness/run_p2_dialog3.py        # 82 checks: Dialog3
-python3 harness/run_p3.py                # 72 checks: tabs/sliders/buttons
-python3 harness/run_submenus_p4.py       # 52 checks: media + keyboard/dialpad
-python3 harness/run_cumulatief.py        # 28 checks: all 5 B2Sub CSS files together
+sh harness/run_all_v15.sh                # runs every v1.5 suite in sequence, summary in harness/run_all_v15.log
+```
+
+Individual suites (v1.5):
+
+```
+python3 harness/run_v15_inject.py        # inject panel, B2 home on/off, failure paths
+python3 harness/run_v15_bewaker.py       # protected-screen guard (event order + mutation test)
+python3 harness/run_v15_sbn.py           # notification banners visible with B2 on
+python3 harness/run_v15_schermen.py      # dialogs / info panel / incoming call
+python3 harness/run_v15_terminal.py      # Terminal item in Applications
+python3 harness/run_v15_cumulatief.py    # all B2Sub CSS files together
+python3 harness/run_p5_eco.py            # eco screens
+python3 harness/run_p6_phone.py          # phone screens
+python3 harness/run_v15_rit.py --mode live|rijdend|motoruit|nostream|oud|kapot|geenws   # trip panel
+python3 harness/run_v15_live_unit.py --mode live|geen|kapot|geenws                      # live transport
 ```
 
 Results land in `harness/RESULTS*.json`, screenshots in `harness/shots/`. Requires Python 3 +
@@ -70,18 +80,18 @@ All scripts run on the CMU and write only under `/data_persist/oemplus-test/`. T
 2. **Apply the overlay to the test copy** (not active yet):
 
    ```
-   sh /data_persist/oemplus-test/injectv13/apply_inject.sh
+   sh /data_persist/oemplus-test/injectv15/apply_inject.sh
    ```
 
    Prechecks: scripts match `TOOLS-MD5.txt`, the test copy is a full-tree md5-exact copy of `/jci/gui`
    (`kopie_gelijk.sh schoon`), `/jci/gui` itself still has the v74 originals; afterwards the copy may
-   differ from `/jci/gui` only in the 183 overlay paths (`kopie_gelijk.sh overlay`).
+   differ from `/jci/gui` only in the 274 overlay paths (`kopie_gelijk.sh overlay`).
 3. **Reversing-camera check (mandatory, this boot)**: put the car in R, confirm the camera image works,
    then back to P.
 4. **Mount**:
 
    ```
-   sh /data_persist/oemplus-test/injectv13/mount_inject.sh camera-ok
+   sh /data_persist/oemplus-test/injectv15/mount_inject.sh camera-ok
    ```
 
    Prechecks include: AA-guard OK, overlay applied, full-tree check, >= 40 MB MemFree and >= 200 MB
@@ -91,12 +101,15 @@ All scripts run on the CMU and write only under `/data_persist/oemplus-test/`. T
    From now on, files the GUI has not cached yet are served from the overlay.
 5. **In the car**: open **Applications > Fuel consumption** - the overlay panel appears
    ("B2 on (home + submenus)", "B2 off", "Info", "Continue to eco screen"). Choose **B2 on**, go Home,
-   and browse: Applications list, Communication, a dialog, Settings tabs, FM radio Now Playing, DialPad.
+   and browse: Applications list, Communication, a dialog, Settings tabs, FM radio Now Playing, DialPad,
+   the eco screens, the phone screen and (v1.5) Applications > *Rit & rijstijl* (needs the live-data server,
+   otherwise it shows "geen data"). Turn the volume knob on home, a list and the radio: the volume banner must
+   be visible.
    Take photos of anything unexpected.
 6. **Revert**:
 
    ```
-   sh /data_persist/oemplus-test/injectv13/terug_inject.sh
+   sh /data_persist/oemplus-test/injectv15/terug_inject.sh
    ```
 
    This unmounts `/jci/gui` and reboots the CMU. **Do not drive between mount and reboot** - the patched
@@ -106,10 +119,10 @@ All scripts run on the CMU and write only under `/data_persist/oemplus-test/`. T
 8. After the reboot, wait for `aa_wacht.sh` OK again, then remove the overlay from the test copy:
 
    ```
-   sh /data_persist/oemplus-test/injectv13/revert_inject.sh
+   sh /data_persist/oemplus-test/injectv15/revert_inject.sh
    ```
 
-   This restores the 4 original templates (from `/jci/gui` or the backup), deletes the 179 added files and
+   This restores the 4 original templates (from `/jci/gui` or the backup), deletes the 270 added files and
    ends with a full-tree check that the copy equals `/jci/gui` again. If that check ever fails:
    `sh .../kopie_vers.sh` recreates a fresh copy (`cp -a /jci/gui`).
 

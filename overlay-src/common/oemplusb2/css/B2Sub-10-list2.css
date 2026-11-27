@@ -26,6 +26,15 @@ body.OemplusB2 .List2Ctrl.listTitle.listTitleThick .List2CtrlTitle {
 body.OemplusB2 .List2Ctrl.tabsTitle .List2CtrlTitle {
   background-image: none;
 }
+/* v1.4 (live 27-11: "Systeeminformatie-tab toont niet goed"): bij tabsTitle is de titel-balk (69 px) verborgen
+ * achter de tabbalk; de generieke B2-regel `background-image: none` op .List2Ctrl.tabsTitle .List2CtrlTitle
+ * zet de OEM-header-bg af, maar de titel-TEKST (.line1 30px !important) blijft op de OEM-positie staan en
+ * kan thereby over de tabbalk/rijen heen lopen. Fix: bij tabsTitle de titel-tekst onzichtbaar maken (de tabs
+ * tonen de sectie al); puur visueel, de titel-box zelf (hitbox/lege zone) blijft OEM. */
+body.OemplusB2 .List2Ctrl.tabsTitle .List2CtrlTitle .line1,
+body.OemplusB2 .List2Ctrl.tabsTitle .List2CtrlTitle .image1 {
+  visibility: hidden;
+}
 body.OemplusB2 .List2CtrlTitle .line1 {
   font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
   font-size: 30px !important;

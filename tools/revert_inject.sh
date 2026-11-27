@@ -1,14 +1,14 @@
 #!/bin/sh
 # revert_inject.sh v1.1 -- draait OP DE CMU (busybox 1.19 ash). Haalt de inject-v1-overlay uit de PROEFKOPIE.
-# v1.3: zet de 4 eco-templates terug (bron /jci/gui, terugval backup) en verwijdert de 179 nieuwe bestanden.
+# v1.3: zet de 4 eco-templates terug (bron /jci/gui, terugval backup) en verwijdert de 270 nieuwe bestanden (v1.5).
 # Schrijft uitsluitend onder /data_persist/oemplus-test/. Eis: /jci/gui NIET gemount. Geen mount/smctl/kill.
 # v1.1 (R-cmu): symlink-check ook op de nieuwe mappen (L2); nacontrole = volledige boom kopie == /jci/gui (H1/V1).
 # Exit: 0 = kopie weer == /jci/gui (hele boom) | 1 = precheck faalt (niets gewijzigd) | 2 = nacontrole faalt
 BASE=/data_persist/oemplus-test
 COPY=$BASE/gui
-PKG=$BASE/injectv13
+PKG=$BASE/injectv15
 OVL=$PKG/overlay
-BAK=$BASE/injectv13-backup
+BAK=$BASE/injectv15-backup
 ORIG=$OVL/ORIGINAL-MD5.txt
 MARK=$BASE/OVERLAY-ACTIEF
 
@@ -18,7 +18,7 @@ md5of() { md5sum "$1" 2>/dev/null | cut -d' ' -f1; }
 case "$COPY" in /data_persist/oemplus-test/*) ;; *) fail "pad buiten /data_persist/oemplus-test";; esac
 [ -d "$COPY" ] || fail "proefkopie $COPY ontbreekt"
 [ -f "$ORIG" ] || fail "$ORIG ontbreekt"
-[ -e "$MARK" ] && [ "$(cat "$MARK")" != "injectv13" ] && fail "OVERLAY-ACTIEF = '$(cat "$MARK")', niet injectv13 -- revert van die overlay gebruiken"
+[ -e "$MARK" ] && [ "$(cat "$MARK")" != "injectv15" ] && fail "OVERLAY-ACTIEF = '$(cat "$MARK")', niet injectv15 -- revert van die overlay gebruiken"
 grep -q " /jci/gui " /proc/mounts && fail "/jci/gui is nog gemount -- eerst umount /jci/gui (daarna reboot volgens draaiboek)"
 
 for D in apps/ecoenergy/oemplus apps/system/controls/MainMenu/images/b2 apps/system/controls/MainMenu/js apps/system/controls/MainMenu/css common/controls/StatusBar/css common/controls/Sbn/css common/oemplusb2 common/oemplusb2/css common/oemplusb2/images; do
@@ -74,5 +74,5 @@ if [ -f "$PKG/kopie_gelijk.sh" ]; then
 else
   echo "NACONTROLE FAALT: $PKG/kopie_gelijk.sh ontbreekt"; exit 2
 fi
-echo "OK: inject-v1.3 uit de proefkopie (4 templates terug, 179 nieuwe weg; OVERLAY-ACTIEF weg; kopie == /jci/gui); backup blijft in $BAK"
+echo "OK: inject-v1.5 uit de proefkopie (4 templates terug, 270 nieuwe weg; OVERLAY-ACTIEF weg; kopie == /jci/gui); backup blijft in $BAK"
 exit 0

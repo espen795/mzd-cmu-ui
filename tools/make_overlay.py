@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""make_overlay.py (HOST) -- bouwt ui-oemplus-inject-v1.3/overlay/ uit:
+"""make_overlay.py (HOST) -- bouwt ui-oemplus-inject-v1.5/overlay/ uit:
   * v74-dump (stock/v74/jci/gui): 4 ecoenergy-templates, byte-exact gepatcht (2 invoegingen)
   * src/OemplusInject.{js,css}                       -> apps/ecoenergy/oemplus/
   * v1.2 B2-bestanden (DEZE map, overlay-src/apps/... en overlay-src/common/...):
@@ -122,6 +122,7 @@ def main():
         new.append(rel)
 
     put(os.path.join(ROOT, "src/OemplusInject.js"), "apps/ecoenergy/oemplus/OemplusInject.js")
+    put(os.path.join(ROOT, "src/OemplusLive.js"), "apps/ecoenergy/oemplus/OemplusLive.js")
     put(os.path.join(ROOT, "src/OemplusInject.css"), "apps/ecoenergy/oemplus/OemplusInject.css")
     # v1.2: B2 MainMenuCtrl + StatusBar + Sbn komen uit SRC-B2 (aangepast), NIET meer uit ui-oemplus-b2-v1
     put(os.path.join(SRCB2, "apps/system/controls/MainMenu/js/MainMenuCtrl-oemplusb2.js"), "apps/system/controls/MainMenu/js/MainMenuCtrl-oemplusb2.js")
@@ -131,16 +132,25 @@ def main():
     for png in sorted(glob.glob(os.path.join(B2, "apps/system/controls/MainMenu/images/b2/*.png"))):
         put(png, "apps/system/controls/MainMenu/images/b2/" + os.path.basename(png))
     # v1.3 / P0: B2-submenu basis (BOUWPLAN.md P0) uit overlay-src/common/oemplusb2/.
-    # Alleen .css en .png landen in de overlay; de *-PLACEHOLDER.txt/README blijven in overlay-src (documentatie
+    # Alleen .css, .png en .jpg landen in de overlay; de *-PLACEHOLDER.txt/README blijven in overlay-src (documentatie
     # voor de P1-P4-agents) en worden NIET naar de CMU gekopieerd.
     SUB = os.path.join(SRCB2, "common/oemplusb2")
     for css in sorted(glob.glob(os.path.join(SUB, "css/*.css"))):
         put(css, "common/oemplusb2/css/" + os.path.basename(css))
     for png in sorted(glob.glob(os.path.join(SUB, "images/*.png"))):
         put(png, "common/oemplusb2/images/" + os.path.basename(png))
+    # v1.4-r2 FIX (review): P5-foto B2EcoCarPhoto_B.jpg ontbrak in overlay + bundel (alleen *.png werd
+    # gekopieerd); het harnas maskeerde dat met een overlay-src-fallback. Nu ook *.jpg.
+    for jpg in sorted(glob.glob(os.path.join(SUB, "images/*.jpg"))):
+        put(jpg, "common/oemplusb2/images/" + os.path.basename(jpg))
+    # v1.5: B2DriveView.js (paneel "Rit & rijstijl", uit ui-mockup-v1.0/rit-live/proto) + B2Sub-70-drive.css landen
+    # in de overlay; OemplusInject.js laadt ze lazy bij de eerste keer openen van het paneel.
+    for js in sorted(glob.glob(os.path.join(SUB, "js/*.js"))):
+        put(js, "common/oemplusb2/js/" + os.path.basename(js))
+    # (B2Sub-70-drive.css en B2Drive*.png zijn hierboven al meegenomen via css/*.css en images/*.png)
 
     with open(os.path.join(OUT, "ORIGINAL-MD5.txt"), "w") as f:
-        f.write("# inject-v1.3 - originele v74-bestanden die de overlay in de proefkopie VERVANGT (bron: v74-dump = MD5SUMS.cmu).\n")
+        f.write("# inject-v1.5 - originele v74-bestanden die de overlay in de proefkopie VERVANGT (bron: v74-dump = MD5SUMS.cmu).\n")
         f.write("# Pad relatief t.o.v. /data_persist/oemplus-test/gui.\n")
         for rel, m in replaced:
             f.write("%s  %s\n" % (m, rel))

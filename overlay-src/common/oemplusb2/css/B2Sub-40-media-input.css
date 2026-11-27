@@ -80,10 +80,20 @@ body.OemplusB2 .NowPlaying4CtrlArtworkImage {
 }
 
 /* ================= Ump3 (bedienbalk onder NowPlaying) ================= */
+/* v1.4 (live 27-11: knoppen slecht zichtbaar op transparante balk): de balk krijgt een donkere, licht
+ * verhoogde achtergrond (DESIGN-SYSTEEM par.2: bg #030405->#15181d; hier vlak rgba(3,4,5,0.92) + haarlijn
+ * boven 24% wit -- puur decoratief, GEEN maat/positie-wijziging dus H1-hitboxes blijven OEM). */
 body.OemplusB2 .Ump3CtrlBackground,
-body.OemplusB2 .Ump3CtrlBgArch,
+body.OemplusB2 .Ump3CtrlBgArch {
+  background-image: none;
+  background-color: rgba(3, 4, 5, 0.92);
+}
+body.OemplusB2 .Ump3CtrlBgArch {
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
 body.OemplusB2 .Ump3CtrlSeparator {
   background-image: none;
+  background-color: rgba(255, 255, 255, 0.09);
 }
 /* knop-states Ump3Ctrl{2..10}Button_{En,Ds,focused,down,held}: alleen de achtergrond; iconen (Ump3CtrlButtonIcon) blijven OEM.
  * OEM zet focused/down als MEERDERE background-images (focus-PNG + basis-PNG) met !important -> wij overschrijven

@@ -1,0 +1,155 @@
+/* OEMPLUS-B2 submenus -- pakket P6 "phone" (B2Sub-60-phone.css)
+ * Doel: belscherm -- actief gesprek (InCall2Ctrl: phone/ActiveCall, ActiveCall1/2/Merged + DTMF-varianten)
+ *       en de inkomende-oproep-popups (Dialog3 contentStyle "style04": phone/IncomingCall, BTMultipleCall,
+ *       CallWaiting, MultipleCallWaiting).
+ * Ontwerp: ui-mockup-v1.0/eco-bel/ONTWERP.md (v1, 2026-11-27) + BOUWPLAN.md par.P6; prototype css/B2Sub-60-phone.css.
+ * OEM: common/controls/InCall2/{css,js} (InCall2Ctrl.css: .InCall2InCallBG=NowPlayingBG 780x417,
+ *      .InCall2ContactActiveBkg=Active_Call_Bkg 774x134 bg-size 100%, .InCall2ActivePhone/_InactivePhone =
+ *      ActiveCall_En/Ds 51x52, .InCall2ContactImageFrame=NowPlayingImageFrame 146x146 (frame 90x90 in-box),
+ *      naam/nummer/duur boxen h38/h39), common/controls/Dialog3 (Style04: content 646x213 op 79,102;
+ *      Image1 146x146 op 0,0; Text1 479x43 lh38 fs40; Text2 479x40; knoppenrij .Dialog3Ctrl_Buttons 662x80 op
+ *      69,318 -> ButtonStyle02 330x80 (2 knoppen) / ButtonStyle03 220x80 (3 knoppen), y 382 pagina),
+ *      common/controls/Ump3 (.Ump3Ctrl7Button_* 114x100 y380; .Ump3CtrlButtonIcon = 100%x100% icon-div,
+ *      background-position center 62%, icon gezet via ButtonCtrl.setIcon -> inline style.backgroundImage).
+ * Regels: elke selector begint met "body.OemplusB2 " (+0,1,1 wint van lazy OEM-CSS); ALLEEN skin
+ * (color/font-family/size/background-image/border-radius/visibility); NOOIT left/top/width/height van
+ * hitbox-elementen (H1). Presto 2.12: ASCII-only, marker OEMPLUS-B2, geen gradients/flex/grid/calc/box-shadow.
+ *
+ * Scope zonder JS: Dialog3 contentStyle "style04" wordt in v74 ALLEEN door phoneApp.js gebruikt (grep over
+ * alle apps) en de knoppenrij (.Dialog3Ctrl_Buttons) is een LATERE broer van de inhoud (.Dialog3Ctrl_Style04)
+ * in .Dialog3CtrlContainer (Dialog3Ctrl.js r.224-225 vs r.554-556) -> '.Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons'
+ * selecteert precies de belpopups. mobile911/* is protected (geen body.OemplusB2, P0-bewaker) -> de
+ * InCall2 "Mobile911"-stijl blijft OEM.
+ *
+ * v1.4-aanpassingen t.o.v. het prototype (BOUWPLAN P6 stap 1 + task):
+ *  - par.A2 dekking-fix (B2DialogBgSolid/FsSolid) NIET overgenomen: v1.4-P2 (commit ca192db6, p2_dialog3.py)
+ *    genereert B2DialogBg(Fs).png al met een DEKKENDE scrim (alpha 255 over het hele dialog-vlak, paneel wit
+ *    10% + rand 26% erboven, zelfde geometrie 70..730 x 10..406 / Fs 74..470). Dubbel werk zou de PNG's
+ *    B2DialogBg*Solid overschrijven zonder zichtbaar verschil; dekking is in v1.4 dus al gedekt (H15).
+ *  - par.A generieke focus-ring-fix (._Green_En._focused / ._Red_En._focused op ALLE Dialog3-knoppen) is een
+ *    B2Sub-20-voorstel (zie rapport/NOTITIE); hier ALLEEN het phone-specifieke deel: Dialog3Ctrl_Style04 ~
+ *    .Dialog3Ctrl_Buttons knoppen (B2CallBtn*_Focus = witte ring in de PNG zelf).
+ *  - lader: P0 laadt B2Sub-00..40; B2Sub-60 landt als 6e positie via een lokale override in het harnas
+ *    (harness/run_p6_phone.py injecteert de <link> na subCssOn); op de CMU voegt de P0-eigenaar 1 regel toe
+ *    aan PATHS.subCss in OemplusInject.js (beschreven in het P6-rapport; OemplusInject.js zelf NIET Gewijzigd
+ *    door P6). */
+
+/* =================================================================== B. inkomende oproep (Dialog3 style04)
+ * Opnemen = oproep-groen pil, weigeren = Soul-Red pil (enige plek waar groen/rood semantisch is, niet focus).
+ * Focus = witte ring 3 px in de Focus-PNG zelf (rood kan focus hier niet aanduiden). Knopbox 330x80 / 220x80
+ * = OEM (H1: rect 70/400,382 330x80 resp. 70/290/510,382 220x80). */
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Green_En { background-image: url(../images/B2CallBtn2_Answer_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Green_En.Dialog3Ctrl_ButtonStyle02_focused { background-image: url(../images/B2CallBtn2_Answer_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Green_En.Dialog3Ctrl_ButtonStyle02_down,
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Green_En.Dialog3Ctrl_ButtonStyle02_held { background-image: url(../images/B2CallBtn2_Answer_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Red_En { background-image: url(../images/B2CallBtn2_Reject_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Red_En.Dialog3Ctrl_ButtonStyle02_focused { background-image: url(../images/B2CallBtn2_Reject_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Red_En.Dialog3Ctrl_ButtonStyle02_down,
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Red_En.Dialog3Ctrl_ButtonStyle02_held { background-image: url(../images/B2CallBtn2_Reject_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle02_Ds { background-image: url(../images/B2CallBtn2_Ds.png) !important; }
+/* 3 knoppen (wisselgesprek CallWaiting/MultipleCallWaiting: Negeren / Wacht+Antw / Einde+Antw);
+ * middenknop = buttonColor "normal" -> gewone B2Sub-20-knop (B2DlgBtn3_En), alleen groen/rood hier */
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Green_En { background-image: url(../images/B2CallBtn3_Answer_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Green_En.Dialog3Ctrl_ButtonStyle03_focused { background-image: url(../images/B2CallBtn3_Answer_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Green_En.Dialog3Ctrl_ButtonStyle03_down,
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Green_En.Dialog3Ctrl_ButtonStyle03_held { background-image: url(../images/B2CallBtn3_Answer_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Red_En { background-image: url(../images/B2CallBtn3_Reject_En.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Red_En.Dialog3Ctrl_ButtonStyle03_focused { background-image: url(../images/B2CallBtn3_Reject_Focus.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Red_En.Dialog3Ctrl_ButtonStyle03_down,
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Red_En.Dialog3Ctrl_ButtonStyle03_held { background-image: url(../images/B2CallBtn3_Reject_Hit.png) !important; }
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons .Dialog3Ctrl_ButtonStyle03_Ds { background-image: url(../images/B2CallBtn3_Ds.png) !important; }
+/* knoptekst op de gekleurde pillen: wit Semibold (label staat op de knop, zie ButtonCtrl label) */
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons [class*="_Green_En"],
+body.OemplusB2 .Dialog3Ctrl_Style04 ~ .Dialog3Ctrl_Buttons [class*="_Red_En"] {
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+  color: #ffffff !important;
+}
+/* beller: ronde avatar -- placeholder op de inhoud-container (0 0 = linksboven van Style04, 146x146),
+ * foto = inline background van Image1 erboven (rond). Boxen Text1 479x43 / Text2 479x40 / Image1 146x146 = OEM */
+body.OemplusB2 .Dialog3Ctrl_Style04 {
+  background-image: url(../images/B2CallAvatar146.png) !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+}
+body.OemplusB2 .Dialog3Ctrl_Style04_Image1 {
+  border-radius: 73px !important;
+}
+/* OEM-placeholder-silhouet (indien als imagePath1 meegegeven, inline style) verbergen -> B2-avatar eronder.
+ * LIVE-CHECK R3: [style*=] op door JS gezette inline style (Presto serialisatie) -- harnas H17 checkt dit. */
+body.OemplusB2 .Dialog3Ctrl_Style04_Image1[style*="IcnContactImagePlaceholder"] { background-image: none !important; }
+body.OemplusB2 .Dialog3Ctrl .Dialog3Ctrl_Style04_Text1 {
+  font-family: "Tipperary Semibold", "Tipperary", Arial, sans-serif !important;
+  font-size: 40px !important;
+  line-height: 38px !important;
+  color: #f6f7f9 !important;
+}
+body.OemplusB2 .Dialog3Ctrl .Dialog3Ctrl_Style04_Text2 {
+  font-size: 28px !important;
+  line-height: 34px !important;
+  color: #c4c9d0 !important;
+}
+
+/* =================================================================== C. actief gesprek (InCall2Ctrl)
+ * mobile911 gebruikt dezelfde control maar is protected -> geen body.OemplusB2 -> OEM (H9). */
+body.OemplusB2 .InCall2InCallBG { background-image: none !important; }
+body.OemplusB2 .InCall2ContactActiveBkg { background-image: url(../images/B2CallCard.png) !important; }
+body.OemplusB2 .InCall2CtrlTitleContactRuleLine { background-image: none !important; }
+body.OemplusB2 .InCall2ActivePhone { background-image: url(../images/B2CallIcon_Active.png) !important; }
+body.OemplusB2 .InCall2InactivePhone { background-image: url(../images/B2CallIcon_Inactive.png) !important; }
+body.OemplusB2 .InCall2ContactImageFrame { background-image: url(../images/B2CallAvatar90.png) !important; }
+body.OemplusB2 .InCall2ContactImageFrame img { border-radius: 45px !important; }
+/* OEM-placeholder (img src, door JS gezet in setContact1/2Config) verbergen; B2-avatar van het frame blijft
+ * zichtbaar. Echte foto (imagePath) blijft zichtbaar en rond. LIVE-CHECK R3. */
+body.OemplusB2 .InCall2ContactImageFrame img[src*="IcnContactImagePlaceholder"] { visibility: hidden !important; }
+body.OemplusB2 .InCall2CtrlTitle {
+  font-size: 30px !important;
+  color: #f2f3f5 !important;
+}
+body.OemplusB2 .InCall2ContactName {
+  font-size: 34px !important;
+  color: #f6f7f9 !important;
+}
+body.OemplusB2 .InCall2ContactPhoneNumber,
+body.OemplusB2 .InCall2ContactPhoneNumberType {
+  font-size: 28px !important;
+  color: #c4c9d0 !important;
+}
+body.OemplusB2 .InCall2ContactElapsedTime {
+  font-size: 32px !important;
+  color: #e8eaee !important;
+}
+body.OemplusB2 .InCall2InactiveFontColor { color: #8a919b !important; }
+body.OemplusB2 .InCall2ContactName.InCall2InactiveFontColor,
+body.OemplusB2 .InCall2ContactPhoneNumber.InCall2InactiveFontColor,
+body.OemplusB2 .InCall2ContactElapsedTime.InCall2InactiveFontColor { color: #8a919b !important; }
+
+/* =================================================================== D. gespreks-UMP (Ump3Ctrl7, iconen = inline style)
+ * Ophangen = rode schijf (altijd herkenbaar, ook zonder focus). Overige = B2-lijniconen 38x38.
+ * Volgorde: _Ds-regels NA de algemene regel (zelfde specificiteit, later wint). LIVE-CHECK R3 ([style*=]).
+ * Iconen worden gezet door ButtonCtrl.setIcon -> this._iconDiv.style.backgroundImage = url(...IcnUmp....png);
+ * de icon-div heeft class Ump3CtrlButtonIcon (Ump3Ctrl.js r.603). */
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpHangup_En"] { background-image: url(../images/B2UmpPhHangup_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpHangup_Ds"] { background-image: url(../images/B2UmpPhHangup_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpHangup"] { background-image: url(../images/B2UmpPhHangup_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpCommMenu_En"] { background-image: url(../images/B2UmpPhComm_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpCommMenu_Ds"] { background-image: url(../images/B2UmpPhComm_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpCommMenu"] { background-image: url(../images/B2UmpPhComm_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpPhoneRoute_Handset"] { background-image: url(../images/B2UmpPhRouteHandset_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpPhoneRoute_Vehicle"] { background-image: url(../images/B2UmpPhRouteVehicle_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpPhoneRoute"][style*="_Ds"] { background-image: url(../images/B2UmpPhRouteHandset_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMuteUnmute_Mute_En"] { background-image: url(../images/B2UmpPhMute_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMuteUnmute_Unmute_En"] { background-image: url(../images/B2UmpPhUnmute_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMuteUnmute"][style*="_Ds"] { background-image: url(../images/B2UmpPhMute_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMuteUnmute_Mute"] { background-image: url(../images/B2UmpPhMute_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMuteUnmute_Unmute"] { background-image: url(../images/B2UmpPhUnmute_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpAddCall_En"] { background-image: url(../images/B2UmpPhAddCall_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpAddCall_Ds"] { background-image: url(../images/B2UmpPhAddCall_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpAddCall"] { background-image: url(../images/B2UmpPhAddCall_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpSwapCalls"][style*="_Ds"] { background-image: url(../images/B2UmpPhSwap_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpSwapCalls"] { background-image: url(../images/B2UmpPhSwap_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMergecall_En"] { background-image: url(../images/B2UmpPhMerge_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMergecall_Ds"] { background-image: url(../images/B2UmpPhMerge_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpMergecall"] { background-image: url(../images/B2UmpPhMerge_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpDialpad_En"] { background-image: url(../images/B2UmpPhDialpad_En.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpDialpad_Ds"] { background-image: url(../images/B2UmpPhDialpad_Ds.png) !important; }
+body.OemplusB2 .Ump3CtrlButtonIcon[style*="IcnUmpDialpad"] { background-image: url(../images/B2UmpPhDialpad_En.png) !important; }

@@ -331,10 +331,10 @@ def main():
     h.ev("""(function(){ var fw = framework, sv = window.__h9save; fw.instantiateTemplate = sv.i;
         fw._transitionChange = sv.t; window.__h9 = null; window.__h9save = null; })()""")
     st = h.ev("({ctxt: framework.getCurrCtxtId(), body: document.body.className})")
-    inst = [e for e in h9 if e[0] == "inst" and len(e) > 3]
-    trans = [e for e in h9 if e[0] == "trans-end" and e[2] == "DisplayOff" and len(e) > 3]
-    check("H9 synchroon: protected system/DisplayOff -> geen OemplusB2 bij template-constructie/transitie-eind (nu: %s)" % ("OemplusB2" not in st["body"]),
-          "OemplusB2" not in st["body"] and all(e[3] is False for e in inst) and all(e[3] is False for e in trans) and len(trans) > 0, {"h9": h9, "body": st["body"]})
+    inst = [e for e in h9 if e[0] == "inst" and len(e) > 2]
+    trans = [e for e in h9 if e[0] == "trans-end" and len(e) > 3 and e[2] == "DisplayOff"]
+    check("H9 synchroon (echte meting, inst=%d trans=%d): protected system/DisplayOff -> geen OemplusB2 bij ALLE inst/trans-end (nu body=%r)" % (len(inst), len(trans), st["body"]),
+          "OemplusB2" not in st["body"] and len(inst) >= 1 and all(e[2] is False for e in inst) and len(trans) > 0 and all(e[3] is False for e in trans), {"h9": h9, "body": st["body"]})
     shot(h, "sub-p1-protected-uit.png")
     goto(h, "system", "Communication", 2000)
     st = h.ev(LIST_JS)

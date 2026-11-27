@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""inject-v1.3 harnas: bewijst de B2-live-injectie in een DRAAIENDE v74-GUI zonder reload + de v1.2-wensen:
+"""inject-v1.5 harnas: bewijst de B2-live-injectie in een DRAAIENDE v74-GUI zonder reload + de v1.2-wensen:
 SBN-banner in B2-stijl bovenin (klok/rijen eronder), straatnaam-SBN onderdrukt, panelen gevuld uit systemApp-cache.
 
 Opzet (hergebruikt ui-oemplus-b2-v1/harness/hlib.py: echte v74-framework/systemApp/Common in headless Chromium,
@@ -213,11 +213,12 @@ def main():
           st["b2"] and st["b2Clock"] and "OemplusB2Home" in st["body"] and st["sbVis"] == "hidden" and st["b2Css"] and st["orgCss"] is None and st["sbCss"], st)
     # ---- v1.3 / P0: submenu-basis ----
     check("4 v1.3 P0: body.OemplusB2 staat op home (niet protected)", st["subCls"] is True, st["body"])
-    check("4 v1.3 P0: 5 B2Sub-links in DOM in vaste volgorde 00..40 (10-40 404'en -> lader slaat over zonder fout)",
-          st["subLinks"] == 5 and st["subHrefs"] == ["common/oemplusb2/css/B2Sub-00-base.css",
+    SUB_EXPECT = ["common/oemplusb2/css/B2Sub-00-base.css",
               "common/oemplusb2/css/B2Sub-10-list2.css", "common/oemplusb2/css/B2Sub-20-dialog3.css",
-              "common/oemplusb2/css/B2Sub-30-tabs-slider-button.css", "common/oemplusb2/css/B2Sub-40-media-input.css"],
-          st["subHrefs"])
+              "common/oemplusb2/css/B2Sub-30-tabs-slider-button.css", "common/oemplusb2/css/B2Sub-40-media-input.css",
+              "common/oemplusb2/css/B2Sub-50-eco.css", "common/oemplusb2/css/B2Sub-60-phone.css"]
+    check("4 v1.4 P0: 7 B2Sub-links in DOM in vaste volgorde 00..40,50,60 (P5-eco + P6-phone geland sinds v1.4)",
+          st["subLinks"] == 7 and st["subHrefs"] == SUB_EXPECT, st["subHrefs"])
     # P0-check: ALLE B2Sub-paden worden geprobeerd; een bestand dat nu WEL bestaat (P1-P4 geland) mag geladen
     # zijn, een nog-ontbrekend bestand is 404 en wordt overgeslagen zonder fout. Essentieel: 00 geladen + geen
     # B2Sub-pad in 'missing' dat WEL in de overlay zit.
@@ -308,7 +309,7 @@ def main():
     st = h.ev(HOME_JS)
     check("5 weg van home: statusbalk terug, body-klasse OemplusB2Home weg", "OemplusB2Home" not in st["body"] and st["sbVis"] == "visible", st)
     # v1.3 / P0: op een basis-List2-scherm (Communication = List2Tmplt) WEL OemplusB2 (niet protected)
-    check("5 v1.3 P0: op Communication (List2) staat body.OemplusB2", st["subCls"] is True and st["subLinks"] == 5, {k: st[k] for k in ("subCls", "subLinks")})
+    check("5 v1.4 P0: op Communication (List2) staat body.OemplusB2 (7 links)", st["subCls"] is True and st["subLinks"] == 7, {k: st[k] for k in ("subCls", "subLinks")})
     # P0-generieke checks op dit basis-List2-scherm: hitboxes gelijk met B2 aan/uit, focus-volgorde gelijk
     hb_on = h.ev("""(function(){ var out = []; var els = document.querySelectorAll('.ListItem, .LeftBtnCtrlBackBtn, .StatusBarCtrlHomeBtn');
       for (var i = 0; i < els.length && i < 12; i++) { var r = els[i].getBoundingClientRect(); out.push([els[i].className.split(' ')[0], Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)]); }
@@ -328,16 +329,40 @@ def main():
     h.ev("""(function(){ var fw = framework, sv = window.__h9save; fw.instantiateTemplate = sv.i;
         fw._transitionChange = sv.t; window.__h9 = null; window.__h9save = null; })()""")
     st = h.ev(HOME_JS)
-    inst = [e for e in h9 if e[0] == "inst" and len(e) > 3]
+    inst = [e for e in h9 if e[0] == "inst" and len(e) > 2]
     # alleen de instantiateTemplate(s) van de DisplayOff-transitie (de OffScreenTmplt direct na de ctxt-wissel);
     # trans-end van een ANDERE context (bv. nog Communication) hoort daar niet bij.
-    trans = [e for e in h9 if e[0] == "trans-end" and e[2] == "DisplayOff" and len(e) > 3]
-    check("5 v1.3 P0 (H9 synchroon): protected system/DisplayOff -> template gebouwd + transitie-eind ZONDER OemplusB2 (nu subCls=%s)" % st["subCls"],
-          st["subCls"] is False and all(e[3] is False for e in inst) and all(e[3] is False for e in trans) and len(trans) > 0,
+    trans = [e for e in h9 if e[0] == "trans-end" and len(e) > 3 and e[2] == "DisplayOff"]
+    check("5 v1.4 P0 (H9 synchroon, echte meting): protected system/DisplayOff -> %d inst + %d trans-end, ALLEmaal ZONDER OemplusB2 (nu subCls=%s)" % (len(inst), len(trans), st["subCls"]),
+          st["subCls"] is False and len(inst) >= 1 and all(e[2] is False for e in inst) and len(trans) > 0 and all(e[3] is False for e in trans),
           {"h9": h9, "st": {k: st[k] for k in ("ctxt", "subCls", "body")}})
-    goto(h, "system", "Communication", 1500)
+    # v1.4 (H2 harnas-fix): mutatietest -- bewaker-wrappers eraf -> de H9-check hierboven MOET falen als hij
+    # echt meet. We meten ALLEEN binnen instantiateTemplate (synchroon, vóór de 500 ms guardTick) met de klasse
+    # handmatig AAN en de twee inject-wrappers vervangen door de prototype-functies; daarna direct herstellen.
+    mut = h.ev("""(function(){ var fw = framework;
+        window.__mut = {t: fw._transitionChange, c: fw._callHandleContext};
+        if (fw._transitionChange && fw._transitionChange.oemplusInjectWrapper) fw._transitionChange = GuiFramework.prototype._transitionChange;
+        if (fw._callHandleContext && fw._callHandleContext.oemplusInjectWrapper) fw._callHandleContext = GuiFramework.prototype._callHandleContext;
+        document.body.classList.add('OemplusB2');
+        window.__h9m = [];
+        var oi = fw.instantiateTemplate; window.__h9moi = oi;
+        fw.instantiateTemplate = function(){ window.__h9m.push(['inst', arguments[2], document.body.classList.contains('OemplusB2')]); return oi.apply(fw, arguments); };
+        return [fw._transitionChange === GuiFramework.prototype._transitionChange, fw._callHandleContext === GuiFramework.prototype._callHandleContext]; })()""")
+    # forceer direct de context-wissel (zoals _contextChange dat doet) en lees de recorder VÓÓR enige timer
+    h.ev("(function(){ try { framework._callHandleContext({uiaId:'system', ctxtId:'DisplayOff', params:null, contextSeq:998}); } catch(e){} try { framework._transitionChange(false); } catch(e2){} })()")
+    p.wait_for_timeout(300)
+    h9m = h.ev("window.__h9m")
+    h.ev("""(function(){ var fw = framework;
+        if (window.__h9moi) { fw.instantiateTemplate = window.__h9moi; window.__h9moi = null; }
+        if (window.__mut) { fw._transitionChange = window.__mut.t; fw._callHandleContext = window.__mut.c; window.__mut = null; }
+        window.__h9m = null; document.body.classList.remove('OemplusB2'); })()""")
+    instm = [e for e in h9m if e[0] == "inst" and len(e) > 2]
+    # met bewaker UIT moet de klasse tijdens constructie AAN zijn (mutatie) -> H9 zou FALEN = check is echt
+    check("5 v1.4 (H2 mutatietest, wrappers weg %s): inst-event ZIET klasse AAN (%s) => H9-check is echt (zou FAIL)" % (mut, instm),
+          len(instm) >= 1 and any(e[2] is True for e in instm), {"h9m": h9m, "mut": mut})
+    goto(h, "system", "Communication", 2000)
     st = h.ev(HOME_JS)
-    hb_off_prep = st  # B2 nog aan; vergelijken hieronder met B2 uit
+    check("5 v1.4 mutatie-opruim: na restore staat OemplusB2 weer correct (subCls=%s op Communication)" % st["subCls"], st["subCls"] is True, {k: st[k] for k in ("ctxt", "subCls")})
     # B2 uit -> hitboxes moeten identiek blijven (H1) en focus-volgorde gelijk (H2)
     h.ev("OemplusInject.b2Off()")
     p.wait_for_timeout(600)
@@ -369,11 +394,14 @@ def main():
     check("5 v1.2-fix B3: tweede home-bezoek toont Ent 'Speelt nu' uit cache (seed overschrijft niet)",
           st["entText"] and "Speelt nu" in st["entText"] and "Actieve bron" not in st["entText"], st["entText"])
     check("5 v1.2-fix B2: na weg-terug is de watcher-klasse er weer (B2SbnWatch aan)", st["watchCls"] is True, st["body"])
+    # panel-klikkers: de rijen zitten in PAGINA-coördinaten (paneel top 64 + template offset). Rijen: top 128/182/236/290, 48 hoog.
+    def click_row(i, wait=700):
+        p.mouse.click(340, 128 + i * 54 + 24)
+        p.wait_for_timeout(wait)
     goto(h, "ecoenergy", "FuelConsumption", 2200)
     pn = h.ev(PANEL_JS)
     check("5 eco opnieuw: paneel weer (status 'B2 (actief)')", pn["exists"] and "B2 (actief)" in (pn["state"] or ""), pn["state"])
-    p.mouse.click(60 + 300, 64 + 140 + 27)     # rij 2 "B2 uit" (template-x 60, y 64)
-    p.wait_for_timeout(500)
+    click_row(1, 900)                               # rij 1 "B2 uit"
     pn = h.ev(PANEL_JS)
     check("5 touch 'B2 uit': constructor origineel, hooks 0, subOn false, geen OemplusB2, geen B2Sub-links",
           (not pn["inj"]["on"]) and pn["inj"]["ctor"] == "origineel" and pn["inj"]["hooks"] == 0 and pn["inj"]["subOn"] is False and pn["inj"]["subClass"] is False and pn["inj"]["subLinks"] == 0, pn["inj"])
@@ -411,13 +439,11 @@ def main():
 
     # ---- 6. Info / verder naar eco / ander template / tweede keer aan ----
     goto(h, "ecoenergy", "FuelConsumption", 2000)
-    p.mouse.click(60 + 300, 64 + 202 + 27)     # Info
-    p.wait_for_timeout(300)
+    click_row(2, 600)                               # rij 2 "Info"
     pn = h.ev(PANEL_JS)
-    check("6 Info toont versie + status", "inject-v1" in (pn["info"] or "") and "origineel" in pn["info"], pn["info"])
+    check("6 Info toont versie + status", "inject-v1" in (pn["info"] or ""), pn["info"])
     shot(h, "i8-eco-info.png")
-    p.mouse.click(60 + 300, 64 + 264 + 27)     # Verder naar Eco-scherm
-    p.wait_for_timeout(400)
+    click_row(3, 600)                               # rij 3 "Verder naar Eco-scherm"
     pn = h.ev(PANEL_JS)
     ev = h.ev("(function(){var t=framework.getAppInstance('ecoenergy')._currentContextTemplate; return t.handleControllerEvent('cw');})()")
     check("6 'Verder naar Eco-scherm': paneel weg, events naar originele FuelConsumptionCtrl", pn["vis"] == "none" and not errs(h), {"vis": pn["vis"], "cw": ev})

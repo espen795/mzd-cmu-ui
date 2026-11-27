@@ -7,16 +7,16 @@
 #   --nieuwe-sessie  eerste mount van een nieuwe sessie: oud sessielog wordt bewaard als .vorige
 # Harde prechecks (alle STOP = niets gemount):
 #   0. scripts == TOOLS-MD5.txt (M6)
-#   1. aa_wacht.sh OK (H3/V3)        2. OVERLAY-ACTIEF = injectv13      3. kopie_gelijk.sh overlay (H1/V1)
+#   1. aa_wacht.sh OK (H3/V3)        2. OVERLAY-ACTIEF = injectv15      3. kopie_gelijk.sh overlay (H1/V1)
 #   4. MemFree >= 40 MB en MemFree+Cached >= 200 MB                     5. precies 1 Opera-proces
 #   6. geen tweede mount in dezelfde boot; geen eerdere onverwachte reset in deze sessie (max. 1 reset per sessie = einde)
 # Exit: 0 = gemount en bewezen | 1 = STOP (niets gemount) | 2 = mount mislukt/onbewezen (umount gedaan)
 BASE=/data_persist/oemplus-test
 COPY=$BASE/gui
-PKG=$BASE/injectv13
+PKG=$BASE/injectv15
 OVL=$PKG/overlay
 MARK=$BASE/OVERLAY-ACTIEF
-SLOG=$BASE/injectv13-sessie.log
+SLOG=$BASE/injectv15-sessie.log
 PROOF=apps/ecoenergy/oemplus/OemplusInject.js
 
 fail() { echo "STOP: $*"; exit 1; }
@@ -48,7 +48,7 @@ sh "$PKG/aa_wacht.sh"; A=$?
 [ "$A" = 0 ] || fail "AA-guard niet OK"
 
 # 2. overlay toegepast
-[ "$(cat "$MARK" 2>/dev/null)" = injectv13 ] || fail "OVERLAY-ACTIEF is niet injectv13 -- eerst apply_inject.sh"
+[ "$(cat "$MARK" 2>/dev/null)" = injectv15 ] || fail "OVERLAY-ACTIEF is niet injectv15 -- eerst apply_inject.sh"
 
 # 4. geheugen
 MF=$(awk '/^MemFree:/ {print $2}' /proc/meminfo); CA=$(awk '/^Cached:/ {print $2}' /proc/meminfo)
@@ -69,7 +69,7 @@ echo "$B mount uptime=$(cut -d' ' -f1 /proc/uptime)" >> "$SLOG"; sync
 mount --bind "$COPY" /jci/gui || { echo "$B terug mount-faalde" >> "$SLOG"; sync; echo "FOUT: mount --bind faalt"; exit 2; }
 if grep -q " /jci/gui " /proc/mounts && [ "$(md5of "/jci/gui/$PROOF")" = "$WANT" ]; then
   echo "GEMOUNT en bewezen: $(grep ' /jci/gui ' /proc/mounts | tail -1)"
-  echo "Nu: de gebruiker opent Applicaties > Brandstofverbruik (paneel 'OEM+ - B2 (proef, v1.3)'). Terug: sh $PKG/terug_inject.sh"
+  echo "Nu: de gebruiker opent Applicaties > Brandstofverbruik (paneel 'OEM+ - B2 (proef, v1.5)'). Terug: sh $PKG/terug_inject.sh"
   exit 0
 fi
 umount /jci/gui 2>/dev/null

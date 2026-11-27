@@ -322,6 +322,19 @@ div.MainMenuCtrlCoinFocus .MainMenuCtrlSetFocus { opacity: 1; }
 .B2HasData .B2Dyn { display: block; }
 .B2HasData .B2Static { display: none; }
 
+/* v1.5 punt 7: rijstijl-regel in het contextvak bij Applicaties (App) */
+.B2RitLine {
+  position: absolute;
+  left: 0px;
+  top: 198px;
+  width: 352px;
+  height: 26px;
+  font-size: 20px;
+  line-height: 26px;
+  color: #f6f7f9;
+  white-space: nowrap;
+  overflow: hidden; }
+
 /* Ent/Set: onderblok "OPENT" + omschrijving */
 .B2Open {
   position: absolute;

@@ -24,3 +24,6 @@ settings.conf
 *-map.html
 *.jpg
 *.jpeg
+# own neutral placeholder photo (no brand logo) is needed for the build
+!overlay-src/common/oemplusb2/images/B2EcoCarPhoto_B.jpg
+harness/RESULTS*.json

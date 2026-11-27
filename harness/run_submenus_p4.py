@@ -190,7 +190,7 @@ def main():
     pn = h.ev(PANEL_JS)
     check("P4 setup: 'B2 aan' gelukt (subOn, B2Sub-40 link in DOM)", pn["inj"]["on"] and pn["inj"]["subOn"], pn["inj"])
     st = h.ev(STATE_JS)
-    check("P4 setup: 5 B2Sub-links, incl. B2Sub-40-media-input.css", st["subLinks"] == 5 and st["p4link"], st["subLinks"])
+    check("P4 setup: 7 B2Sub-links uit de lader (00..40,50,60), incl. B2Sub-40-media-input.css", st["subLinks"] == 7 and st["p4link"], st["subLinks"])
     check("P4 setup: B2Sub-40 is geladen (niet in missing)", not any("B2Sub-40" in m for m in h.missing),
           [m for m in h.missing if "B2Sub" in m])
     check("P4 setup: geen JS-fouten", not errs(h), errs(h))
@@ -454,39 +454,39 @@ def main():
         return evs
     # (a) vanuit een B2-submenu (fmradio/NowPlaying) naar backupparking
     evs = h9_synchroon(h, p, "submenu", "backupparking", "BackupCameraDisplay")
-    inst = [e for e in evs if e[0] == "inst" and len(e) > 3]
-    trans = [e for e in evs if e[0] == "trans-end" and e[2] == "BackupCameraDisplay" and len(e) > 3]
+    inst = [e for e in evs if e[0] == "inst" and len(e) > 2]
+    trans = [e for e in evs if e[0] == "trans-end" and len(e) > 3 and e[2] == "BackupCameraDisplay"]
     st = h.ev(STATE_JS)
     check("H9-synchroon (vanuit B2-submenu): backupparking template gebouwd/transitie-eind ZONDER OemplusB2 (inst=%s trans=%s, nu app=%s subCls=%s)"
           % (inst, trans, st["app"], st["subCls"]),
-          st["app"] == "backupparking" and st["subCls"] is False and
-          all(e[3] is False for e in inst) and all(e[3] is False for e in trans),
+          st["app"] == "backupparking" and st["subCls"] is False and len(inst) >= 1 and
+          all(e[2] is False for e in inst) and all(e[3] is False for e in trans),
           {"events": evs, "st": {k: st[k] for k in ("ctxt", "app", "subCls")}})
     # (b) vanuit B2-home naar backupparking
     goto(h, "system", "HomeScreen", 2600)
     evs = h9_synchroon(h, p, "home", "backupparking", "BackupCameraDisplay")
-    inst = [e for e in evs if e[0] == "inst" and len(e) > 3]
-    trans = [e for e in evs if e[0] == "trans-end" and e[2] == "BackupCameraDisplay" and len(e) > 3]
+    inst = [e for e in evs if e[0] == "inst" and len(e) > 2]
+    trans = [e for e in evs if e[0] == "trans-end" and len(e) > 3 and e[2] == "BackupCameraDisplay"]
     st = h.ev(STATE_JS)
     check("H9-synchroon (vanuit B2-home): backupparking template gebouwd/transitie-eind ZONDER OemplusB2 (inst=%s trans=%s, nu subCls=%s)"
           % (inst, trans, st["subCls"]),
-          st["app"] == "backupparking" and st["subCls"] is False and
-          all(e[3] is False for e in inst) and all(e[3] is False for e in trans),
+          st["app"] == "backupparking" and st["subCls"] is False and len(inst) >= 1 and
+          all(e[2] is False for e in inst) and all(e[3] is False for e in trans),
           {"events": evs})
     # (c) ook warnguide + mobile911 (Opera-surface, wél zichtbaar) vanuit een B2-submenu
     goto(h, "fmradio", "NowPlaying", 2600)
     evs = h9_synchroon(h, p, "submenu", "warnguide", "WarningList")
-    inst = [e for e in evs if e[0] == "inst" and len(e) > 3]
+    inst = [e for e in evs if e[0] == "inst" and len(e) > 2]
     st = h.ev(STATE_JS)
     check("H9-synchroon: warnguide/WarningList vanuit B2-submenu zonder OemplusB2 (inst=%s, subCls nu=%s)"
           % (inst, st["subCls"]),
-          st["app"] == "warnguide" and st["subCls"] is False and all(e[3] is False for e in inst), {"events": evs})
+          st["app"] == "warnguide" and st["subCls"] is False and len(inst) >= 1 and all(e[2] is False for e in inst), {"events": evs})
     evs = h9_synchroon(h, p, "submenu", "mobile911", "CollisionDetectedDialog")
-    inst = [e for e in evs if e[0] == "inst" and len(e) > 3]
+    inst = [e for e in evs if e[0] == "inst" and len(e) > 2]
     st = h.ev(STATE_JS)
     check("H9-synchroon: mobile911/CollisionDetectedDialog vanuit B2-submenu zonder OemplusB2 (inst=%s, subCls nu=%s)"
           % (inst, st["subCls"]),
-          st["app"] == "mobile911" and st["subCls"] is False and all(e[3] is False for e in inst), {"events": evs})
+          st["app"] == "mobile911" and st["subCls"] is False and len(inst) >= 1 and all(e[2] is False for e in inst), {"events": evs})
     # terug naar een niet-protected scherm: klasse moet er SYNCHROON weer zijn (transitie-eind)
     goto(h, "fmradio", "NowPlaying", 2600)
     st = h.ev(STATE_JS)
